@@ -7,7 +7,8 @@ import React from "react";
 class StudentLogin extends React.Component{
 
     state = {
-        userKey : ""
+        userKey : "",
+        classroomKey: ""
     }
 
     handleInputChange = (event) => {
@@ -16,18 +17,26 @@ class StudentLogin extends React.Component{
         })
     }
 
-    checkUserKey(){
+    checkKeys(){
 
         this.props.history.push("/");
     }
 
     render(){
+
         return (
+
             <div>
                 <form>
                     <div className="form-group">
                         <label htmlFor="userKey">Enter User Key</label>
                         <input type="text" className="form-control" id="userKey" placeholder="Enter User Key" 
+                        onChange={this.handleInputChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="classroomKey">Enter Classroom Key</label>
+                        <input type="text" className="form-control" id="classroomKey" placeholder="Enter Classroom Key" 
                         onChange={this.handleInputChange}
                         />
                     </div>
