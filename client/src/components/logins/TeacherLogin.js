@@ -11,24 +11,34 @@ class TeacherLogin extends React.Component{
         password: ""
     }
 
-    checkUserKey(){
+    handleInputChange = (event) => {
+        this.setState({
+            [event.target.id]: event.target.value
+        })
+    }
+
+    checkUserKey = () => {
 
         this.props.history.push("/");
     }
 
-    return(){
+    render(){
         return (
             <div>
                 <form>
-                    <div class="form-group">
-                        <label for="username">Enter Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Enter Username" />
+                    <div className="form-group">
+                        <label htmlFor="username">Enter Username</label>
+                        <input type="text" className="form-control" id="username" placeholder="Enter Username" 
+                        onChange={this.handleInputChange}
+                        />
                     </div>
-                    <div class="form-group">
-                        <label for="password">Enter Passord</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter Password" />
+                    <div className="form-group">
+                        <label htmlFor="password">Enter Password</label>
+                        <input type="password" className="form-control" id="password" placeholder="Enter Password" 
+                        onChange={this.handleInputChange}
+                        />
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
         )

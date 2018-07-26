@@ -10,20 +10,28 @@ class StudentLogin extends React.Component{
         userKey : ""
     }
 
+    handleInputChange = (event) => {
+        this.setState({
+            [event.target.id]: event.target.value
+        })
+    }
+
     checkUserKey(){
 
         this.props.history.push("/");
     }
 
-    return(){
+    render(){
         return (
             <div>
                 <form>
-                    <div class="form-group">
-                        <label for="userKey">Enter User Key</label>
-                        <input type="text" class="form-control" id="userKey" placeholder="Enter User Key" />
+                    <div className="form-group">
+                        <label htmlFor="userKey">Enter User Key</label>
+                        <input type="text" className="form-control" id="userKey" placeholder="Enter User Key" 
+                        onChange={this.handleInputChange}
+                        />
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
         )
