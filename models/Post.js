@@ -6,7 +6,7 @@ const postSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Response"
     }],
-    flag_author_type: [student, teacher],
+    flag_author_type: ["student", "teacher"],
     isPublic: Boolean,
     data: String
 });

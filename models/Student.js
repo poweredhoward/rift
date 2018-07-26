@@ -7,6 +7,11 @@ const studentSchema = new Schema({
         required: true,
         trim: true,
     },
+    email: {
+        type: String,
+        unique: true,
+        match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
+    },
     key: {
         type: String,
         required: true,
