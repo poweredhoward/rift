@@ -7,6 +7,6 @@ module.exports = {
     Unit: require("./Unit"),
     Note: require("./Note"),
     Post: require("./Post"),
-    Comment: require("./Comment"),
-  };
+    Response: require("./Response"),
+};
   
