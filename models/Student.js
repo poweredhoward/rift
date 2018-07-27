@@ -7,6 +7,11 @@ const studentSchema = new Schema({
         required: true,
         trim: true,
     },
+    token: {
+        type: String, 
+        required: true,
+        unique: true
+    },
     email: {
         type: String,
         unique: true,
