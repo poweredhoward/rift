@@ -17,8 +17,8 @@ class StudentUnitMain extends React.Component {
     render(){
         return(
             <div>
-                <Navbar />
-                {postornote}
+                
+                
             </div>
         )
     }

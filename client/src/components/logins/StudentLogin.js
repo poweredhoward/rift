@@ -17,9 +17,9 @@ class StudentLogin extends React.Component{
         })
     }
 
-    checkKeys(){
+    checkKeys = () => {
 
-        this.props.history.push("/");
+        this.props.history.push("/studenthomepage");
     }
 
     render(){
@@ -40,7 +40,7 @@ class StudentLogin extends React.Component{
                         onChange={this.handleInputChange}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary" onClick={this.checkKeys}>Submit</button>
                 </form>
             </div>
         )
