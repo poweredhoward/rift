@@ -8,6 +8,11 @@ class TeacherClassSelect extends React.Component {
         classes: ["itemOne", "itemTwo"]
     }
 
+    componentDidMount(){
+        axios.get("/test123").then(res=>{
+            console.log(res);
+        })
+    }
     // Get request to teacher model to return list of classes
 
 

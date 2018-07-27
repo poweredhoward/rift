@@ -20,26 +20,49 @@ class TeacherLogin extends React.Component{
     //function to create a user
     createUser = () => {
         console.log(this.state);
-        console.log("Sending data to create");
-        axios.post("/teacherlogin/create", {
-            username: this.state.username,
-            password: this.state.password
-        }).then(()=>{
-            console.log("data sent to backend!");
-        });
+        if(this.state.username==="" || this.state.password==="" ){
+            alert("Fill all fields!");
+        }
+        else{
+            console.log("Sending data to create");
+            axios.post("/teacherlogin/create", {
+                username: this.state.username,
+                password: this.state.password
+            }).then((sessionData)=>{
+                console.log("data sent to backend!");
+                console.log(sessionData);
+            }).catch((err) =>{
+                console.log(err);
+                alert("Username already exists!");
+            });
+    
+            // this.props.history.push("/" );
 
-        // this.props.history.push("/");
+        }
+      
     }
     //function to verify user
     verifyUser = () =>{
-        console.log(this.state);
-        console.log("sending data to verify");
-        axios.post("/teacherlogin/verify", {
-            username: this.state.username,
-            password: this.state.password
-        }).then(()=>{
-            console.log("data sent to backend!");
-        });
+        if(this.state.username==="" || this.state.password===""){
+            alert("Fill all fields!");
+        }
+        else{
+            console.log(this.state);
+            console.log("sending data to verify");
+            axios.post("/teacherlogin/verify", {
+                username: this.state.username,
+                password: this.state.password
+            }).then((sessionData)=>{
+                //"user" refers to req.session
+                console.log("data sent to backend!");
+                console.log(sessionData);
+            }).catch(err=>{
+                console.log(err);
+                alert("Check username or password!");
+            });
+
+        }
+       
 
     }
 
