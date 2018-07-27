@@ -5,6 +5,7 @@ import StudentLogin from "./logins/StudentLogin"
 import TeacherLogin from "./logins/TeacherLogin"
 import StudentHomePage from "./pages/student/StudentHomePage";
 import TeacherClassSelect from "./pages/teacher/TeacherClassSelect"; 
+import TeacherHomePage from "./pages/teacher/TeacherHomePage";
 
 
 // import axios from "axios";
@@ -16,8 +17,9 @@ const Main = () =>(
       <Route exact path="/" component={LandingPage} />
       <Route exact path="/studentlogin" component={StudentLogin} />
       <Route exact path="/teacherlogin" component={TeacherLogin} />
-     <Route exact path="/teacherclassselect" component={TeacherClassSelect}/>
+      <Route exact path="/teacherclassselect" component={TeacherClassSelect}/>
       <Route exact path="/studenthomepage" component={StudentHomePage} />
+      <Route exact path="/teacherhomepage" component={TeacherHomePage} />
     </div>
   </Router>
   

@@ -16,7 +16,10 @@ class StudentHomePage extends React.Component {
 
     render(){
         return(
-            <StudentSidebar units={this.state.units} />
+            <div>
+                <StudentSidebar units={this.state.units} />
+                <StudentUnitMain />
+            </div>
         )
     }
 }

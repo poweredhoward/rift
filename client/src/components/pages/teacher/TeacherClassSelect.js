@@ -1,11 +1,28 @@
 import React from "react";
+import {Link} from "react-router-dom";
+import TeacherHomePage from "./TeacherHomePage"
 import axios from "axios";
 
 
 class TeacherClassSelect extends React.Component {
 
     state = {
-        classes: ["itemOne", "itemTwo"]
+        classes: [
+            {
+                name: "Biology",
+                key: 1,
+                units: ['unit 1', 'unit 2', 'unit 3'],
+                students: ["edgar", "erick", "matt", "kyle"],
+                id: "1234"
+            },
+            {
+                name: "Chemistry",
+                key: 2,
+                units: ['unit 1', 'unit 2', 'unit 3'],
+                students: ["edgar", "erick", "matt", "kyle"],
+                id: "3456"
+            }
+        ]
     }
 
     componentDidMount(){
@@ -22,8 +39,15 @@ class TeacherClassSelect extends React.Component {
 
     render(){
         return(
-                // this.classes.map(item => (<Link classid={item.id} />))
-                <h1>This is home page for teacher</h1>
+                
+                <div>
+                    <h1>This is home page for teacher</h1>
+                    <button>Add Class</button>
+                    {this.state.classes.map(item => (<Link to="/teacherhomepage" classroomid={item.id} key={item.key}>{item.name}</Link>))}
+                    
+                </div>
+
+                
         );
     
     }
