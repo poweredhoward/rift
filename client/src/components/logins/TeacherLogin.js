@@ -1,7 +1,7 @@
 import React from "react";
 // import { BrowserRouter as Router, Route } from "react-router-dom";
 
-// import axios from "axios";
+import axios from "axios";
 
 
 class TeacherLogin extends React.Component{
@@ -14,12 +14,33 @@ class TeacherLogin extends React.Component{
     handleInputChange = (event) => {
         this.setState({
             [event.target.id]: event.target.value
-        })
+        });
+      
     }
+    //function to create a user
+    createUser = () => {
+        console.log(this.state);
+        console.log("Sending data to create");
+        axios.post("/teacherlogin/create", {
+            username: this.state.username,
+            password: this.state.password
+        }).then(()=>{
+            console.log("data sent to backend!");
+        });
 
-    checkUserKey = () => {
+        // this.props.history.push("/");
+    }
+    //function to verify user
+    verifyUser = () =>{
+        console.log(this.state);
+        console.log("sending data to verify");
+        axios.post("/teacherlogin/verify", {
+            username: this.state.username,
+            password: this.state.password
+        }).then(()=>{
+            console.log("data sent to backend!");
+        });
 
-        this.props.history.push("/");
     }
 
     render(){
@@ -38,7 +59,9 @@ class TeacherLogin extends React.Component{
                         onChange={this.handleInputChange}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="button" onClick={this.createUser} className="btn btn-primary">create</button>
+
+                    <button type="button" onClick={this.verifyUser} className="btn btn-primary">Login</button>
                 </form>
             </div>
         )

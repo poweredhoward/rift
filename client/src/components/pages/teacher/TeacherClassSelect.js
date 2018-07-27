@@ -5,7 +5,7 @@ import axios from "axios";
 class TeacherClassSelect extends React.Component {
 
     state = {
-        classes: []
+        classes: ["itemOne", "itemTwo"]
     }
 
     // Get request to teacher model to return list of classes
@@ -16,8 +16,13 @@ class TeacherClassSelect extends React.Component {
 
 
     render(){
-        // this.classes.map(item => (<Link classid={item.id} />))
+        return(
+                // this.classes.map(item => (<Link classid={item.id} />))
+                <h1>This is home page for teacher</h1>
+        );
+    
     }
 }
+export default TeacherClassSelect;
 
         
