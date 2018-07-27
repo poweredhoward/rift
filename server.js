@@ -2,6 +2,12 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const crypto = require("crypto");
+const multer = require("multer");
+const GridfsStorage = require("multer-gridfs-storage");
+const Grid = require("gridfs-stream");
+const methodOverride = require("method-overide");
+
 var session = require("express-session");
 
 const PORT = process.env.PORT || 3001;
@@ -10,6 +16,7 @@ const app = express();
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(methodOverride("_method"));
 //setup session
 app.use(session({
   secret: "whateverwewant",
@@ -17,6 +24,33 @@ app.use(session({
   saveUninitialized: true,
   cookie: {secure: "auto", maxAge: 999999999}
 }));
+
+// Init GFS
+let gfs;
+
+// Setup Gridfs-Stream
+var conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/rift");
+
+conn.once('open', () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection("noteuploads");
+
+})
+
+// Create Storage engine
+const storage = require('multer-gridfs-storage')({
+  url: (process.env.MONGODB_URI || "mongodb://localhost/rift")
+});
+
+// Set multer storage engine to the newly created object
+const upload = multer({ storage });
+
+// Gridfs routes
+
+app.post("/upload", upload.single("file"), (req, res) => {
+  // res.json({file: req.file});
+  res.redirect("/");
+});
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
@@ -33,7 +67,7 @@ app.get("*", (req, res) => {
 });
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/rift");
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/rift");
 mongoose.Promise = Promise;
 
 
