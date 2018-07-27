@@ -1,6 +1,7 @@
 const router = require("express").Router();
 var db = require("../models");
 
+
 //Add new teacher
 router.post("/new/teacher", (req, res)=>{
     db.Teacher.create(req.body).then(function(result){
