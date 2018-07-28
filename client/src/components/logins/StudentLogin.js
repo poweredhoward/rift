@@ -1,7 +1,6 @@
 import React from "react";
 // import { BrowserRouter as Router, Route } from "react-router-dom";
-
-// import axios from "axios";
+import axios from "axios";
 
 
 class StudentLogin extends React.Component{
@@ -11,10 +10,46 @@ class StudentLogin extends React.Component{
         classroomKey: ""
     }
 
+    componentDidMount(){
+        //will check whether user is logged in
+        axios.get("/getsession").then(res=>{
+            if(res.data.user !==undefined){
+                this.props.history.push("/studenthomepage");
+            }
+            else{
+                console.log("not logged in");
+            }
+        });
+    }
+    verifyStudent = ()=>{
+        console.log(this.state.userKey + " "+this.state.classroomKey);
+        if(this.state.userKey===""|| this.state.classroomKey===""){
+            alert("fill all fields");
+        }
+        else{
+            console.log("sending data to verify");
+            axios.post("/studentlogin/verify", {
+                userkey: this.state.userKey,
+                classroomKey: this.state.classroomKey
+            }).then((sessionData)=>{
+                //"user" refers to req.session
+                console.log("data sent to backend!");
+                console.log(sessionData);
+                // this.props.history.push("/studenthomepage");
+            }).catch(err=>{
+                console.log(err);
+                alert("Check username or password!");
+            });
+        }
+      
+
+    }
+
     handleInputChange = (event) => {
         this.setState({
             [event.target.id]: event.target.value
-        })
+            
+        });
     }
 
     checkKeys = () => {
@@ -40,7 +75,7 @@ class StudentLogin extends React.Component{
                         onChange={this.handleInputChange}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary" onClick={this.checkKeys}>Submit</button>
+                    <button type="button" className="btn btn-primary" onClick={this.verifyStudent}>Submit</button>
                 </form>
             </div>
         )

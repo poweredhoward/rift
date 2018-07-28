@@ -223,59 +223,6 @@ router.get("/:post/responses", (req, res) =>{
  }); // end of '/teacherlogin/create
 
 
-
-
-    //////////////////////////////////////////////////////////////////
-
-
-
-
- //  app.post("/login", function(req,res){
-//     console.log("verify");
-
-//     db.login.findAll().then(function(results){
-
-     
-//       var users = results;
-//       var loopCheck = false;
-//       //loop to verify correct username and password
-//       for (var i =0; i<users.length;i++){
-
-//         var collectionPassword = users[i].password;
-        
-//         var collectionUsername = users[i].username;
-
-//         var deCryptPw = encrypt.decrypt(""+collectionPassword);
-        
-    
-//         if(collectionUsername ===req.body.username && deCryptPw===req.body.password){
-//           var currentUser ={
-//             id: users[i].id,
-//             username: req.body.username,
-//             password: req.body.password,
-//             token: req.body.token
-//           }
-//           res.cookie("token", currentUser.token);
-//           console.log("user found");
-//           loopCheck = true;
-//           res.cookie("token", currentUser.token);
-//           req.session.user = currentUser;
-//           return res.redirect("/");
-//         }
-//       }
-//       if(loopCheck ===false){
-//         console.log("Failed to authenticate, check username and password");
-
-         
-//         }
-    
-//     });
-
-    
-
-//   });
-
-
  router.post("/teacherlogin/verify", (req,res)=>{
      console.log("sent data"); 
      console.log(req.body);
@@ -294,11 +241,7 @@ router.get("/:post/responses", (req, res) =>{
                 
                 //verifying input with database
                 if(collectionUsername ===req.body.username && collectionPassword===req.body.password){
-                // var currentUser ={
-                //     username: req.body.username,
-                //     password: req.body.password,
-                //     token: req.body.token
-                // }
+              
                 var currentUser = users[i];
                 console.log(currentUser);
                 res.cookie("token", users[i].token);
@@ -321,11 +264,56 @@ router.get("/:post/responses", (req, res) =>{
     
  }); //end of /teacherlogin/verify
 
+
+ //double check on how to do this tomorrow
+
+ router.post("/studentlogin/verify", (req,res)=>{
+     console.log("sent data:");
+     console.log(req.body);
+     db.Student.find().then(results=>{
+        console.log(results);
+        var users = results;
+        var loopCheck = false;
+        //loop to verify correct username and password
+        for (var i =0; i<users.length;i++){
+
+                var collectionPa = users[i].password;
+                
+                var collectionUsername = users[i].username;
+
+                // var deCryptPw = encrypt.decrypt(""+collectionPassword);
+                
+                //verifying input with database
+                if(collectionUsername ===req.body.username && collectionPassword===req.body.password){
+              
+                var currentUser = users[i];
+                console.log(currentUser);
+                res.cookie("token", users[i].token);
+                console.log("user found");
+                loopCheck = true;
+                res.cookie("token", currentUser.token);
+                //adding teacher info to session
+                req.session.userType= "teacher";
+                req.session.user = currentUser;
+                res.send(req.session);
+                }
+            }
+        if(loopCheck ===false){
+            console.log("Failed to authenticate, check username and password");
+            return res.status(401).end();
+            res.end();
+                }
+
+     });
+ });
+
  //temporary route created to verify if data was contained in session
  router.get("/getsession", (req, res)=>{
      console.log(req.session);
      res.send(req.session);
- })
+ });
+
+
 
 
 module.exports = router;
