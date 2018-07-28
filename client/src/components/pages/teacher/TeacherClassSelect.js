@@ -1,55 +1,54 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
 import axios from "axios";
+import TeacherHomePage from "./TeacherHomePage";
 
 
 class TeacherClassSelect extends React.Component {
 
     state = {
         classrooms: [
-            {
-                name: "Biology",
-                key: 1,
-                units: ['unit 1', 'unit 2', 'unit 3'],
-                students: ["edgar", "erick", "matt", "kyle"],
-                id: "1234"
-            },
-            {
-                name: "Chemistry",
-                key: 2,
-                units: ['unit 1', 'unit 2', 'unit 3'],
-                students: ["edgar", "erick", "matt", "kyle"],
-                id: "3456"
-            }
+        
         ],
-        teacherid: "123",
-        classroomName: ""
+        teacherid: "",
+        classroomName: "hellotest"
     }
 
 
 
     componentDidMount(){
         axios.get("/getsession").then(res=>{
-            console.log(res);
+            // console.log(res);
+            //if there is a session
             if(res.data.user !==undefined){
                 console.log("loggedIn!");
+                this.setState({teacherid: res.data.user._id});
+                this.getClassrooms();
               }
+              //will redirect to teacherlogin if no teacher is logged in
               else{
                 this.props.history.push("/teacherlogin");
               }
 
-            this.getClassrooms()
+           
+        }).catch(err=>{
+            this.props.history.push("/teacherlogin");
+
         })
         
     }
+    // Method for adding a classroom -- posts to mongoose and gets right after
 
     addClassroom = () => {
         var obj = {
-            name: this.state.classroomName
+            name: this.state.classroomName,
+            key: Math.random()
         }
         axios.post(`/new/${this.state.teacherid}/classroom`, obj)
-        .then(() => {
-            this.getClassrooms()
+        .then((res) => {
+            console.log("classroom has been added!");
+            //getting classrooms
+            this.getClassrooms();
         })
     }
 
@@ -60,37 +59,36 @@ class TeacherClassSelect extends React.Component {
     }
 
     getClassrooms = () => {
-        //will work on
-        axios.get(`/teacher/${this.state.teacherid}`)
+        
+        // Get request to teacher model to return list of classes
+        axios.get(`/${this.state.teacherid}/classrooms`)
         .then((results) => {
             this.setState({
-                classrooms : results
-            })
-        })
+                classrooms : results.data
+            });
+            // console.log(this.state.classrooms);
+        
+        });
     }
-    // Get request to teacher model to return list of classes
-
-
-    // Method for adding a classroom -- posts to mongoose and gets right after
-
-
+  
 
     render(){
         return(
-                
+                // classroomid={item._id} key={item.key}
                 <div>
                     <h1>This is home page for teacher</h1>
-                    {this.state.classrooms.map(item => (<Link to="/teacherhomepage" classroomid={item.id} key={item.key}>{item.name}</Link>))}
+                    {this.state.classrooms.map(item => (<Link to="/teacherhomepage" key={item.key}>{item.name}</Link>))}
                     <input type="text" id="classroomName"
                     onChange={this.handleInputChange} 
                     />
                     <button
-                    onClick={this.getClassrooms}>Add Classroom</button>
-                </div>
-
-                
+                    onClick={this.addClassroom}>Add Classroom</button>
+                    {/* <Route exact path="/teacherhomepage" component={TeacherHomePage} /> */}
+                    <Route exact path="/teacherhomepage" render={props=><TeacherHomePage {...props} classroomName={this.classroomName} />} />
+                </div>    
         );
     
+        
     }
 }
 export default TeacherClassSelect;

@@ -157,6 +157,15 @@ router.get("/:unit/posts", (req, res) =>{
     })
 })
 
+//get all the teacher's classrooms given a teacher id
+router.get("/:teacher/classrooms", (req,res)=>{
+    db.Teacher.findOne({_id: req.params.teacher})
+    .populate("classrooms")
+    .then(results=>{
+        res.send(results.classrooms);
+    });
+
+})
 
 //get all responses to a post given post id
 router.get("/:post/responses", (req, res) =>{
@@ -325,7 +334,7 @@ router.get("/:post/responses", (req, res) =>{
  router.get("/getsession", (req, res)=>{
      console.log(req.session);
      res.send(req.session);
- })
+ });
 
 
 module.exports = router;
