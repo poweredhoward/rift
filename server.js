@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const multer = require("multer");
 const GridfsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
-const methodOverride = require("method-overide");
+const methodOverride = require("method-override");
 
 var session = require("express-session");
 
