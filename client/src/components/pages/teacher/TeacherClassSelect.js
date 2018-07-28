@@ -29,8 +29,15 @@ class TeacherClassSelect extends React.Component {
 
 
     componentDidMount(){
-        axios.get("/test123").then(res=>{
+        axios.get("/getsession").then(res=>{
             console.log(res);
+            if(res.data.user !==undefined){
+                console.log("loggedIn!");
+              }
+              else{
+                this.props.history.push("/teacherlogin");
+              }
+
             this.getClassrooms()
         })
         
@@ -53,6 +60,7 @@ class TeacherClassSelect extends React.Component {
     }
 
     getClassrooms = () => {
+        //will work on
         axios.get(`/teacher/${this.state.teacherid}`)
         .then((results) => {
             this.setState({

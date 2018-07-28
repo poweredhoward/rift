@@ -201,12 +201,11 @@ router.get("/:post/responses", (req, res) =>{
         }
         
         res.cookie("token", userToken);
-            db.Teacher.create(newUser).then((results)=>{
-                    
-                    //adding id to newUser to use on homepage
+            db.Teacher.create(newUser).then((results)=>{    
                     console.log("added");
+                     //adding teacher info to session
+                    req.session.userType= "teacher";
                     req.session.user = results;
-                    //  return res.redirect("/");
                     res.send(req.session);
                 });
         }else{
@@ -305,6 +304,8 @@ router.get("/:post/responses", (req, res) =>{
                 console.log("user found");
                 loopCheck = true;
                 res.cookie("token", currentUser.token);
+                //adding teacher info to session
+                req.session.userType= "teacher";
                 req.session.user = currentUser;
                 res.send(req.session);
                 }
@@ -320,7 +321,7 @@ router.get("/:post/responses", (req, res) =>{
  }); //end of /teacherlogin/verify
 
  //temporary route created to verify if data was contained in session
- router.get("/test123", (req, res)=>{
+ router.get("/getsession", (req, res)=>{
      console.log(req.session);
      res.send(req.session);
  })

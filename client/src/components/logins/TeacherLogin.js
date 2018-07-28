@@ -11,6 +11,18 @@ class TeacherLogin extends React.Component{
         password: ""
     }
 
+    componentDidMount(){
+        //will check whether user is logged in
+        axios.get("/getsession").then(res=>{
+            if(res.data.user !==undefined){
+                this.props.history.push("/teacherclassselect");
+            }
+            else{
+                console.log("not logged in");
+            }
+        })
+    }
+
     handleInputChange = (event) => {
         this.setState({
             [event.target.id]: event.target.value
@@ -31,12 +43,13 @@ class TeacherLogin extends React.Component{
             }).then((sessionData)=>{
                 console.log("data sent to backend!");
                 console.log(sessionData);
+                this.props.history.push("/teacherclassselect");
             }).catch((err) =>{
                 console.log(err);
                 alert("Username already exists!");
             });
     
-            // this.props.history.push("/" );
+           
 
         }
       
@@ -56,6 +69,7 @@ class TeacherLogin extends React.Component{
                 //"user" refers to req.session
                 console.log("data sent to backend!");
                 console.log(sessionData);
+                this.props.history.push("/teacherclassselect");
             }).catch(err=>{
                 console.log(err);
                 alert("Check username or password!");
