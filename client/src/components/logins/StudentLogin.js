@@ -21,6 +21,7 @@ class StudentLogin extends React.Component{
             }
         });
     }
+    //verify in classroom's model
     verifyStudent = ()=>{
         console.log(this.state.userKey + " "+this.state.classroomKey);
         if(this.state.userKey===""|| this.state.classroomKey===""){
