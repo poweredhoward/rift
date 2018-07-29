@@ -1,12 +1,17 @@
 import React from "react";
 
-class TeacherUnitMain extends React.Component {
+const TeacherUnitMain= (props) => {
    
-    render(){
-        return(
-            <h1>This is the main component for each unit</h1>
+    
+        return(<div>
+             <h1>This is the main component for each unit</h1>
+            <input type="text" id={props.id} onChange={props.handleInputChange} />
+            <button type="button" onClick={props.addStudent}>Add student</button>
+           
+
+        </div>
+           
         )
-    }
     
 }
 

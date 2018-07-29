@@ -9,12 +9,15 @@ class TeacherHomePage extends React.Component {
 
 
     state = {
+        //todo: make key dynamic (probably thru session)
+        key:"1234",
         teacherid: "",
         //todo: make classroom ID dynamic
         classroomId: "5b5cc1a32b2fbe26b46b5b9c",
         units: [],
         classroomName: "Biology",
-        newUnit:""
+        newUnit:"",
+        newStudent:""
 
     }
 
@@ -56,6 +59,23 @@ class TeacherHomePage extends React.Component {
             this.setState({units:res.data});
         });
     }
+    addStudent = ()=>{
+        console.log(this.state.newStudent);
+        axios.post(`/new/${this.state.classroomId}/student`, {name:this.state.newStudent,
+         token: `t${Math.random()}`,
+         email: "hello@hello.com",
+         key: this.state.key
+         
+        }).then(res=>{
+            console.log(res);
+        }).catch(err=>{
+            console.log(err);
+
+        });
+        
+
+
+    }
     //will make a post request to add a note to the given unit 
      addUnit = ()=>{
         console.log(this.state.newUnit);
@@ -74,7 +94,7 @@ class TeacherHomePage extends React.Component {
         return(
             <div>
                 <TeacherSidebar id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} />
-                <TeacherUnitMain units={this.state.units} />
+                <TeacherUnitMain id="newStudent" addStudent={this.addStudent} handleInputChange={this.handleInputChange} units={this.state.units} />
             </div>
                 
         
