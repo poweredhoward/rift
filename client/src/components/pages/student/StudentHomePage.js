@@ -8,7 +8,10 @@ class StudentHomePage extends React.Component {
     state = {
         units: ["unit 1", "unit 2", "unit 3"],
         //temporary user state
-        user:{}
+        studentName:"",
+        studentId:"",
+
+        currentClassroom :""
 
     }
     // axios.get() the units based on classroom id from session storage and setState of units to array of classroom's units
@@ -19,7 +22,14 @@ class StudentHomePage extends React.Component {
         axios.get("/getsession").then(res=>{
             if(res.data.user!==undefined){
                 console.log("logged in");
-                this.setState({user: res.data.user});
+                console.log(res);
+                this.setState({
+                    studentName: res.data.user.name,
+                    studentId:res.data.user._id,
+                    currentClassroom: res.data.classroom
+                });
+                console.log("user state");
+                console.log(this.state);
             }
             else{
                 this.props.history.push("/studentlogin");

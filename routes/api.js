@@ -252,6 +252,7 @@ router.post("/studentlogin/verify", (req, res)=>{
             console.log("all good");
             res.cookie("token", currentStudent.token );
             req.session.userType="student";
+            req.session.classroom = results[0]._id;
             req.session.user= currentStudent;
             res.send(req.session);
         }
