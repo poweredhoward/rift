@@ -6,22 +6,24 @@ const studentSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-    },
-    token: {
-        type: String, 
-        required: true,
-        unique: true
-    },
-    email: {
-        type: String,
-        unique: true,
-        match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
-    },
-    key: {
-        type: String,
-        required: true,
-        unique: true,
     }
+    // ,
+    // token: {
+    //     type: String, 
+    //     required: true,
+    //     unique: true
+    // },
+    // email: {
+    //     type: String,
+    //     unique: true,
+    //     match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
+    // }
+    // ,
+    // key: {
+    //     type: String,
+    //     required: true,
+    //     unique: true,
+    // }
 });
 
 const Student = mongoose.model("Student", studentSchema);

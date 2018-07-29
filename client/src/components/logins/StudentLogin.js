@@ -8,7 +8,16 @@ class StudentLogin extends React.Component{
 
     state = {
         userKey : "",
-        classroomKey: ""
+        classroomKey: "",
+        doc: ""
+    }
+
+    componentDidMount(){
+        console.log("mounting");
+        axios.get("/mammoth").then( result =>{
+            this.setState({doc: result.data})
+            console.log(result);
+        })
     }
 
     handleInputChange = (event) => {
@@ -52,6 +61,11 @@ class StudentLogin extends React.Component{
                     </div>
                     <button type="button" className="btn btn-primary" onClick={this.verifyInfo}>Submit</button>
                 </form>
+
+                <div dangerouslySetInnerHTML={{__html:  this.state.doc}} />
+                
+                   
+                
             </div>
         )
     };

@@ -8,7 +8,10 @@ const GridfsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 const methodOverride = require("method-override");
 
-var session = require("express-session");
+var mammoth = require("mammoth");
+
+
+// var session = require("express-session");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -18,12 +21,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 //setup session
-app.use(session({
-  secret: "whateverwewant",
-  resave: false,
-  saveUninitialized: true,
-  cookie: {secure: "auto", maxAge: 999999999}
-}));
+// app.use(session({
+//   secret: "whateverwewant",
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: {secure: "auto", maxAge: 999999999}
+// }));
 
 // Init GFS
 let gfs;
@@ -47,10 +50,23 @@ const upload = multer({ storage });
 
 // Gridfs routes
 
+app.get("/mammoth", (req, res) =>{
+  console.log("inside mammoth");
+  mammoth.convertToHtml({path: "resume.docx"})
+    .then(function(result){
+        var html = result.value; // The generated HTML
+        console.log(html);
+        var messages = result.messages; // Any messages, such as warnings during conversion
+        res.send(html);
+    })
+    // .done();
+})
+
 app.post("/upload", upload.single("file"), (req, res) => {
   // res.json({file: req.file});
   res.redirect("/");
 });
+
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
