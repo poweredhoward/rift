@@ -12,7 +12,7 @@ class LandingPage extends React.Component{
     axios.get("/getsession").then(res=>{
       console.log(res);
       if(res.data.userType==="teacher" &&res.data.user !==undefined){
-        this.props.history.push("/teacherclassNameselect");
+        this.props.history.push("/teacherclassselect");
       }
       else if(res.data.userType==="student" && res.data.user !==undefined){
         this.props.history.push("/studenthomepage");
