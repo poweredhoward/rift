@@ -1,7 +1,7 @@
 import React from "react";
 // import { BrowserRouter as Router, Route } from "react-router-dom";
 
-// import axios from "axios";
+import axios from "axios";
 
 
 class StudentLogin extends React.Component{
@@ -17,9 +17,19 @@ class StudentLogin extends React.Component{
         })
     }
 
-    checkKeys = () => {
-
-        this.props.history.push("/studenthomepage");
+   
+    verifyInfo = ()=>{
+        axios.post("/studentlogin/verify", {
+            userkey: this.state.userKey,
+            classroomkey:this.state.classroomKey
+        }).then(response=>{
+            console.log(response);
+            console.log("login successful!")
+            this.props.history.push("/studenthomepage");
+        }).catch(err=>{
+            alert("Please double check your user key and password key!");
+            console.log(err);
+        })
     }
 
     render(){
@@ -40,7 +50,7 @@ class StudentLogin extends React.Component{
                         onChange={this.handleInputChange}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary" onClick={this.checkKeys}>Submit</button>
+                    <button type="button" className="btn btn-primary" onClick={this.verifyInfo}>Submit</button>
                 </form>
             </div>
         )

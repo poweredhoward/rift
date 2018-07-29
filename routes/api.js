@@ -231,60 +231,45 @@ router.get("/:post/responses", (req, res) =>{
   
  }); // end of '/teacherlogin/create
 
-
-
-
-    //////////////////////////////////////////////////////////////////
-
-
-
-
- //  app.post("/login", function(req,res){
-//     console.log("verify");
-
-//     db.login.findAll().then(function(results){
-
-     
-//       var users = results;
-//       var loopCheck = false;
-//       //loop to verify correct username and password
-//       for (var i =0; i<users.length;i++){
-
-//         var collectionPassword = users[i].password;
+router.post("/studentlogin/verify", (req, res)=>{
+    db.Classroom.find({key:req.body.classroomkey}).populate("students").then(results=>{
+        console.log(results);
+        var students = results[0].students;
+        console.log(students);
+        var found = false;
+        var currentStudent;
+        for (var i = 0; i<students.length;i++){
+            if(students[i].key===req.body.userkey){
+                console.log("found");
+                found = true;
+                currentStudent = students[i];
+            }else{
+                console.log("not found");
+                found = false;
+            }
+        }
+        if(found ===true){
+            console.log("all good");
+            res.cookie("token", currentStudent.token );
+            req.session.userType="student";
+            req.session.user= currentStudent;
+            res.send(req.session);
+        }
+        else{
+            return res.status(404).end();
+        }
+       
+    }).catch(err=>{
+        console.log("==================")
+        console.log(err);
+        return res.status(404).end();
         
-//         var collectionUsername = users[i].username;
+    })
 
-//         var deCryptPw = encrypt.decrypt(""+collectionPassword);
-        
-    
-//         if(collectionUsername ===req.body.username && deCryptPw===req.body.password){
-//           var currentUser ={
-//             id: users[i].id,
-//             username: req.body.username,
-//             password: req.body.password,
-//             token: req.body.token
-//           }
-//           res.cookie("token", currentUser.token);
-//           console.log("user found");
-//           loopCheck = true;
-//           res.cookie("token", currentUser.token);
-//           req.session.user = currentUser;
-//           return res.redirect("/");
-//         }
-//       }
-//       if(loopCheck ===false){
-//         console.log("Failed to authenticate, check username and password");
-
-         
-//         }
-    
-//     });
-
-    
-
-//   });
+});
 
 
+//route created to verify if teacher user already exists 
  router.post("/teacherlogin/verify", (req,res)=>{
      console.log("sent data"); 
      console.log(req.body);
