@@ -12,9 +12,6 @@ class TeacherHomePage extends React.Component {
         teacherid: "",
         classroomId: "5b5cc1a32b2fbe26b46b5b9c",
         units: [],
-        //separated to easily reference
-        unitNames: [],
-        unitIds:[],
         classroomName: "Biology",
         newUnit:""
 
@@ -40,8 +37,7 @@ class TeacherHomePage extends React.Component {
               //redirect if user is not logged in
               else{
                   console.log("not logged in");
-                this.props.history.push
-                ("/teacherlogin");
+                this.props.history.push("/teacherlogin");
               }
 
            
@@ -57,11 +53,11 @@ class TeacherHomePage extends React.Component {
             // this.setState({units: res.data});
             console.log(res.data);
             //sets names and ids
-            this.setState({unitNames:res.data.name, unit});
+            this.setState({units:res.data});
         });
     }
     //will make a post request to add a note to the given unit 
-    addUnit = ()=>{
+     addUnit = ()=>{
         console.log(this.state.newUnit);
         axios.post(`new/${this.state.classroomId}/unit`,{name: this.state.newUnit}).then(res=>{
             console.log(res);
@@ -77,7 +73,7 @@ class TeacherHomePage extends React.Component {
     render(){
         return(
             <div>
-                {/* <TeacherSidebar id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.unitNames} /> */}
+                <TeacherSidebar id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} />
                 <TeacherUnitMain />
             </div>
                 
