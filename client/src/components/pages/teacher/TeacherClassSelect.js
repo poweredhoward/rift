@@ -12,7 +12,7 @@ class TeacherClassSelect extends React.Component {
         ],
         teacherid: "",
         classroomName: "hellotest"
-    }
+    }//end of state
 
 
 
@@ -21,7 +21,7 @@ class TeacherClassSelect extends React.Component {
             // console.log(res);
             //if there is a session
             if(res.data.user !==undefined){
-                console.log("loggedIn!");
+                // console.log("loggedIn!");
                 this.setState({teacherid: res.data.user._id});
                 this.getClassrooms();
               }
@@ -35,11 +35,12 @@ class TeacherClassSelect extends React.Component {
             console.log(err);
             this.props.history.push("/teacherlogin");
 
-        })
+        });
         
-    }
-    // Method for adding a classroom -- posts to mongoose and gets right after
+    }//end of fn 
 
+
+    // Method for adding a classroom -- posts to mongoose and gets right after
     addClassroom = () => {
         var obj = {
             name: this.state.classroomName,
@@ -51,14 +52,15 @@ class TeacherClassSelect extends React.Component {
             //getting classrooms
             this.getClassrooms();
         })
-    }
+    }//end of fn
 
     handleInputChange = (event) => {
         this.setState({
             [event.target.id]: event.target.value
-        })
-    }
-
+        });
+    }//end of fn
+    
+    //adds teacher's classrooms to state
     getClassrooms = () => {
         
         // Get request to teacher model to return list of classes
@@ -70,6 +72,19 @@ class TeacherClassSelect extends React.Component {
             // console.log(this.state.classrooms);
         
         });
+    }//end of fn
+
+    //choose a classroom, data will be added to session thru post request
+    chooseClassRoom = (className, classKey, _id)=>{
+        // console.log(`className: ${className}, classKey: ${classKey}`);
+        axios.post("/session/addclassroom", {className: className, classKey: classKey, _id: _id}).then(res=>{
+            // console.log(res);
+            // console.log("added");
+            this.props.history.push("/teacherhomepage");
+        }).catch(err=>{
+            console.log(err);
+        });
+
     }
   
 
@@ -78,7 +93,19 @@ class TeacherClassSelect extends React.Component {
                 // classroomid={item._id} key={item.key}
                 <div>
                     <h1>This is home page for teacher</h1>
-                    {this.state.classrooms.map(item => (<Link to="/teacherhomepage" key={item.key}>{item.name}</Link>))}
+                    <div className="container">
+
+                    
+                    {/* render a card for each classroom*/}
+                    {this.state.classrooms.map(item => (
+                        <div className="card" key={item.key} onClick={()=>{this.chooseClassRoom(item.name, item.key, item._id)}}>
+                        <div className="card-body" >
+                         <h6 className="card-subtitle mb-2 text-muted">{item.name}</h6>
+                         <p className="card-text">Classroom Key: {item.key}</p>
+                        </div>
+                        </div>)     
+                    )}
+                    
                     <input type="text" id="classroomName"
                     onChange={this.handleInputChange} 
                     />
@@ -86,12 +113,13 @@ class TeacherClassSelect extends React.Component {
                     onClick={this.addClassroom}>Add Classroom</button>
                     {/* <Route exact path="/teacherhomepage" component={TeacherHomePage} /> */}
                     <Route exact path="/teacherhomepage" render={props=><TeacherHomePage {...props} classroomName={this.classroomName} />} />
+                    </div> {/*end of container*/}
                 </div>    
-        );
+        );//end of return 
     
         
-    }
-}
+    }//end of render
+}//end of class
 export default TeacherClassSelect;
 
 

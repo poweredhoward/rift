@@ -36,13 +36,13 @@ class TeacherLogin extends React.Component{
             alert("Fill all fields!");
         }
         else{
-            console.log("Sending data to create");
+            // console.log("Sending data to create");
             axios.post("/teacherlogin/create", {
                 username: this.state.username,
                 password: this.state.password
             }).then((sessionData)=>{
-                console.log("data sent to backend!");
-                console.log(sessionData);
+                // console.log("data sent to backend!");
+                // console.log(sessionData);
                 this.props.history.push("/teacherclassselect");
             }).catch((err) =>{
                 console.log(err);
@@ -60,15 +60,15 @@ class TeacherLogin extends React.Component{
             alert("Fill all fields!");
         }
         else{
-            console.log(this.state);
-            console.log("sending data to verify");
+            // console.log(this.state);
+            // console.log("sending data to verify");
             axios.post("/teacherlogin/verify", {
                 username: this.state.username,
                 password: this.state.password
             }).then((sessionData)=>{
                 //"user" refers to req.session
-                console.log("data sent to backend!");
-                console.log(sessionData);
+                // console.log("data sent to backend!");
+                // console.log(sessionData);
                 this.props.history.push("/teacherclassselect");
             }).catch(err=>{
                 console.log(err);

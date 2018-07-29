@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
 import TeacherSidebar from "./TeacherSidebar"
 import TeacherUnitMain from "./teacherunit/TeacherUnitMain"
 import axios from "axios";
@@ -10,37 +10,39 @@ class TeacherHomePage extends React.Component {
 
     state = {
         //todo: make key dynamic (probably thru session)
-        key:"1234",
+        key:"",
         teacherid: "",
         //todo: make classroom ID dynamic
-        classroomId: "5b5cc1a32b2fbe26b46b5b9c",
+        classroomId: "",
         units: [],
-        classroomName: "Biology",
+        classroomName: "",
         newUnit:"",
-        newStudent:""
+        newStudent:"",
+        currentUnit:""
 
     }
-
+    
     handleInputChange = (event) => {
         this.setState({
             [event.target.id]: event.target.value
         });
       
     }
-    
+    //get request to retrieve session data 
     componentDidMount(){
         axios.get("/getsession").then(res=>{
             // console.log(res);
             //if there is a session
             if(res.data.user !==undefined){
-                console.log("loggedIn!");
-                this.setState({teacherid: res.data.user._id});
+                // console.log("loggedIn!");
+                this.setState({
+                    teacherid: res.data.user._id, key: res.data.classroomInfo.classKey, classroomId:res.data.classroomInfo._id,classroomName:res.data.classroomInfo.className});
                 this.getUnits()
                
               }
-              //redirect if user is not logged in
+            //   redirect if user is not logged in
               else{
-                  console.log("not logged in");
+                //   console.log("not logged in");
                 this.props.history.push("/teacherlogin");
               }
 
@@ -48,17 +50,17 @@ class TeacherHomePage extends React.Component {
         }).catch(err=>{
            console.log(err);
            this.props.history.push("/teacherlogin");
-        })
+        });
     }
     //gets the units using a get request
     getUnits=()=>{
         axios.get(`/${this.state.classroomId}/units`).then(res=>{
-            // this.setState({units: res.data});
-            // console.log(res.data);
-            //sets names and ids
+
+            //adds info for each unit
             this.setState({units:res.data});
         });
     }
+    //temporary method to add a student, be mindful of hardcoded data 
     addStudent = ()=>{
         console.log(this.state.newStudent);
         axios.post(`/new/${this.state.classroomId}/student`, {name:this.state.newStudent,
@@ -73,19 +75,23 @@ class TeacherHomePage extends React.Component {
 
         });
         
+    }
+    //click on unit sidebar to see its info
+    selectUnit = (id, name)=>{
+        console.log(`id: ${id} name: ${name}`);
 
 
     }
-    //will make a post request to add a note to the given unit 
+    //will make a post request to add a unit to the given classroom
      addUnit = ()=>{
-        console.log(this.state.newUnit);
+        // console.log(this.state.newUnit);
         axios.post(`new/${this.state.classroomId}/unit`,{name: this.state.newUnit}).then(res=>{
-            console.log(res);
-            console.log("added!");
+            // console.log(res);
+            // console.log("added!");
             this.getUnits();
         }).catch(err=>{
             console.log(err);
-        })
+        });
         
 
     }
@@ -93,7 +99,9 @@ class TeacherHomePage extends React.Component {
     render(){
         return(
             <div>
-                <TeacherSidebar id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} />
+                <TeacherSidebar selectUnit={this.selectUnit} id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} />
+                
+                
                 <TeacherUnitMain id="newStudent" addStudent={this.addStudent} handleInputChange={this.handleInputChange} units={this.state.units} />
             </div>
                 

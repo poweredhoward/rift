@@ -316,10 +316,17 @@ router.post("/studentlogin/verify", (req, res)=>{
     
  }); //end of /teacherlogin/verify
 
- //temporary route created to verify if data was contained in session
+ //route used to verify if a user is logged in and to give front end miscellaneous info
  router.get("/getsession", (req, res)=>{
      res.send(req.session);
  });
+
+ //adding classroomKey and className to session (FOR TEACHER'S SIDE ONLY--NO NEED FROM STUDENT SIDE)
+ router.post("/session/addclassroom", (req,res)=>{
+     console.log(req.body);
+     req.session.classroomInfo = {className: req.body.className, classKey: req.body.classKey,_id:req.body._id }
+     res.send(req.session);
+ })
 
 
 module.exports = router;
