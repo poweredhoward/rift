@@ -7,6 +7,7 @@ const multer = require("multer");
 const GridfsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 const methodOverride = require("method-override");
+const fs = require("fs");
 
 var mammoth = require("mammoth");
 
@@ -30,6 +31,7 @@ app.use(methodOverride("_method"));
 
 // Init GFS
 let gfs;
+app.use(express.static("uploads"))
 
 // Setup Gridfs-Stream
 var conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/rift");
@@ -50,9 +52,10 @@ const upload = multer({ storage });
 
 // Gridfs routes
 
+//get 
 app.get("/mammoth", (req, res) =>{
   console.log("inside mammoth");
-  mammoth.convertToHtml({path: "resume.docx"})
+  mammoth.convertToHtml({path: "uploads/resume.docx"})
     .then(function(result){
         var html = result.value; // The generated HTML
         console.log(html);
@@ -76,6 +79,17 @@ if (process.env.NODE_ENV === "production") {
 // Define API routes here
 const routes = require("./routes/api.js");
 app.use(routes);
+
+//Send pdf file
+app.get("/pdf", function(req, res){
+  console.log("inside pdf get");
+  var filepath = "/uploads/cisco.pdf";
+  fs.readFile(__dirname + filepath, function(err, data){
+    res.contentType("application/pdf");
+    console.log(data);
+    res.send(data);
+  })
+})
 
 // Send every other request to the React app
 app.get("*", (req, res) => {

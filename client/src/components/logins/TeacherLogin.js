@@ -1,5 +1,6 @@
 import React from "react";
 // import { BrowserRouter as Router, Route } from "react-router-dom";
+import PDF from "./PDF";
 
 import axios from "axios";
 
@@ -100,6 +101,7 @@ class TeacherLogin extends React.Component{
 
                     <button type="button" onClick={this.verifyUser} className="btn btn-primary">Login</button>
                 </form>
+                <PDF />
             </div>
         )
     };
