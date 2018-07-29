@@ -332,7 +332,6 @@ router.get("/:post/responses", (req, res) =>{
 
  //temporary route created to verify if data was contained in session
  router.get("/getsession", (req, res)=>{
-     console.log(req.session);
      res.send(req.session);
  });
 

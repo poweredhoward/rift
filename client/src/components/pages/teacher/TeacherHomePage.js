@@ -6,15 +6,25 @@ import axios from "axios";
 
 
 class TeacherHomePage extends React.Component {
-    constructor(props){
-        super(props);
-        console.log(props.classroomName);
-    }
+
 
     state = {
-        currentTeacherId: "",
-        units: []
+        teacherid: "",
+        classroomId: "5b5cc1a32b2fbe26b46b5b9c",
+        units: [],
+        //separated to easily reference
+        unitNames: [],
+        unitIds:[],
+        classroomName: "Biology",
+        newUnit:""
 
+    }
+
+    handleInputChange = (event) => {
+        this.setState({
+            [event.target.id]: event.target.value
+        });
+      
     }
     
     componentDidMount(){
@@ -24,8 +34,10 @@ class TeacherHomePage extends React.Component {
             if(res.data.user !==undefined){
                 console.log("loggedIn!");
                 this.setState({teacherid: res.data.user._id});
+                this.getUnits()
                
               }
+              //redirect if user is not logged in
               else{
                   console.log("not logged in");
                 this.props.history.push
@@ -37,21 +49,35 @@ class TeacherHomePage extends React.Component {
            console.log(err);
            this.props.history.push
                 ("/teacherlogin");
-
-
+        })
+    }
+    //gets the units using a get request
+    getUnits=()=>{
+        axios.get(`/${this.state.classroomId}/units`).then(res=>{
+            // this.setState({units: res.data});
+            console.log(res.data);
+            //sets names and ids
+            this.setState({unitNames:res.data.name, unit});
+        });
+    }
+    //will make a post request to add a note to the given unit 
+    addUnit = ()=>{
+        console.log(this.state.newUnit);
+        axios.post(`new/${this.state.classroomId}/unit`,{name: this.state.newUnit}).then(res=>{
+            console.log(res);
+            console.log("added!");
+            this.getUnits();
+        }).catch(err=>{
+            console.log(err);
         })
         
-    }
-    
-    
-    addUnit = ()=>{
 
     }
 
     render(){
         return(
             <div>
-                <TeacherSidebar units={this.state.units} />
+                {/* <TeacherSidebar id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.unitNames} /> */}
                 <TeacherUnitMain />
             </div>
                 
