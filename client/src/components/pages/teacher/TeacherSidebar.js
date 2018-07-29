@@ -6,7 +6,7 @@ import React from "react";
         {props.units.map(item => (<p key={item._id}>{item.name}</p>))}
         <input type="text" id={props.id} onChange={props.handleInputChange} />
         <button type="button" onClick={props.addUnit}>Add Unit</button>
-        <button>Add Unit</button>
+        
     </div>
  )
 

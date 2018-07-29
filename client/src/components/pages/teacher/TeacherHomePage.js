@@ -10,6 +10,7 @@ class TeacherHomePage extends React.Component {
 
     state = {
         teacherid: "",
+        //todo: make classroom ID dynamic
         classroomId: "5b5cc1a32b2fbe26b46b5b9c",
         units: [],
         classroomName: "Biology",
@@ -43,15 +44,14 @@ class TeacherHomePage extends React.Component {
            
         }).catch(err=>{
            console.log(err);
-           this.props.history.push
-                ("/teacherlogin");
+           this.props.history.push("/teacherlogin");
         })
     }
     //gets the units using a get request
     getUnits=()=>{
         axios.get(`/${this.state.classroomId}/units`).then(res=>{
             // this.setState({units: res.data});
-            console.log(res.data);
+            // console.log(res.data);
             //sets names and ids
             this.setState({units:res.data});
         });
@@ -74,7 +74,7 @@ class TeacherHomePage extends React.Component {
         return(
             <div>
                 <TeacherSidebar id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} />
-                <TeacherUnitMain />
+                <TeacherUnitMain units={this.state.units} />
             </div>
                 
         
