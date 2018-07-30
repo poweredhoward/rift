@@ -9,17 +9,14 @@ class TeacherHomePage extends React.Component {
 
 
     state = {
-        //todo: make key dynamic (probably thru session)
         key:"",
         teacherid: "",
-        //todo: make classroom ID dynamic
         classroomId: "",
         units: [],
         classroomName: "",
         newUnit:"",
         newStudent:"",
         currentUnit:""
-
     }
     
     handleInputChange = (event) => {
@@ -92,7 +89,6 @@ class TeacherHomePage extends React.Component {
         }).catch(err=>{
             console.log(err);
         });
-        
 
     }
 
