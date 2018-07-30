@@ -1,17 +1,19 @@
 import React from "react";
-
+import TeacherNote from "./TeacherNote";
+import TeacherPost from "./TeacherPost";
 const TeacherUnitMain= (props) => { 
         var data;
         if(props.currentChoice==="Students"){
                 data = <h1>This is Students</h1>
         }
         else if(props.currentChoice==="Notes"){
-                data = <h1>This is Notes</h1>
+                
+                data = <TeacherNote notes={props.notes}/>
         }
         else if(props.currentChoice==="Posts"){
-                data = <h1>This is Posts</h1>
-        }
-   
+                // console.log(props.posts);
+                data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts}></TeacherPost>
+        } 
     
         return(<div>
              
@@ -30,6 +32,8 @@ const TeacherUnitMain= (props) => {
                 </li>))}
               
                   </ul>
+                  {data}
+
                 </div>
                 {data}
 

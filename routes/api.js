@@ -151,7 +151,7 @@ router.get("/:unit/notes", (req, res) =>{
 //get all posts in a unit given unit id
 router.get("/:unit/posts", (req, res) =>{
     db.Unit.findOne({_id: req.params.unit})
-    .populate("posts")
+    .populate("posts").populate("responses")
     .then(results =>{
         res.send(results.posts);
     })
