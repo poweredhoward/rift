@@ -3,6 +3,7 @@ import React from "react";
 import TeacherSidebar from "./TeacherSidebar"
 import TeacherUnitMain from "./teacherunit/TeacherUnitMain"
 import axios from "axios";
+// import { runInNewContext } from "vm";
 
 
 class TeacherHomePage extends React.Component {
@@ -17,7 +18,12 @@ class TeacherHomePage extends React.Component {
         newUnit:"",
         newStudent:"",
         currentUnit:"",
-        currentUnitName:""
+        currentUnitName:"",
+        posts:[],
+        notes:[],
+        //actually static, used to display the content user wants easily
+        mainOptions:[  "Posts", "Notes", "Students"
+        ]
     }
     
     handleInputChange = (event) => {
@@ -34,6 +40,7 @@ class TeacherHomePage extends React.Component {
             if(res.data.user !==undefined){
                 // console.log("loggedIn!");
                 this.setState({
+                    username: res.data.user.username,
                     teacherid: res.data.user._id, key: res.data.classroomInfo.classKey, classroomId:res.data.classroomInfo._id,classroomName:res.data.classroomInfo.className});
                 this.getUnits()
                
@@ -82,8 +89,16 @@ class TeacherHomePage extends React.Component {
     }
     //will show posts for current unit given current UnitID
     getPosts=()=>{
-        axios.get(`/${this.state.currentUnit}/notes`);
-        
+        axios.get(`/${this.state.currentUnit}/posts`).then(res=>{
+            this.setState({posts:res.data});
+            console.log(this.state.posts);
+        });
+         
+    }
+    getNotes=()=>{
+        axios.get(`/${this.state.currentUnit}/notes`).then(res=>{
+            this.setState({notes:res.data});
+        })
     }
 
 
@@ -99,6 +114,7 @@ class TeacherHomePage extends React.Component {
         });
 
     }
+    //logs out and redirects to landing page
     logout=()=>{
         axios.post("/logout",{}).then(res=>{
             console.log("logging out");
@@ -107,15 +123,26 @@ class TeacherHomePage extends React.Component {
             console.log(err);
         })
     }
+    //grabs navbar click  
+    infoChoice = (choice)=>{
+        console.log(choice)
+    }
 
     render(){
         return(
             <div>
-                 <button type="button" onClick={this.logout}>Logout</button>
+                
                 <TeacherSidebar selectUnit={this.selectUnit} id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} />
                 
                 
-                <TeacherUnitMain id="newStudent" addStudent={this.addStudent} handleInputChange={this.handleInputChange} units={this.state.units} />
+                <TeacherUnitMain infoChoice={this.infoChoice}  
+                logout={this.logout}
+                options={this.state.mainOptions} 
+                id={this.state.teacherid} 
+                username={this.state.username} notes={this.state.notes} 
+                posts={this.state.posts} 
+                addStudent={this.addStudent} handleInputChange={this.handleInputChange} 
+                units={this.state.units} />
                
             </div>
                 
