@@ -1,77 +1,66 @@
-import React from "react";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
+import React from 'react'
+import axios, { post } from 'axios';
 
-import axios from "axios";
+class StudentLogin extends React.Component {
 
-
-class StudentLogin extends React.Component{
-
-    state = {
-        userKey : "",
-        classroomKey: "",
-        doc: ""
+  constructor(props) {
+    super(props);
+    this.state ={
+      file:null
     }
+    this.onFormSubmit = this.onFormSubmit.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.fileUpload = this.fileUpload.bind(this)
+  }
 
-    componentDidMount(){
-        console.log("mounting");
-        axios.get("/mammoth").then( result =>{
-            this.setState({doc: result.data})
-            console.log(result);
-        })
+  state ={
+    doc: ""
+  }
+  onFormSubmit(e){
+    e.preventDefault() // Stop form submit
+    this.fileUpload(this.state.file).then((response)=>{
+      console.log(response.data);
+    })
+  }
+
+  componentDidMount(){
+    axios.get("/mammoth").then( res =>{
+      console.log(res);
+      this.setState({doc: res.data})
+    })
+  }
+  onChange(e) {
+    this.setState({file:e.target.files[0]})
+  }
+  fileUpload(file){
+    const url = '/uploading';
+    const formData = new FormData();
+    formData.append('p',file)
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
     }
+    return  post(url, formData,config)
+  }
 
-    handleInputChange = (event) => {
-        this.setState({
-            [event.target.id]: event.target.value
-        })
-    }
+  render() {
+    return (
 
-   
-    verifyInfo = ()=>{
-        axios.post("/studentlogin/verify", {
-            userkey: this.state.userKey,
-            classroomkey:this.state.classroomKey
-        }).then(response=>{
-            console.log(response);
-            console.log("login successful!")
-            this.props.history.push("/studenthomepage");
-        }).catch(err=>{
-            alert("Please double check your user key and password key!");
-            console.log(err);
-        })
-    }
+      <div>
+        <div dangerouslySetInnerHTML={{ __html: this.state.doc }}></div>
+      <form onSubmit={this.onFormSubmit}>
+        <h1>File Upload</h1>
+        <input type="file" onChange={this.onChange} />
+        <button type="submit">Upload</button>
+      </form>
+      </div>
 
-    render(){
 
-        return (
-
-            <div>
-                <form>
-                    <div className="form-group">
-                        <label htmlFor="userKey">Enter User Key</label>
-                        <input type="text" className="form-control" id="userKey" placeholder="Enter User Key" 
-                        onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="classroomKey">Enter Classroom Key</label>
-                        <input type="text" className="form-control" id="classroomKey" placeholder="Enter Classroom Key" 
-                        onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <button type="button" className="btn btn-primary" onClick={this.verifyInfo}>Submit</button>
-                </form>
-
-                <div dangerouslySetInnerHTML={{__html:  this.state.doc}} />
-                
-                   
-                
-            </div>
-        )
-    };
+   )
+  }
 }
-  
 
 
 
-export default StudentLogin;
+export default StudentLogin

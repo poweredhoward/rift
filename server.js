@@ -9,6 +9,18 @@ const Grid = require("gridfs-stream");
 const methodOverride = require("method-override");
 const fs = require("fs");
 
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+ 
+var upload = multer({ storage: storage })
+// var upload = multer({ dest: 'uploads/',storage: storage })
+
 var mammoth = require("mammoth");
 
 
@@ -40,19 +52,31 @@ conn.once('open', () => {
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection("noteuploads");
 
-})
-
-// Create Storage engine
-const storage = require('multer-gridfs-storage')({
-  url: (process.env.MONGODB_URI || "mongodb://localhost/rift")
 });
 
+app.post('/uploading', upload.single('p'), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+  console.log(req.file);
+
+})
+
+
+// Create Storage engine
+// const storage = require('multer-gridfs-storage')({
+//   url: (process.env.MONGODB_URI || "mongodb://localhost/rift")
+// });
+
 // Set multer storage engine to the newly created object
-const upload = multer({ storage });
+// const upload = multer({ storage });
 
 // Gridfs routes
 
 //get 
+//
+// Instructions to use:
+// axios call this function and save res.date into a state variable
+//inside return <div dangerouslySetInnerHTML={{ __html: this.state.varable }}></div>
 app.get("/mammoth", (req, res) =>{
   console.log("inside mammoth");
   mammoth.convertToHtml({path: "uploads/resume.docx"})
