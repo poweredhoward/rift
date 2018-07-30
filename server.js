@@ -2,11 +2,11 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const crypto = require("crypto");
+
 const multer = require("multer");
-const GridfsStorage = require("multer-gridfs-storage");
-const Grid = require("gridfs-stream");
-const methodOverride = require("method-override");
+var upload = multer({ dest: 'uploads/' });
+
+
 
 var session = require("express-session");
 
@@ -16,7 +16,7 @@ const app = express();
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(methodOverride("_method"));
+
 //setup session
 app.use(session({
   secret: "whateverwewant",
@@ -25,31 +25,58 @@ app.use(session({
   cookie: {secure: "auto", maxAge: 999999999}
 }));
 
-// Init GFS
-let gfs;
 
-// Setup Gridfs-Stream
-var conn = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/rift");
+app.post("/upload", upload.single('file'), function(req, res){
+  // console.log(req.IncomingMessage.client.ReadableState.buffer);
+  console.log(req.file);
+  // console.log(req.body);
+  console.log("file uploaded");
 
-conn.once('open', () => {
-  gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection("noteuploads");
 
-})
-
-// Create Storage engine
-const storage = require('multer-gridfs-storage')({
-  url: (process.env.MONGODB_URI || "mongodb://localhost/rift")
-});
-
-// Set multer storage engine to the newly created object
-const upload = multer({ storage });
-
-// Gridfs routes
-
-app.post("/upload", upload.single("file"), (req, res) => {
-  // res.json({file: req.file});
-  res.redirect("/");
+  // // Connecting to the database
+  // mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mytest2")
+  // .then(() => {
+  //     console.log("inside connect then");
+      
+  //     // empty the collection
+      // Note.remove(err => {
+      //     if (err) throw err;
+      //     console.log("Removed all documents in notes collection.");
+          var noteData = fs.readFileSync(req.file.path);
+          
+          // Create an Image instance
+          const note = new Note({
+              // type: 'image/png',
+              data: noteData
+          });
+  
+          // Store the Image to the MongoDB
+          note.save()
+          .then(n => {
+              console.log("Saved an note to MongoDB.");
+              // Find the stored image in MongoDB, then save it in '/static/assets/tmp' folder
+              Note.findById(n, (err, findOutNote) => {
+                  if (err) throw err;
+                  try{
+                      fs.writeFileSync("uploads/" + req.file.originalname, findOutNote.data);
+                      console.log("Stored an image 'tmp-jsa-header.png' in '/static/assets/tmp' folder.");
+                      // exit node.js app
+                      console.log("Exit!");
+                      process.exit(0);
+                  }catch(e){
+                      console.log(e);
+                  }
+              });
+          }).catch(err => {
+              console.log(err);
+              throw err;
+          });
+      // })
+      
+  // }).catch(err => {
+  //     console.log('Could not connect to MongoDB this time.');
+  //     process.exit();
+  // });
 });
 
 // Serve up static assets (usually on heroku)
