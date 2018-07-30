@@ -82,7 +82,8 @@ class TeacherLogin extends React.Component{
 
     render(){
         return (
-            <div>
+            <div className="login">
+                <h1 className="loginheader">Teacher Login</h1>
                 <form>
                     <div className="form-group">
                         <label htmlFor="username">Enter Username</label>
@@ -96,7 +97,7 @@ class TeacherLogin extends React.Component{
                         onChange={this.handleInputChange}
                         />
                     </div>
-                    <button type="button" onClick={this.createUser} className="btn btn-primary">create</button>
+                    <button type="button" onClick={this.createUser} className="btn btn-primary">Create</button>
 
                     <button type="button" onClick={this.verifyUser} className="btn btn-primary">Login</button>
                 </form>
