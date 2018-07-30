@@ -14,6 +14,14 @@ class StudentHomePage extends React.Component {
         currentClassroom :""
 
     }
+    logout=()=>{
+        axios.post("/logout",{}).then(res=>{
+            console.log("logging out");
+            this.props.history.push("/");
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
     // axios.get() the units based on classroom id from session storage and setState of units to array of classroom's units
     getUnits = () => {
         
@@ -47,6 +55,8 @@ class StudentHomePage extends React.Component {
     render(){
         return(
             <div>
+            <button type="button" onClick={this.logout}>Logout</button>
+
                 <StudentSidebar key={Math.random()} units={this.state.units} />
                 <StudentUnitMain />
             </div>

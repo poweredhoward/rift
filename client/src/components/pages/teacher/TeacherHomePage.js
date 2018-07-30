@@ -91,14 +91,24 @@ class TeacherHomePage extends React.Component {
         });
 
     }
+    logout=()=>{
+        axios.post("/logout",{}).then(res=>{
+            console.log("logging out");
+            this.props.history.push("/");
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
 
     render(){
         return(
             <div>
+                 <button type="button" onClick={this.logout}>Logout</button>
                 <TeacherSidebar selectUnit={this.selectUnit} id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} />
                 
                 
                 <TeacherUnitMain id="newStudent" addStudent={this.addStudent} handleInputChange={this.handleInputChange} units={this.state.units} />
+               
             </div>
                 
         
