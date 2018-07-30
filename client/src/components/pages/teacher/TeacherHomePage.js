@@ -66,6 +66,7 @@ class TeacherHomePage extends React.Component {
         });
     }
     //temporary method to add a student, be mindful of hardcoded data 
+
     addStudent = ()=>{
         console.log(this.state.newStudent);
         axios.post(`/new/${this.state.classroomId}/student`, {name:this.state.newStudent,
@@ -80,6 +81,8 @@ class TeacherHomePage extends React.Component {
 
         });
         
+        
+    
     }
     //click on unit sidebar to see its info and set current currentUnitId and currentUnitName
     selectUnit = (id, name)=>{
@@ -103,7 +106,7 @@ class TeacherHomePage extends React.Component {
 
 
     //will make a post request to add a unit to the given classroom
-     addUnit = ()=>{
+     addUnit = (event)=>{
         // console.log(this.state.newUnit);
         axios.post(`new/${this.state.classroomId}/unit`,{name: this.state.newUnit}).then(res=>{
             // console.log(res);
@@ -151,4 +154,5 @@ class TeacherHomePage extends React.Component {
     
     }
 }
+
 export default TeacherHomePage;

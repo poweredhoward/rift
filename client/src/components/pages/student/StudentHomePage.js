@@ -6,7 +6,7 @@ import axios from "axios"
 class StudentHomePage extends React.Component {
     
     state = {
-        units: ["unit 1", "unit 2", "unit 3"],
+        units: [],
         //temporary user state
         studentName:"",
         studentId:"",
@@ -23,8 +23,12 @@ class StudentHomePage extends React.Component {
         })
     }
     // axios.get() the units based on classroom id from session storage and setState of units to array of classroom's units
-    getUnits = () => {
-        
+    getUnits=()=>{
+        axios.get(`/${this.state.currentClassroom}/units`).then(res=>{
+
+            //adds info for each unit
+            this.setState({units:res.data});
+        });
     }
     componentDidMount(){
         axios.get("/getsession").then(res=>{
@@ -36,8 +40,12 @@ class StudentHomePage extends React.Component {
                     studentId:res.data.user._id,
                     currentClassroom: res.data.classroom
                 });
+                this.getUnits()
+            
                 console.log("user state");
                 console.log(this.state);
+
+                
             }
             else{
                 this.props.history.push("/studentlogin");
@@ -46,7 +54,9 @@ class StudentHomePage extends React.Component {
             console.log(err);
             this.props.history.push("/studentlogin");
 
-        })
+        });
+
+        
 
     }
 
