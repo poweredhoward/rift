@@ -16,7 +16,8 @@ class TeacherHomePage extends React.Component {
         classroomName: "",
         newUnit:"",
         newStudent:"",
-        currentUnit:""
+        currentUnit:"",
+        currentUnitName:""
     }
     
     handleInputChange = (event) => {
@@ -73,12 +74,19 @@ class TeacherHomePage extends React.Component {
         });
         
     }
-    //click on unit sidebar to see its info
+    //click on unit sidebar to see its info and set current currentUnitId and currentUnitName
     selectUnit = (id, name)=>{
         console.log(`id: ${id} name: ${name}`);
-
-
+        this.setState({currentUnit:id, currentUnitName: name});
+    
     }
+    //will show posts for current unit given current UnitID
+    getPosts=()=>{
+        axios.get(`/${this.state.currentUnit}/notes`);
+        
+    }
+
+
     //will make a post request to add a unit to the given classroom
      addUnit = ()=>{
         // console.log(this.state.newUnit);
