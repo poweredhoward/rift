@@ -97,9 +97,9 @@ class TeacherLogin extends React.Component{
                         onChange={this.handleInputChange}
                         />
                     </div>
-                    <button type="button" onClick={this.createUser} className="btn btn-primary">Create</button>
+                    <button type="button" onClick={this.createUser} className="btn btn-primary" id="createlogin">Create</button>
 
-                    <button type="button" onClick={this.verifyUser} className="btn btn-primary">Login</button>
+                    <button type="button" onClick={this.verifyUser} className="btn btn-primary" id="teacherlogin">Login</button>
                 </form>
             </div>
         )

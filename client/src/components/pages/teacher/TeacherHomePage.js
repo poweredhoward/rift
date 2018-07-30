@@ -133,7 +133,7 @@ class TeacherHomePage extends React.Component {
 
     render(){
         return(
-            <div>
+            <div className="main">
                 
                 <TeacherSidebar selectUnit={this.selectUnit} id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} />
                 

@@ -1,0 +1,12 @@
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    float: left;
+    height: 50px;
+    background: #16162F;
+}
+body {
+    margin-top: 50px;
+}

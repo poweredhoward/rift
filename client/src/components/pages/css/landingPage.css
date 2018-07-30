@@ -1,3 +1,39 @@
-h1,p,h6,button{
+h1, p, h6, button {
     text-align: center;
+    margin: 0 auto;
+}
+
+.buttons {
+    width: 50%;
+    height: 60px;
+    margin: auto;
+    
+}
+
+.jumbotron {
+    margin: 0 auto;
+    background: #3E7CAE;
+}
+
+.btn {
+    margin: auto;
+    background: #16162F
+}
+
+#studentbutton {
+    position: fixed;
+    left: 50%;
+    height: 50px;
+    margin-left: 5px;
+}
+
+#teacherbutton {
+    position: fixed;
+    right: 50%;
+    height: 50px;
+    margin-right: 5px;
+}
+
+body {
+    background: #97B3D4;
 }

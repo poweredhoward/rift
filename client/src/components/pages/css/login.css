@@ -3,11 +3,16 @@
     text-align: center;
     margin: 30px auto;
 }
-.btn {
-    margin-left: 10px;
-    height: 100%;
-}
+
 
 #classroomName {
     padding: 3px 0;
+}
+
+#createlogin {
+    margin-right: 5px;
+}
+
+#teacherlogin {
+    margin-left: 5px;
 }

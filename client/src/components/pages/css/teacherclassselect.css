@@ -11,3 +11,17 @@
 .container {
     margin: 30px auto;
 }
+
+.card {
+    background: dodgerblue;
+}
+
+.card-subtitle {
+    color: white!important;
+    font-size: 25px;
+}
+
+.card-text {
+    color: black;
+    
+}

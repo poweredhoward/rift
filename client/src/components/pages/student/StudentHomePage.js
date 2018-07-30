@@ -64,8 +64,8 @@ class StudentHomePage extends React.Component {
 
     render(){
         return(
-            <div>
-            <button type="button" onClick={this.logout}>Logout</button>
+            <div className="main">
+            <button type="button" onClick={this.logout} className="btn btn-primary">Logout</button>
 
                 <StudentSidebar key={Math.random()} units={this.state.units} />
                 <StudentUnitMain />
