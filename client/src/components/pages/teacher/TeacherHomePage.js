@@ -14,16 +14,17 @@ class TeacherHomePage extends React.Component {
         teacherid: "", 
         classroomId: "",
         units: [], //units added depending on unit
-        classroomName: "",
-        newUnit:"",
-        newStudent:"",
-        currentUnit:"",
+        classroomName: "", 
+        newUnit:"", //space for new unit to be added 
+        newStudent:"", //space for new student
+        currentUnit:"", //unit that has been clicked
         currentUnitName:"",
-        posts:[],
-        notes:[],
+        posts:[],//posts for unit 
+        notes:[],//notes for selecteed unit
         //actually static, used to display the content user wants easily
         mainOptions:[  "Posts", "Notes", "Students"
-        ]
+        ],
+        currentChoice: ""
     }
     
     handleInputChange = (event) => {
@@ -125,7 +126,9 @@ class TeacherHomePage extends React.Component {
     }
     //grabs navbar click  
     infoChoice = (choice)=>{
-        console.log(choice)
+        console.log(choice);
+        this.setState({currentChoice: choice});
+        
     }
 
     render(){
@@ -135,7 +138,9 @@ class TeacherHomePage extends React.Component {
                 <TeacherSidebar selectUnit={this.selectUnit} id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} />
                 
                 
-                <TeacherUnitMain infoChoice={this.infoChoice}  
+                <TeacherUnitMain 
+                currentChoice = {this.state.currentChoice}
+                infoChoice={this.infoChoice}  
                 logout={this.logout}
                 options={this.state.mainOptions} 
                 id={this.state.teacherid} 

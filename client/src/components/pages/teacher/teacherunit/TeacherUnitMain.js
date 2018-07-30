@@ -1,6 +1,16 @@
 import React from "react";
 
-const TeacherUnitMain= (props) => {
+const TeacherUnitMain= (props) => { 
+        var data;
+        if(props.currentChoice==="Students"){
+                data = <h1>This is Students</h1>
+        }
+        else if(props.currentChoice==="Notes"){
+                data = <h1>This is Notes</h1>
+        }
+        else if(props.currentChoice==="Posts"){
+                data = <h1>This is Posts</h1>
+        }
    
     
         return(<div>
@@ -21,6 +31,8 @@ const TeacherUnitMain= (props) => {
                   {props.options.map(item=>( <li key={item}className="nav-item pull-right">
                         <a onClick={()=>props.infoChoice(item)} href="###" key={Math.random} className="nav-link" >{item}</a>
                 </li>))}
+
+                {data}
 
               
                   </ul>
