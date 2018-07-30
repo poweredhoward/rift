@@ -316,6 +316,13 @@ router.post("/studentlogin/verify", (req, res)=>{
     
  }); //end of /teacherlogin/verify
 
+ //logout
+ router.post("/logout", (req,res)=>{
+    res.clearCookie("token");
+    req.session.destroy();
+    res.end();
+ })
+
  //route used to verify if a user is logged in and to give front end miscellaneous info
  router.get("/getsession", (req, res)=>{
      res.send(req.session);
