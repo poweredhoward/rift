@@ -143,7 +143,7 @@ class TeacherHomePage extends React.Component {
     //add a new response
     addResponse = (id)=>{
         console.log(this.state.newResponse)
-        axios.post(`new/${id}/response`).then(res=>{
+        axios.post(`new/${id}/response`,{data:this.state.newResponse}).then(res=>{
             console.log("response added");
         }).catch(err=>{
             console.log(err);

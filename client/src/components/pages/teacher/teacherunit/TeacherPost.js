@@ -8,7 +8,7 @@ const TeacherPost = (props) => {
             (
             <div>
             <h4 key={item._id}>{item.data}</h4>
-            <input type="text" onChange={props.handleInputChange} id="newPost" />
+            <input type="text" onChange={props.handleInputChange} id="newResponse" />
             <button type="button"  onClick={()=>props.addResponse(item._id)}>Add Response</button>
             </div>
             )
