@@ -58,7 +58,7 @@ app.get("/mammoth", (req, res) =>{
   mammoth.convertToHtml({path: "uploads/resume.docx"})
     .then(function(result){
         var html = result.value; // The generated HTML
-        console.log(html);
+        // console.log(html);
         var messages = result.messages; // Any messages, such as warnings during conversion
         res.send(html);
     })

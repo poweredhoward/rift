@@ -49,8 +49,8 @@ class PDF extends Component {
     return (
       <div style={this.divstyle}>
         <Document 
-        //   file={"/cisco.pdf"}
-        file ={{data: this.state.doc}}
+          file={"/cisco.pdf"}
+        // file ={{data: this.state.doc}}
           onLoadSuccess={this.onDocumentLoad}
         >
           <Page  pageNumber={pageNumber} />
