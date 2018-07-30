@@ -36,7 +36,8 @@ class StudentLogin extends React.Component{
 
         return (
 
-            <div>
+            <div className="login">
+                <h1 className="loginheader">Student Login</h1>
                 <form>
                     <div className="form-group">
                         <label htmlFor="userKey">Enter User Key</label>

@@ -42,6 +42,8 @@ class TeacherClassSelect extends React.Component {
 
     // Method for adding a classroom -- posts to mongoose and gets right after
     addClassroom = () => {
+        var inputbox = this.refs.input;
+        inputbox.value = ""
         var obj = {
             name: this.state.classroomName,
             key: Math.random()
@@ -51,6 +53,7 @@ class TeacherClassSelect extends React.Component {
             console.log("classroom has been added!");
             //getting classrooms
             this.getClassrooms();
+            
         })
     }//end of fn
 
@@ -91,8 +94,8 @@ class TeacherClassSelect extends React.Component {
     render(){
         return(
                 // classroomid={item._id} key={item.key}
-                <div>
-                    <h1>This is home page for teacher</h1>
+                <div className="classselect">
+                    <h1>Select from your list of classes</h1>
                     <div className="container">
 
                     
@@ -105,15 +108,20 @@ class TeacherClassSelect extends React.Component {
                         </div>
                         </div>)     
                     )}
-                    
-                    <input type="text" id="classroomName"
-                    onChange={this.handleInputChange} 
-                    />
-                    <button
-                    onClick={this.addClassroom}>Add Classroom</button>
+                    </div> {/*end of container*/}
+                    <div className="classinput">
+                        <input type="text" id="classroomName"
+                        placeholder="Enter Class Name"
+                        ref="input"
+                        onChange={this.handleInputChange} 
+                        />
+                        <button
+                        className="btn btn-primary"
+                        onClick={this.addClassroom}>Add Classroom</button>
+                    </div>
                     {/* <Route exact path="/teacherhomepage" component={TeacherHomePage} /> */}
                     <Route exact path="/teacherhomepage" render={props=><TeacherHomePage {...props} classroomName={this.classroomName} />} />
-                    </div> {/*end of container*/}
+                    
                 </div>    
         );//end of return 
     
