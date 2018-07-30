@@ -32,7 +32,7 @@ const TeacherUnitMain= (props) => {
                 </li>))}
               
                   </ul>
-                  {data}
+                  
 
                 </div>
                 {data}

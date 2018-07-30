@@ -1,5 +1,4 @@
 import React from "react";
-import SinglePost from "./post_components/SinglePost";
 
 const TeacherPost = (props) => {
     // console.log(props);
