@@ -1,5 +1,11 @@
+const express = require('express');
 const router = require("express").Router();
-var db = require("../models");
+const db = require("../models");
+const multiparty = require('connect-multiparty')();
+const Note = require('../models/Note');
+const fs = require('fs');
+const mongoose = require('mongoose');
+const Gridfs = require('gridfs-stream');
 
 
 //Add new teacher
@@ -108,7 +114,7 @@ router.post("/new/:post/response", (req, res)=>{
         );
 
     }).then(function(dbPost) {
-
+                        
         res.json(dbPost);
 
     }).catch(function(err) {
@@ -116,6 +122,41 @@ router.post("/new/:post/response", (req, res)=>{
         res.json(err);
     });
 });
+
+// Upload note files
+router.post('/upload/:id', multiparty, function(req, res){
+    var db = mongoose.connection.db;
+    var mongoDriver = mongoose.mongo;
+    var gfs = new Gridfs(db, mongoDriver);
+    
+    console.log(req.files.file);
+    var writestream = gfs.createWriteStream({
+      filename: req.files.file.name,
+      mode: 'w',
+      content_type: req.files.file.mimetype,
+      metadata: req.body
+    });
+ 
+    fs.createReadStream(req.files.file.path).pipe(writestream);
+        writestream.on('close', function(file) {
+        Note.findById(req.params.id, function(err, note) {
+            // handle error
+            console.log(err);
+            console.log(note);
+            Note.file = file._id;
+            Note.save(function(err, updatedNote) {
+            // handle error
+            console.log(err);
+            return res.json(200, updatedNote)
+            })
+        });
+
+        fs.unlink(req.files.file.path, function(err) {
+            // handle error
+            console.log('success!')
+        });
+    });
+})
 
 
 //get all students in a class given classroom id

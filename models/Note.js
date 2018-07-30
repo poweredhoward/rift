@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const noteSchema = new Schema({
     file: {
-        type: String
+        type: String,
+        unique: true
     },
     rating: {
         type: Number
