@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const noteSchema = new Schema({
-    file: {
+const NoteSchema = new Schema({
+    title: {
         type: String
+    },
+    file: {
+        type: String,
+        data: Buffer
     },
     rating: {
         type: Number
@@ -11,6 +15,6 @@ const noteSchema = new Schema({
     flag_author_type: ["student", "teacher"]
 });
 
-const Note = mongoose.model("Note", noteSchema);
+const Note = mongoose.model("Note", NoteSchema);
 
 module.exports = Note;
