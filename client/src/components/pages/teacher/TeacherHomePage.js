@@ -10,10 +10,10 @@ class TeacherHomePage extends React.Component {
 
 
     state = {
-        key:"",
-        teacherid: "",
+        key:"", //classroom key
+        teacherid: "", 
         classroomId: "",
-        units: [],
+        units: [], //units added depending on unit
         classroomName: "",
         newUnit:"",
         newStudent:"",
@@ -66,7 +66,6 @@ class TeacherHomePage extends React.Component {
         });
     }
     //temporary method to add a student, be mindful of hardcoded data 
-
     addStudent = ()=>{
         console.log(this.state.newStudent);
         axios.post(`/new/${this.state.classroomId}/student`, {name:this.state.newStudent,
@@ -81,8 +80,6 @@ class TeacherHomePage extends React.Component {
 
         });
         
-        
-    
     }
     //click on unit sidebar to see its info and set current currentUnitId and currentUnitName
     selectUnit = (id, name)=>{
@@ -106,7 +103,7 @@ class TeacherHomePage extends React.Component {
 
 
     //will make a post request to add a unit to the given classroom
-     addUnit = (event)=>{
+     addUnit = ()=>{
         // console.log(this.state.newUnit);
         axios.post(`new/${this.state.classroomId}/unit`,{name: this.state.newUnit}).then(res=>{
             // console.log(res);
@@ -142,7 +139,8 @@ class TeacherHomePage extends React.Component {
                 logout={this.logout}
                 options={this.state.mainOptions} 
                 id={this.state.teacherid} 
-                username={this.state.username} notes={this.state.notes} 
+                username={this.state.username} 
+                notes={this.state.notes} 
                 posts={this.state.posts} 
                 addStudent={this.addStudent} handleInputChange={this.handleInputChange} 
                 units={this.state.units} />
@@ -154,5 +152,4 @@ class TeacherHomePage extends React.Component {
     
     }
 }
-
 export default TeacherHomePage;
