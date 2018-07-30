@@ -10,6 +10,9 @@ class TeacherHomePage extends React.Component {
 
 
     state = {
+        newResponse:"", //field used to add a new response
+        newPost:"", //field used to add a new post
+        newNote:"", //field to post a new note
         key:"", //classroom key
         teacherid: "", 
         classroomId: "",
@@ -17,14 +20,14 @@ class TeacherHomePage extends React.Component {
         classroomName: "", 
         newUnit:"", //space for new unit to be added 
         newStudent:"", //space for new student
-        currentUnit:"", //unit that has been clicked
+        currentUnit:"", //unit id that has been clicked
         currentUnitName:"",
         posts:[],//posts for unit 
         notes:[],//notes for selecteed unit
         //actually static, used to display the content user wants easily
         mainOptions:[  "Posts", "Notes", "Students"
         ],
-        currentChoice: ""
+        currentChoice: "Posts"
     }
     
     handleInputChange = (event) => {
@@ -58,16 +61,41 @@ class TeacherHomePage extends React.Component {
            this.props.history.push("/teacherlogin");
         });
     }
-    //gets the units using a get request
-    getUnits=()=>{
+   
+   
+    //click on unit sidebar to see its info and set current currentUnitId and currentUnitName
+    selectUnit = (id, name)=>{
+        console.log(`id: ${id} name: ${name}`);
+        this.setState({currentUnit:id, currentUnitName: name});
+        this.getNotes(id);
+        this.getPosts(id);
+    
+    }
+
+     //gets the units using a get request
+     getUnits=()=>{
         axios.get(`/${this.state.classroomId}/units`).then(res=>{
 
             //adds info for each unit
-            this.setState({units:res.data});
+            this.setState({units:res.data, currentUnitName:res.data[0].name});
         });
     }
-    //temporary method to add a student, be mindful of hardcoded data 
-    addStudent = ()=>{
+    //will show posts for current unit given current UnitID
+    getPosts=(id)=>{
+        axios.get(`/${id}/posts`).then(res=>{
+            this.setState({posts:res.data});
+            console.log(this.state.posts);
+        });
+         
+    }
+    getNotes=(id)=>{
+        axios.get(`/${id}/notes`).then(res=>{
+            this.setState({notes:res.data});
+        })
+    }
+
+     //temporary method to add a student, be mindful of hardcoded data 
+     addStudent = ()=>{
         console.log(this.state.newStudent);
         axios.post(`/new/${this.state.classroomId}/student`, {name:this.state.newStudent,
          token: `t${Math.random()}`,
@@ -81,25 +109,6 @@ class TeacherHomePage extends React.Component {
 
         });
         
-    }
-    //click on unit sidebar to see its info and set current currentUnitId and currentUnitName
-    selectUnit = (id, name)=>{
-        console.log(`id: ${id} name: ${name}`);
-        this.setState({currentUnit:id, currentUnitName: name});
-    
-    }
-    //will show posts for current unit given current UnitID
-    getPosts=()=>{
-        axios.get(`/${this.state.currentUnit}/posts`).then(res=>{
-            this.setState({posts:res.data});
-            console.log(this.state.posts);
-        });
-         
-    }
-    getNotes=()=>{
-        axios.get(`/${this.state.currentUnit}/notes`).then(res=>{
-            this.setState({notes:res.data});
-        })
     }
 
 
@@ -115,6 +124,32 @@ class TeacherHomePage extends React.Component {
         });
 
     }
+    //add a new note
+    addNote(){
+        console.log(this.state.newNote);
+
+    }
+
+    //add a new post
+    addPost =() =>{
+        console.log("add post");
+        console.log(this.state.newPost);
+        axios.post(`/new/${this.state.currentUnit}/post`,{data: this.state.newPost}).then(res=>{
+            console.log("note added");
+        }).catch(err=>{
+            console.log(err);
+        });
+    }
+    //add a new response
+    addResponse = (id)=>{
+        console.log(this.state.newResponse)
+        axios.post(`new/${id}/response`).then(res=>{
+            console.log("response added");
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
+
     //logs out and redirects to landing page
     logout=()=>{
         axios.post("/logout",{}).then(res=>{
@@ -140,15 +175,21 @@ class TeacherHomePage extends React.Component {
                 
                 <TeacherUnitMain 
                 currentChoice = {this.state.currentChoice}
-                infoChoice={this.infoChoice}  
+                infoChoice={this.infoChoice} 
                 logout={this.logout}
                 options={this.state.mainOptions} 
+                unitId={this.state.id}
                 id={this.state.teacherid} 
-                username={this.state.username} 
+                username={this.state.username}
+                unitName={this.state.currentUnitName} 
                 notes={this.state.notes} 
-                posts={this.state.posts} 
-                addStudent={this.addStudent} handleInputChange={this.handleInputChange} 
-                units={this.state.units} />
+                posts={this.state.posts}
+                addResponse={this.addResponse} 
+                addPost={this.addPost}
+                addStudent={this.addStudent} 
+                handleInputChange={this.handleInputChange} 
+                units={this.state.units} 
+                />
                
             </div>
                 

@@ -1,23 +1,22 @@
 import React from "react";
-
+import TeacherNote from "./TeacherNote";
+import TeacherPost from "./TeacherPost";
 const TeacherUnitMain= (props) => { 
         var data;
         if(props.currentChoice==="Students"){
                 data = <h1>This is Students</h1>
         }
         else if(props.currentChoice==="Notes"){
-                data = <h1>This is Notes</h1>
+                
+                data = <TeacherNote notes={props.notes}/>
         }
         else if(props.currentChoice==="Posts"){
-                data = <h1>This is Posts</h1>
-        }
-   
+                // console.log(props.posts);
+                data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts}></TeacherPost>
+        } 
     
         return(<div>
-             <h1>This is the main component for each unit</h1>
-
-
-             
+             <h1>This is the main component for {props.unitName}</h1>
                 <div id="navbar"  >
                   <ul className="nav  d-flex flex-row-reverse " >
                   <li className="nav-item ">
@@ -32,14 +31,14 @@ const TeacherUnitMain= (props) => {
                         <a onClick={()=>props.infoChoice(item)} href="###" key={Math.random} className="nav-link" >{item}</a>
                 </li>))}
 
-                {data}
-
               
                   </ul>
+                  {data}
+
                 </div>
-            <input type="text" id={props.id} onChange={props.handleInputChange} />
-            <button type="button" onClick={props.addStudent}>Add student</button>
-           
+            {/* <input type="text" id={props.id} onChange={props.handleInputChange} />
+            <button type="button" onClick={props.addStudent}>Add student</button> */}
+         
 
         </div>
            
