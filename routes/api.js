@@ -64,22 +64,22 @@ router.post("/new/:classroom/unit", (req, res) =>{
 });
 
 //Add new note to a unit given unit ID
-router.post("/new/:unit/note", (req, res)=>{
-    db.Note.create(req.body).then(function(dbNote) {
+// router.post("/new/:unit/note", (req, res)=>{
+//     db.Note.create(req.body).then(function(dbNote) {
 
-        return db.Unit.findOneAndUpdate(
-            {_id: req.params.unit}, { $push: { notes: dbNote._id } }, { new: true }
-        );
+//         return db.Unit.findOneAndUpdate(
+//             {_id: req.params.unit}, { $push: { notes: dbNote._id } }, { new: true }
+//         );
 
-    }).then(function(dbUnit) {
+//     }).then(function(dbUnit) {
 
-        res.json(dbUnit);
+//         res.json(dbUnit);
 
-    }).catch(function(err) {
+//     }).catch(function(err) {
 
-        res.json(err);
-    });
-});
+//         res.json(err);
+//     });
+// });
 
 //Add new post to a unit given unit ID
 router.post("/new/:unit/post", (req, res) =>{
