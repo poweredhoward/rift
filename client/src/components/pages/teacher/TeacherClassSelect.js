@@ -1,7 +1,7 @@
 import React from "react";
-import {Link, Route} from "react-router-dom";
+// import {Link, Route} from "react-router-dom";
 import axios from "axios";
-import TeacherHomePage from "./TeacherHomePage";
+// import TeacherHomePage from "./TeacherHomePage";
 
 
 class TeacherClassSelect extends React.Component {
@@ -120,7 +120,7 @@ class TeacherClassSelect extends React.Component {
                         onClick={this.addClassroom}>Add Classroom</button>
                     </div>
                     {/* <Route exact path="/teacherhomepage" component={TeacherHomePage} /> */}
-                    <Route exact path="/teacherhomepage" render={props=><TeacherHomePage {...props} classroomName={this.classroomName} />} />
+                    {/* <Route exact path="/teacherhomepage" render={props=><TeacherHomePage {...props} classroomName={this.classroomName} />} /> */}
                     
                 </div>    
         );//end of return 

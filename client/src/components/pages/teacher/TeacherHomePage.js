@@ -24,9 +24,11 @@ class TeacherHomePage extends React.Component {
         currentUnitName:"",
         posts:[],//posts for unit 
         notes:[],//notes for selecteed unit
+
         //actually static, used to display the content user wants easily
         mainOptions:[  "Posts", "Notes", "Students"
         ],
+        //default to show ~something in the homepage, can be changed
         currentChoice: "Posts"
     }
     
@@ -39,7 +41,8 @@ class TeacherHomePage extends React.Component {
     //get request to retrieve session data 
     componentDidMount(){
         axios.get("/getsession").then(res=>{
-            // console.log(res);
+            console.log("Session data: ");
+            console.log(res);
             //if there is a session
             if(res.data.user !==undefined){
                 // console.log("loggedIn!");
@@ -55,7 +58,7 @@ class TeacherHomePage extends React.Component {
                 this.props.history.push("/teacherlogin");
               }
 
-           
+        //dealing with error that occurs each time you restart the server
         }).catch(err=>{
            console.log(err);
            this.props.history.push("/teacherlogin");
@@ -64,7 +67,8 @@ class TeacherHomePage extends React.Component {
    
    
     //click on unit sidebar to see its info and set current currentUnitId and currentUnitName
-    selectUnit = (id, name)=>{
+    
+    selectUnit = (id, name)=>{//unit id and unit name
         console.log(`id: ${id} name: ${name}`);
         this.setState({currentUnit:id, currentUnitName: name});
         this.getNotes(id);
@@ -124,6 +128,14 @@ class TeacherHomePage extends React.Component {
         });
 
     }
+    //will update display after a post or a response have been made
+    updateDisplay(){
+        console.log("display updated");
+        //refreshing unit to show updated information
+        this.selectUnit(this.state.currentUnit, this.state.currentUnitName);
+
+    }
+
     //add a new note
     addNote(){
         console.log(this.state.newNote);
@@ -136,6 +148,8 @@ class TeacherHomePage extends React.Component {
         console.log(this.state.newPost);
         axios.post(`/new/${this.state.currentUnit}/post`,{data: this.state.newPost}).then(res=>{
             console.log("note added");
+            this.updateDisplay();
+            
         }).catch(err=>{
             console.log(err);
         });
@@ -145,6 +159,7 @@ class TeacherHomePage extends React.Component {
         console.log(this.state.newResponse)
         axios.post(`new/${id}/response`,{data:this.state.newResponse}).then(res=>{
             console.log("response added");
+            this.updateDisplay();
         }).catch(err=>{
             console.log(err);
         })
@@ -152,6 +167,7 @@ class TeacherHomePage extends React.Component {
 
     //logs out and redirects to landing page
     logout=()=>{
+        //post so session can be destroyed
         axios.post("/logout",{}).then(res=>{
             console.log("logging out");
             this.props.history.push("/");
@@ -159,7 +175,7 @@ class TeacherHomePage extends React.Component {
             console.log(err);
         })
     }
-    //grabs navbar click  
+    //grabs navbar click, used to display the correct unit 
     infoChoice = (choice)=>{
         console.log(choice);
         this.setState({currentChoice: choice});
