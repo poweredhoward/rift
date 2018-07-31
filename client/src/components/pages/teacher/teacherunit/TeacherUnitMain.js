@@ -8,7 +8,7 @@ const TeacherUnitMain= (props) => {
         }
         else if(props.currentChoice==="Notes"){
                 
-                data = <TeacherNote notes={props.notes}/>
+                data = <TeacherNote notes={props.notes} getNotes={props.getNotes} id={props.id}/>
         }
         else if(props.currentChoice==="Posts"){
                 // console.log(props.posts);

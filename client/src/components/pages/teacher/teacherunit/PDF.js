@@ -6,7 +6,8 @@ class PDF extends Component {
   state = {
     numPages: null,
     pageNumber: 1,
-    doc : ""
+    doc : "",
+    docname: ""
   }
 
   divstyle = {
@@ -20,9 +21,12 @@ class PDF extends Component {
   }
 
   componentDidMount(){
-      axios.get("/pdf").then(function(result){
+    var query_url = "/" + this.props.id + "/pdf"
+      axios.get(query_url).then(result =>{
           console.log("done with pdf get");
           console.log(result.data);
+          this.setState({doc:result.data});
+          this.setState({docname: this.props.name});
     //       const file = new Blob(
     //           [Response.data],
     //           {type:'application/pdf'}
@@ -49,8 +53,8 @@ class PDF extends Component {
     return (
       <div style={this.divstyle}>
         <Document 
-          file={"/cisco.pdf"}
-        // file ={{data: this.state.doc}}
+          // file={this.state.docname}
+        file ={{data: this.state.doc}}
           onLoadSuccess={this.onDocumentLoad}
         >
           <Page  pageNumber={pageNumber} />

@@ -89,7 +89,10 @@ class TeacherHomePage extends React.Component {
          
     }
     getNotes=(id)=>{
+        console.log("Getting notes");
         axios.get(`/${id}/notes`).then(res=>{
+
+            console.log(res);
             this.setState({notes:res.data});
         })
     }
@@ -189,6 +192,7 @@ class TeacherHomePage extends React.Component {
                 addStudent={this.addStudent} 
                 handleInputChange={this.handleInputChange} 
                 units={this.state.units} 
+                getNotes={this.getNotes}
                 />
                
             </div>
