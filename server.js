@@ -48,42 +48,59 @@ app.post("/new/:unit/note", upload.single('file'), function(req, res){
     console.log("file uploaded");
     var noteData = fs.readFileSync(req.file.path);
           
-    // Create an Image instance
-    const note = new db.Note({
-        title: req.file.originalname,
-        file: noteData,
-        flag_author_type: "student"
-    });
-  
-    // Store the File to the MongoDB
-    note.save().then(dbNote => {
-        console.log("Saved a note to MongoDB.");
-        console.log(dbNote._id);
-        // Find the stored file in MongoDB, then save it in /uploads folder
-        db.Unit.findOneAndUpdate(
-          {_id: req.params.unit}, { $push: { notes: dbNote._id } }, { new: true }, function(err, data) {
-            db.Note.findById(dbNote, (err, findOutNote) => {
-              if (err) throw err;
-              try{
-                  fs.writeFileSync("uploads/" + req.file.originalname, findOutNote.data, {encoding:"ascii"});
-                    
-                    console.log("Stored a file to uploads");
-                    console.log("Done!");
-                    res.end();
-                  // });
-                  
-              }catch(e){
-                  console.log(e);
-              }
-          });
-          });
-        
+    // // Create an Note instance
+    // const note = new db.Note({
+    //     title: req.file.originalname,
+    //     file: noteData,
+    //     flag_author_type: "student"
+    // });
 
-       
-    }).catch(err => {
-        console.log(err);
-        throw err;
-    });
+    const doc = new db.Doc({
+        data: noteData
+    })
+
+    doc.save().then(dbDoc =>{
+        const note = new db.Note({
+            title: req.file.originalname,
+            file: dbDoc._id,
+            flag_author_type: "student"
+        });
+
+         // Store the File to the MongoDB
+        note.save().then(dbNote => {
+            console.log("Saved a note to MongoDB.");
+            console.log(dbNote._id);
+            // Find the stored file in MongoDB, then save it in /uploads folder
+            db.Unit.findOneAndUpdate(
+            {_id: req.params.unit}, { $push: { notes: dbNote._id } }, { new: true }, function(err, data) {
+                db.Note.findById(dbNote, (err, findOutNote) => {
+                if (err) throw err;
+                try{
+                    fs.writeFileSync("uploads/" + req.file.originalname, dbDoc.data);
+                        
+                        console.log("Stored a file to uploads");
+                        console.log("Done!");
+                        res.end();
+                    // });
+                    
+                }catch(e){
+                    console.log(e);
+                }
+            });
+            });
+            
+
+        
+        }).catch(err => {
+            console.log(err);
+            throw err;
+        });
+
+    })
+
+
+  
+   
 });
 
 // Instructions to use:
@@ -109,27 +126,32 @@ app.get("/:note/pdf", function(req, res){
   //MUST CHANGE TO DOCUMENT STORED ON THE SERVER
   // var filepath = "/uploads/cisco.pdf";
   db.Note.findById({_id: req.params.note}, (err, foundNote) => {
-    if (err) throw err;
-    try{
-        fs.writeFileSync("uploads/" + foundNote.title, foundNote.data);
-        console.log("Stored a file to uploads");
-        console.log("Done!");
-
-        fs.readFile("uploads/" + foundNote.title, function(err, data){
-          res.contentType("application/pdf");
-          console.log(data);
-          res.send(data);
-        })
-    }catch(e){
-        console.log(e);
-    }
+      console.log("Note found:")
+      console.log(foundNote);
+      db.Doc.findById({_id: foundNote.file}, (err, foundDoc) =>{
+        if (err) throw err;
+        try{
+            fs.writeFileSync("uploads/" + foundNote.title, foundDoc.data);
+            console.log("Stored a file to uploads");
+            console.log("Done!");
+    
+            fs.readFile("uploads/" + foundNote.title, function(err, data){
+              res.contentType("application/pdf");
+              console.log(data);
+              res.send(data);
+            })
+        }catch(e){
+            console.log(e);
+        }
+      })
+    
 });
 
 
   
 })
 
-// app.use(express.static("uploads"));
+app.use(express.static("uploads"));
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {

@@ -14,12 +14,12 @@ const TeacherNote = (props) => {
                 return(
                     <div key={k}>
                         Note: {note.title}
-                        {/* <PDF id={note.id} name={"/" + note.title}/> */}
+                        <PDF id={note.id} name={"/" + note.title}/>
                     </div>
                 )
             })
         }
-        <PDF id={props.notes[0].id} name={"/" +props.notes[0].title}/>
+        {/* <PDF id={props.notes[0].id} name={"/" +props.notes[0].title}/> */}
         </div>
     )
 }

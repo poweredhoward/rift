@@ -6,8 +6,8 @@ const NoteSchema = new Schema({
         type: String
     },
     file: {
-        type: String,
-        data: Buffer
+        type: Schema.Types.ObjectId,
+        ref: "File"
     },
     rating: {
         type: Number
@@ -18,3 +18,4 @@ const NoteSchema = new Schema({
 const Note = mongoose.model("Note", NoteSchema);
 
 module.exports = Note;
+

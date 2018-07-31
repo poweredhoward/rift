@@ -24,7 +24,7 @@ class PDF extends Component {
     var query_url = "/" + this.props.id + "/pdf"
       axios.get(query_url).then(result =>{
           console.log("done with pdf get");
-          console.log(result.data);
+          // console.log(result.data);
           this.setState({doc:result.data});
           this.setState({docname: this.props.name});
     //       const file = new Blob(
@@ -53,8 +53,8 @@ class PDF extends Component {
     return (
       <div style={this.divstyle}>
         <Document 
-          // file={this.state.docname}
-        file ={{data: this.state.doc}}
+          file={this.state.docname}
+        // file ={{data: this.state.doc}}
           onLoadSuccess={this.onDocumentLoad}
         >
           <Page  pageNumber={pageNumber} />

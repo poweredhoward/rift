@@ -8,5 +8,6 @@ module.exports = {
     Note: require("./Note"),
     Post: require("./Post"),
     Response: require("./Response"),
+    Doc: require("./Doc")
 };
   
