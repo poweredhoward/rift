@@ -143,7 +143,12 @@ router.get("/:unit/notes", (req, res) =>{
     db.Unit.findOne({_id: req.params.unit})
     .populate("notes")
     .then(results =>{
-        res.send(results.notes);
+        // console.log(results.notes);
+        
+        var return_arr = results.notes.map(function(n){
+            return {id: n._id , title: n.title}
+        });
+        res.send(return_arr);
     })
 })
 
