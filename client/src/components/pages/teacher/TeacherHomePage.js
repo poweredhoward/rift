@@ -50,8 +50,9 @@ class TeacherHomePage extends React.Component {
                     username: res.data.user.username,
                     teacherid: res.data.user._id, 
                     key: res.data.classroomInfo.classKey, classroomId:res.data.classroomInfo._id,classroomName:res.data.classroomInfo.className});
+
                 this.getUnits()
-                
+                this.getNotes(this.currentUnit)
                
               }
             //   redirect if user is not logged in
@@ -84,7 +85,12 @@ class TeacherHomePage extends React.Component {
 
             //adds info for each unit
             if(res.data[0] !== undefined){
-                this.setState({units:res.data, currentUnitName:res.data[0].name});
+                // console.log(res.data[0])
+                this.setState({
+                    units:res.data 
+                    // currentUnitName:res.data[0].name,
+                    // currentUnit: res.data[0]._id
+                });
             }
             
         });

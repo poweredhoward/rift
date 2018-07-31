@@ -3,7 +3,7 @@ import PDF from "./PDF"
 import Upload from "./Upload"
 
 const TeacherNote = (props) => {
-    props.getNotes(props.unitId);
+
     console.log("inside teacher note");
 
     return (

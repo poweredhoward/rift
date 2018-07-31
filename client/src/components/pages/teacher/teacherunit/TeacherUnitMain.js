@@ -4,8 +4,12 @@ import TeacherPost from "./TeacherPost";
 const TeacherUnitMain= (props) => { 
         var data;
         var title = props.unitName;
-
+        var alert = <h2>Please select a unit from the sidebar.</h2>
         var students; 
+        if (title !== ""){
+                alert = null;
+                data = null;
+        }
         
 
         if(props.currentChoice==="Students"){
@@ -20,7 +24,13 @@ const TeacherUnitMain= (props) => {
         }
         else if(props.currentChoice==="Posts"){
                 // console.log(props.posts);
-                data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue}></TeacherPost>
+                
+                if( title == ""){
+                        data = null;
+                }
+                else{
+                        data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue}></TeacherPost>
+                }
         } 
     
         return(<div>
@@ -43,6 +53,7 @@ const TeacherUnitMain= (props) => {
                   
 
                 </div>
+                {alert}
                 <h1>{title}</h1>
                 {data}
                 {students}
