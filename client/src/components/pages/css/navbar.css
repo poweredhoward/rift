@@ -6,6 +6,7 @@
     float: left;
     height: 50px;
     background: #16162F;
+    z-index: 99;
 }
 body {
     margin-top: 50px;
