@@ -1,5 +1,6 @@
 import React from "react";
 import TeacherNote from "./TeacherNote";
+import StudentComponent from "./StudentComponent"
 import TeacherPost from "./TeacherPost";
 const TeacherUnitMain= (props) => { 
         var data;
@@ -14,21 +15,10 @@ const TeacherUnitMain= (props) => {
                 // console.log(props.posts);
                 data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue}></TeacherPost>
         }
-        var addStudent;
-        if(props.userType==="student"){
-                console.log("student type");
-                addStudent = "";
+        else if (props.currentChoice==="Students"){
+                data = <StudentComponent addStudent={props.addStudent} userType ={props.userType}></StudentComponent>
         }
-        else{
-                console.log("teacehrt");
-                addStudent= ( 
-                        <div>
-                                <input type="text" id="newStudent" onChange={props.handleInputChange} value={props.newStudent} />
-                                <button type="button" onClick={props.addStudent} className="btn btn-primary">Add student</button>
-                        </div>
-                      )
-                
-        }       
+      
     
         return(<div>
              
@@ -54,8 +44,6 @@ const TeacherUnitMain= (props) => {
 
                 <h1>This is the main component for each unit</h1>
 
-                {addStudent}
-           
 
         </div>
            
