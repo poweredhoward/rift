@@ -25,7 +25,7 @@ class StudentLogin extends React.Component{
         }).then(response=>{
             console.log(response);
             console.log("login successful!")
-            this.props.history.push("/studenthomepage");
+            this.props.history.push("/teacherhomepage");
         }).catch(err=>{
             alert("Please double check your user key and password key!");
             console.log(err);
