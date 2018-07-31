@@ -12,7 +12,7 @@ const TeacherUnitMain= (props) => {
         }
         else if(props.currentChoice==="Posts"){
                 // console.log(props.posts);
-                data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts}></TeacherPost>
+                data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue}></TeacherPost>
         } 
     
         return(<div>
@@ -39,7 +39,7 @@ const TeacherUnitMain= (props) => {
 
                 <h1>This is the main component for each unit</h1>
 
-            <input type="text" id={props.id} onChange={props.handleInputChange} />
+            <input type="text" id="newStudent" onChange={props.handleInputChange} value={props.newStudent} />
             <button type="button" onClick={props.addStudent} className="btn btn-primary">Add student</button>
            
 

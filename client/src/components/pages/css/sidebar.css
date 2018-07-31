@@ -13,3 +13,11 @@
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
 }
+
+p:first-of-type {
+    border-top: 1px black solid;
+}
+
+p {
+    border-bottom: 1px black solid;
+}

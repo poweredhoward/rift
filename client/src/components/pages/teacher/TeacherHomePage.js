@@ -81,7 +81,10 @@ class TeacherHomePage extends React.Component {
         axios.get(`/${this.state.classroomId}/units`).then(res=>{
 
             //adds info for each unit
-            this.setState({units:res.data, currentUnitName:res.data[0].name});
+            if(res.data[0] !== undefined){
+                this.setState({units:res.data, currentUnitName:res.data[0].name});
+            }
+            
         });
     }
     //will show posts for current unit given current UnitID
@@ -115,6 +118,10 @@ class TeacherHomePage extends React.Component {
         }).then(res=>{
             console.log("add was probably successful, check response to be sure:");
             console.log(res);
+            this.setState({
+                newStudent: ""
+            })
+            
         }).catch(err=>{
             console.log(err);
 
@@ -130,6 +137,10 @@ class TeacherHomePage extends React.Component {
             // console.log(res);
             // console.log("added!");
             this.getUnits();
+
+            this.setState({
+                newUnit: ""
+            })
         }).catch(err=>{
             console.log(err);
         });
@@ -157,6 +168,9 @@ class TeacherHomePage extends React.Component {
             console.log("note added");
             this.updateDisplay();
             
+            this.setState({
+                newPost: ""
+            })
         }).catch(err=>{
             console.log(err);
         });
@@ -193,7 +207,7 @@ class TeacherHomePage extends React.Component {
         return(
             <div className="main">
                 
-                <TeacherSidebar selectUnit={this.selectUnit} id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} />
+                <TeacherSidebar selectUnit={this.selectUnit} id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} inputvalue={this.state.newUnit} />
                 
                 
                 <TeacherUnitMain 
@@ -213,7 +227,11 @@ class TeacherHomePage extends React.Component {
                 handleInputChange={this.handleInputChange} 
                 units={this.state.units} 
                 getNotes={this.getNotes}
+                inputvalue={this.state.newPost}
+                newStudent={this.state.newStudent}
+                
                 />
+        
                
             </div>
                 
