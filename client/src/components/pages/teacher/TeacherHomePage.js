@@ -10,6 +10,7 @@ class TeacherHomePage extends React.Component {
 
 
     state = {
+        userType:"", //user type determines if info 
         newResponse:"", //field used to add a new response
         newPost:"", //field used to add a new post
         newNote:"", //field to post a new note
@@ -24,11 +25,10 @@ class TeacherHomePage extends React.Component {
         currentUnitName:"",
         posts:[],//posts for unit 
         notes:[],//notes for selecteed unit
-
         //actually static, used to display the content user wants easily
         mainOptions:[  "Posts", "Notes", "Students"
         ],
-        //default to show ~something in the homepage, can be changed
+        //default to show ~something~ in the homepage, can be changed
         currentChoice: "Posts"
     }
     
@@ -46,22 +46,27 @@ class TeacherHomePage extends React.Component {
             //if there is a session
             if(res.data.user !==undefined){
                 // console.log("loggedIn!");
+                console.log(res.data.userType);
                 this.setState({
+                    userType:res.data.userType,
                     username: res.data.user.username,
-                    teacherid: res.data.user._id, key: res.data.classroomInfo.classKey, classroomId:res.data.classroomInfo._id,classroomName:res.data.classroomInfo.className});
+                    teacherid: res.data.user._id, 
+                    key: res.data.classroomInfo.classKey,
+                     classroomId:res.data.classroomInfo._id,
+                     classroomName:res.data.classroomInfo.className});
                 this.getUnits()
                
               }
             //   redirect if user is not logged in
               else{
                 //   console.log("not logged in");
-                this.props.history.push("/teacherlogin");
+                this.props.history.push("/");
               }
 
         //dealing with error that occurs each time you restart the server
         }).catch(err=>{
            console.log(err);
-           this.props.history.push("/teacherlogin");
+           this.props.history.push("/");
         });
     }
    
@@ -207,10 +212,11 @@ class TeacherHomePage extends React.Component {
         return(
             <div className="main">
                 
-                <TeacherSidebar selectUnit={this.selectUnit} id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} inputvalue={this.state.newUnit} />
+                <TeacherSidebar userType= {this.state.userType} selectUnit={this.selectUnit} id="newUnit" addUnit={this.addUnit} handleInputChange={this.handleInputChange}  units={this.state.units} inputvalue={this.state.newUnit} />
                 
                 
-                <TeacherUnitMain 
+                <TeacherUnitMain
+                userType= {this.state.userType}
                 currentChoice = {this.state.currentChoice}
                 infoChoice={this.infoChoice} 
                 logout={this.logout}

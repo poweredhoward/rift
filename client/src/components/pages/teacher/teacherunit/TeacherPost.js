@@ -16,7 +16,7 @@ const TeacherPost = (props) => {
             </div>
             )
         )}
-          <input type="text" id="newResponse" onChange={props.handleInputChange} id="newPost" value={props.inputvalue}/>
+          <input type="text" onChange={props.handleInputChange} id="newPost" value={props.inputvalue}/>
             <button type="button"  onClick={props.addPost}>Add Post</button>
 
               </div>

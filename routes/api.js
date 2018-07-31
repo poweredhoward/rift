@@ -241,10 +241,13 @@ router.get("/:post/responses", (req, res) =>{
     });
    
 
+
+
   
  }); // end of '/teacherlogin/create
 
 router.post("/studentlogin/verify", (req, res)=>{
+    console.log("this is the route");
     db.Classroom.find({key:req.body.classroomkey}).populate("students").then(results=>{
         console.log(results);
         var students = results[0].students;
@@ -265,8 +268,15 @@ router.post("/studentlogin/verify", (req, res)=>{
             console.log("all good");
             res.cookie("token", currentStudent.token );
             req.session.userType="student";
-            req.session.classroom = results[0]._id;
+            req.session.classroomInfo = {
+                className:results[0].name,
+                classKey: results[0].key,
+                _id: results[0]._id
+            }
+
+            // req.session.classroom = results[0]._id;
             req.session.user= currentStudent;
+            console.log("this is fine");
             res.send(req.session);
         }
         else{
@@ -338,13 +348,22 @@ router.post("/studentlogin/verify", (req, res)=>{
 
  //route used to verify if a user is logged in and to give front end miscellaneous info
  router.get("/getsession", (req, res)=>{
-     res.send(req.session);
- });
+    console.log("========================"); 
+    console.log("========================"); 
+    console.log("========================"); 
+    console.log("========================"); 
 
- //adding classroomKey and className to session (FOR TEACHER'S SIDE ONLY--NO NEED FROM STUDENT SIDE)
+    console.log(req.session); 
+    res.send(req.session);
+ })
+
+ //adding classroomKey and className to session (teacher only)
  router.post("/session/addclassroom", (req,res)=>{
      console.log(req.body);
-     req.session.classroomInfo = {className: req.body.className, classKey: req.body.classKey,_id:req.body._id }
+     req.session.classroomInfo = {
+    className: req.body.className, 
+    classKey: req.body.classKey,
+    _id:req.body._id }
      res.send(req.session);
  })
 
