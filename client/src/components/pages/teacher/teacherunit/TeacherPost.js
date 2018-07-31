@@ -2,19 +2,20 @@ import React from "react";
 import Dashboard from "./modal/Dashboard";
 
 const TeacherPost = (props) => {
-    
+    var posts = props.posts.reverse()
     return (<div>
             <Dashboard unitId={props.unitId} />
-            {props.posts.map(item=>
+            {posts.map(item=>
                 (
-                <div  key={item._id}>
-                    <h4>{item.data}</h4>
-                    {item.responses.map(item=>
+                <div className="posts" key={item._id}>
+                    <h3>{item.title}</h3>
+                    <h5>{item.data}</h5>
+                    {/* {item.responses.map(item=>
                         (<h6 key={item._id}>{item.data}</h6>)
                     )}
                 
                     <input type="text" onChange={props.handleInputChange} id="newResponse" />
-                    <button type="button"  onClick={()=>props.addResponse(item._id)}>Add Response</button>
+                    <button type="button"  onClick={()=>props.addResponse(item._id)}>Add Response</button> */}
                 </div>
                 )
             )}

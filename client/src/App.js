@@ -5,6 +5,7 @@ import "./components/pages/css/teacherclassselect.css"
 import "./components/pages/css/sidebar.css"
 import "./components/pages/css/navbar.css"
 import "./components/pages/css/modal.css"
+import "./components/pages/css/posts.css"
 
 
 // import axios from "axios";
