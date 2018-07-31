@@ -16,20 +16,18 @@ const TeacherNote = (props) => {
 
                 if(note.title.split(".")[1] === "pdf"){
                     return(
-                        <div key={k}>
-                            Note: {note.title}
+                        <details key={k}>
+                            <summary>{note.title}</summary>
                             <PDF id={note.id} name={"/" + note.title}/>
-                            {/* <Docx id={note.id} name={"/" + note.title} /> */}
-                        </div>
+                        </details>
                     )
                 }
                 else{
                     return(
-                        <div key={k}>
-                            Note: {note.title}
-                            {/* <PDF id={note.id} name={"/" + note.title}/> */}
+                        <details key={k}>
+                            <summary>{note.title}</summary>
                             <Docx id={note.id} name={"/" + note.title} />
-                        </div>
+                        </details>
                     )
                 }
                 
