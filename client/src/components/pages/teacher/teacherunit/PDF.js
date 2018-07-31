@@ -25,7 +25,7 @@ class PDF extends Component {
       axios.get(query_url).then(result =>{
           console.log("done with pdf get");
           // console.log(result.data);
-          this.setState({doc:result.data});
+
           this.setState({docname: this.props.name});
     //       const file = new Blob(
     //           [Response.data],

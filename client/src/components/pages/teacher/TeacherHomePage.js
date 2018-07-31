@@ -48,8 +48,10 @@ class TeacherHomePage extends React.Component {
                 // console.log("loggedIn!");
                 this.setState({
                     username: res.data.user.username,
-                    teacherid: res.data.user._id, key: res.data.classroomInfo.classKey, classroomId:res.data.classroomInfo._id,classroomName:res.data.classroomInfo.className});
+                    teacherid: res.data.user._id, 
+                    key: res.data.classroomInfo.classKey, classroomId:res.data.classroomInfo._id,classroomName:res.data.classroomInfo.className});
                 this.getUnits()
+                
                
               }
             //   redirect if user is not logged in
@@ -215,7 +217,7 @@ class TeacherHomePage extends React.Component {
                 infoChoice={this.infoChoice} 
                 logout={this.logout}
                 options={this.state.mainOptions} 
-                unitId={this.state.id}
+                unitId={this.state.currentUnit}
                 id={this.state.teacherid} 
                 username={this.state.username}
                 unitName={this.state.currentUnitName} 

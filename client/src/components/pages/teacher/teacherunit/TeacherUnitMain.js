@@ -3,12 +3,20 @@ import TeacherNote from "./TeacherNote";
 import TeacherPost from "./TeacherPost";
 const TeacherUnitMain= (props) => { 
         var data;
+        var title = props.unitName;
+
+        var students; 
+        
+
         if(props.currentChoice==="Students"){
-                data = <h1>This is Students</h1>
+                data = <h1>Students</h1>
+                students = <div><input type="text" id="newStudent" onChange={props.handleInputChange} value={props.newStudent} /><button type="button" onClick={props.addStudent} className="btn btn-primary">Add student</button></div>
+                title = null;
         }
         else if(props.currentChoice==="Notes"){
                 
-                data = <TeacherNote notes={props.notes} getNotes={props.getNotes} id={props.id}/>
+                data = <TeacherNote notes={props.notes} getNotes={props.getNotes} id={props.id} unitId={props.unitId} />
+
         }
         else if(props.currentChoice==="Posts"){
                 // console.log(props.posts);
@@ -18,7 +26,7 @@ const TeacherUnitMain= (props) => {
         return(<div>
              
                 <div id="navbar"  >
-                  <ul className="nav  d-flex flex-row-reverse " >
+                  <ul className="nav  d-flex flex-row-reverse" >
                   <li className="nav-item ">
                         <a className="nav-link active" href="###" id="user" onClick={props.logout} > Logout </a>
                 </li>
@@ -35,12 +43,11 @@ const TeacherUnitMain= (props) => {
                   
 
                 </div>
+                <h1>{title}</h1>
                 {data}
+                {students}
 
-                <h1>This is the main component for each unit</h1>
 
-            <input type="text" id="newStudent" onChange={props.handleInputChange} value={props.newStudent} />
-            <button type="button" onClick={props.addStudent} className="btn btn-primary">Add student</button>
            
 
         </div>

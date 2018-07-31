@@ -22,7 +22,7 @@ class Upload extends React.Component {
     this.setState({file:e.target.files[0]})
   }
   fileUpload(file){
-    const url = 'http://localhost:3001/upload';
+    const url = `/new/${this.props.unitId}/note`;
     const formData = new FormData();
     formData.append('file',file)
     const config = {
