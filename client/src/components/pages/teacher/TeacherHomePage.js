@@ -88,6 +88,7 @@ class TeacherHomePage extends React.Component {
     getPosts=(id)=>{
         axios.get(`/${id}/posts`).then(res=>{
             this.setState({posts:res.data});
+            console.log("these are all the posts with populated responses: ");
             console.log(this.state.posts);
         });
          
@@ -102,11 +103,14 @@ class TeacherHomePage extends React.Component {
      addStudent = ()=>{
         console.log(this.state.newStudent);
         axios.post(`/new/${this.state.classroomId}/student`, {name:this.state.newStudent,
+        //token created in the front instead of backend, shouldnt really make a difference
          token: `t${Math.random()}`,
          email: "hello@hello.com",
+         //should teacher make a key or be randomly be assigned, should it even be made in the front? 
          key: this.state.key
          
         }).then(res=>{
+            console.log("add was probably successful, check response to be sure:");
             console.log(res);
         }).catch(err=>{
             console.log(err);
