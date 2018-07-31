@@ -29,7 +29,7 @@ const TeacherUnitMain= (props) => {
                         data = null;
                 }
                 else{
-                        data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue}></TeacherPost>
+                        data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue} unitId={props.unitId}></TeacherPost>
                 }
         }
        

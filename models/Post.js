@@ -8,7 +8,8 @@ const postSchema = new Schema({
     }],
     flag_author_type: ["student", "teacher"],
     isPublic: Boolean,
-    data: String
+    data: String,
+    title: String
 });
 
 const Post = mongoose.model("Post", postSchema);
