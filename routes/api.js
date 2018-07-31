@@ -246,9 +246,11 @@ router.get("/:post/responses", (req, res) =>{
   
  }); // end of '/teacherlogin/create
 
+ 
 router.post("/studentlogin/verify", (req, res)=>{
     console.log("this is the route");
     db.Classroom.find({key:req.body.classroomkey}).populate("students").then(results=>{
+        console.log("found classroom key");
         console.log(results);
         var students = results[0].students;
         console.log(students);
@@ -259,6 +261,7 @@ router.post("/studentlogin/verify", (req, res)=>{
                 console.log("found");
                 found = true;
                 currentStudent = students[i];
+                break;
             }else{
                 console.log("not found");
                 found = false;
@@ -348,12 +351,7 @@ router.post("/studentlogin/verify", (req, res)=>{
 
  //route used to verify if a user is logged in and to give front end miscellaneous info
  router.get("/getsession", (req, res)=>{
-    console.log("========================"); 
-    console.log("========================"); 
-    console.log("========================"); 
-    console.log("========================"); 
-
-    console.log(req.session); 
+  
     res.send(req.session);
  })
 
@@ -366,6 +364,9 @@ router.post("/studentlogin/verify", (req, res)=>{
     _id:req.body._id }
      res.send(req.session);
  })
+
+ //function to create random keys
+ 
 
 
 module.exports = router;

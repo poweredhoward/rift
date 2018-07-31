@@ -10,6 +10,7 @@ class TeacherHomePage extends React.Component {
 
 
     state = {
+        studentEmailInput:"",//track of student email similar to newStudent
         userType:"", //user type determines if info 
         newResponse:"", //field used to add a new response
         newPost:"", //field used to add a new post
@@ -116,15 +117,34 @@ class TeacherHomePage extends React.Component {
         })
     }
 
+    //function will add a random key to student
+    makeToken = (len) => {
+        // pool of possible letters and numbers
+        let pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      
+        // starting token string
+        let str = "";
+      
+        // going up to the length (len), grab a random index from the pool and add it to the string
+        for (let i = 0; i < len; i++) {
+          str += pool.charAt(Math.floor(Math.random() * pool.length));
+        }
+      
+        return str;
+      }
+
      //temporary method to add a student, be mindful of hardcoded data 
      addStudent = ()=>{
+         console.log("adding student");
+
         console.log(this.state.newStudent);
-        axios.post(`/new/${this.state.classroomId}/student`, {name:this.state.newStudent,
+        axios.post(`/new/${this.state.classroomId}/student`, {
+        name:this.state.newStudent,
         //token created in the front instead of backend, shouldnt really make a difference
          token: `t${Math.random()}`,
-         email: "hello@hello.com",
+         email: this.state.studentEmailInput,
          //should teacher make a key or be randomly be assigned, should it even be made in the front? 
-         key: this.state.key
+         key: this.makeToken(6)
          
         }).then(res=>{
             console.log("add was probably successful, check response to be sure:");
