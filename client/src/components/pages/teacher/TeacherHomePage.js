@@ -25,12 +25,10 @@ class TeacherHomePage extends React.Component {
         currentUnitName:"",
         posts:[],//posts for unit 
         notes:[],//notes for selecteed unit
-
         //actually static, used to display the content user wants easily
         mainOptions:[  "Posts", "Notes", "Students"
         ],
-        
-        //default to show ~something in the homepage, can be changed
+        //default to show ~something~ in the homepage, can be changed
         currentChoice: "Posts"
     }
     
@@ -48,8 +46,9 @@ class TeacherHomePage extends React.Component {
             //if there is a session
             if(res.data.user !==undefined){
                 // console.log("loggedIn!");
+                console.log(res.data.userType);
                 this.setState({
-                    userType:res.data.user.userType,
+                    userType:res.data.userType,
                     username: res.data.user.username,
                     teacherid: res.data.user._id, 
                     key: res.data.classroomInfo.classKey,
@@ -67,7 +66,7 @@ class TeacherHomePage extends React.Component {
         //dealing with error that occurs each time you restart the server
         }).catch(err=>{
            console.log(err);
-           this.props.history.push("/teacherlogin");
+        //    this.props.history.push("/teacherlogin");
         });
     }
    

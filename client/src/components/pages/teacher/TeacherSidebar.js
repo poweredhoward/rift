@@ -4,7 +4,7 @@ import React from "react";
  const TeacherSidebar = (props) => {
 
     var button;
-    if(props.userType ==="Student"){
+    if(props.userType ==="student"){
         console.log("student type");
         button ="";
     }

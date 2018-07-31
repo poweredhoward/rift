@@ -15,7 +15,7 @@ const TeacherUnitMain= (props) => {
                 data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue}></TeacherPost>
         }
         var addStudent;
-        if(props.userType==="Student"){
+        if(props.userType==="student"){
                 console.log("student type");
                 addStudent = "";
         }
