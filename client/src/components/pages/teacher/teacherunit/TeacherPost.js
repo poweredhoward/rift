@@ -1,13 +1,18 @@
 import React from "react";
 
 const TeacherPost = (props) => {
-    // console.log(props);
+    console.log(props);
+    
 
     return (<div>
             {props.posts.map(item=>
             (
             <div>
             <h4 key={item._id}>{item.data}</h4>
+             {item.responses.map(item=>
+                 (<h6>{item.data}</h6>)
+             )}
+           
             <input type="text" onChange={props.handleInputChange} id="newResponse" />
             <button type="button"  onClick={()=>props.addResponse(item._id)}>Add Response</button>
             </div>

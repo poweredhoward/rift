@@ -151,10 +151,18 @@ router.get("/:unit/notes", (req, res) =>{
 //get all posts in a unit given unit id
 router.get("/:unit/posts", (req, res) =>{
     db.Unit.findOne({_id: req.params.unit})
-    .populate("posts").populate("responses")
-    .then(results =>{
+    .populate({
+        path: "posts",
+        populate:{
+            path:"responses",
+            model:"Response"
+        }
+    }).exec((err,results)=>{
         res.send(results.posts);
     })
+    // .then(results =>{
+    //     res.send(results.posts);
+    // })
 })
 
 //get all the teacher's classrooms given a teacher id
