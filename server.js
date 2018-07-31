@@ -106,17 +106,34 @@ app.post("/new/:unit/note", upload.single('file'), function(req, res){
 // Instructions to use:
 // axios call this function and save res.date into a state variable
 //inside return <div dangerouslySetInnerHTML={{ __html: this.state.varable }}></div>
-app.get("/mammoth", (req, res) =>{
+app.get("/:note/mammoth", (req, res) =>{
   console.log("inside mammoth");
-  //MUST CHANGE TO DOCUMENT STORED ON THE SERVER
-  mammoth.convertToHtml({path: "uploads/resume.docx"})
-    .then(function(result){
-        var html = result.value; // The generated HTML
-        // console.log(html);
-        var messages = result.messages; // Any messages, such as warnings during conversion
-        res.send(html);
-    })
-    // .done();
+  db.Note.findById({_id : req.params.note}, (err, foundNote)=> {
+      db.Doc.findById({_id: foundNote.file}, (err, foundDoc) =>{
+          if (err) throw err;
+          try{
+            fs.writeFileSync("uploads/" + foundNote.title, foundDoc.data);
+            console.log("Stored a file to uploads");
+            console.log("Done!");
+
+            //MUST CHANGE TO DOCUMENT STORED ON THE SERVER
+            mammoth.convertToHtml({path: "uploads/" + foundNote.title})
+            .then(function(result){
+                var html = result.value; // The generated HTML
+                // console.log(html);
+                var messages = result.messages; // Any messages, such as warnings during conversion
+                res.send(html);
+            })
+            // .done();
+    
+            
+        }catch(e){
+            console.log(e);
+        }
+
+      })
+  })
+  
 });
 
 //Send pdf file to front end
