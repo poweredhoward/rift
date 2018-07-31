@@ -60,13 +60,13 @@ class TeacherHomePage extends React.Component {
             //   redirect if user is not logged in
               else{
                 //   console.log("not logged in");
-                this.props.history.push("/teacherlogin");
+                this.props.history.push("/");
               }
 
         //dealing with error that occurs each time you restart the server
         }).catch(err=>{
            console.log(err);
-        //    this.props.history.push("/teacherlogin");
+           this.props.history.push("/");
         });
     }
    
