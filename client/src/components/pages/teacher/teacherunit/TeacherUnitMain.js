@@ -32,17 +32,9 @@ const TeacherUnitMain= (props) => {
                         data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue}></TeacherPost>
                 }
         }
-        else if (props.currentChoice==="Students"){
-                data = <StudentComponent addStudent={props.addStudent} userType ={props.userType}></StudentComponent>
-        }
+       
         else{
-                console.log("teacehrt");
-                addStudent= ( 
-                        <div>
-                                <input type="text" id="newStudent" onChange={props.handleInputChange} value={props.newStudent} />
-                                <button type="button" onClick={props.addStudent} className="btn btn-primary">Add student</button>
-                        </div>
-                      )
+              
                 
         }       
                 
