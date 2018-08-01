@@ -7,7 +7,7 @@ const TeacherPost = (props) => {
             <Dashboard unitId={props.unitId} />
             {posts.map(item=>
                 (
-                <div className='container'>
+                <div className='post_wrapper'>
                     <div className='row'>
                         <div className='col-md-12'>
                             <div className ="card postCard" key={item._id}>
@@ -25,7 +25,7 @@ const TeacherPost = (props) => {
                                     </ul>
                                    
                                     <input type="text" onChange={props.handleInputChange} id="newResponse" />
-                                    <button className='btn btn-dark' type="button"  onClick={()=>props.addResponse(item._id)}>Add Response</button>
+                                    <button className='btn btn-dark btn-block' type="button"  onClick={()=>props.addResponse(item._id)}>Add Response</button>
                                 
                             </div>
                         </div>

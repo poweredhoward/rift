@@ -45,7 +45,7 @@ class Dashboard extends React.Component {
                     <p>Modal</p>
                     <p>Data</p>
                 </Modal>
-                <button className='btn btn-dark' type='button' onClick={this.showModal}>Add Post</button>
+                <button className='btn btn-dark btn-block' type='button' onClick={this.showModal}>Add Post</button>
             </main>
         )
     }
