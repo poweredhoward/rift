@@ -10,7 +10,7 @@ class TeacherHomePage extends React.Component {
 
 
     state = {
-        students:[],
+        students:[], //array of stidents in the classroom
         studentEmailInput:"",//track of student email similar to newStudent
         userType:"", //user type determines if info 
         newResponse:"", //field used to add a new response
@@ -87,13 +87,13 @@ class TeacherHomePage extends React.Component {
     }
 
     //function adds current view to session so refresh doesnt change it
-    setCurrentView = (id, name)=>{
+    setCurrentView = (id, name, choice )=>{
         // console.log("setting current view");
         axios.post(`/session/currentview`,
          {
           currentUnitName: name,
           currentUnit: id, 
-          currentChoice: this.state.currentChoice
+          currentChoice: choice
         }).then(res=>{
             console.log("all good? check res below");
             console.log(res);
@@ -111,7 +111,7 @@ class TeacherHomePage extends React.Component {
         this.setState({currentUnit:id, currentUnitName: name});
         this.getNotes(id);
         this.getPosts(id);
-        this.setCurrentView(id, name);
+        this.setCurrentView(id, name, this.state.currentChoice);
         
     
     }
@@ -307,7 +307,7 @@ class TeacherHomePage extends React.Component {
     infoChoice = (choice)=>{
         // console.log(choice);
         this.setState({currentChoice: choice});
-        this.setCurrentView()
+        this.setCurrentView(this.state.currentUnit, this.state.currentUnitName,choice )
         
     }
 
