@@ -2,6 +2,7 @@ import React from "react";
 // import Dashboard from "./modal/Dashboard";
 import Modal from "./modal/Modal";
 
+//Show posts and responses
 const TeacherPost = (props) => {
     var posts = props.posts
     return (<div>
@@ -12,9 +13,9 @@ const TeacherPost = (props) => {
             updateDisplay={props.updateDisplay} 
             unitId={props.unitId} 
             handleSubmit={props.handleSubmit}
-             handleInputChange={props.handleInputChange}
+            handleInputChange={props.handleInputChange}
             title={props.posttitle}
-             body={props.postbody}/>
+            body={props.postbody}/>
               <button className='btn btn-dark' type='button' onClick={props.showModal}>Add Post</button>
             {posts.map(item=>
                 (

@@ -2,10 +2,8 @@ import React from "react";
 import StudentsUpload from "./StudentsUpload";
 import axios from "axios";
 
-
-
+//Page to display and add students
 const StudentComponent = (props) =>{
-
 
    var studentContent= (
             <table>
@@ -24,9 +22,7 @@ const StudentComponent = (props) =>{
                     <th scope="row">{i+1}</th>
                     <td>{item.name}</td>
                     <td>{item.email}</td>
-                    {props.userType==="teacher" ?  <td>{item.key}</td> : null }
-
-                   
+                    {props.userType==="teacher" ?  <td>{item.key}</td> : null }                   
 
                     </tr>
                 )
@@ -34,24 +30,22 @@ const StudentComponent = (props) =>{
                 )}
 
                 </tbody>
-            </table>
-                
-            
+            </table>            
             
             );
-
-    
-    
-    
-  
-     
-        
- 
 
     var formContent =<h1>Students</h1>;
     if(props.userType==="student"){
             // console.log("student type");
             formContent = "";
+    }
+
+    var uploadContent = null;
+    if(props.userType === "teacher"){
+        uploadContent = <div>
+                <h2>Or Add Multiple Students With a Text File</h2>
+                <StudentsUpload classroomId={props.classroomId} getStudents={props.getStudents}/>
+            </div>
     }
     else{
             // console.log("teacher");
@@ -83,10 +77,7 @@ const StudentComponent = (props) =>{
             <h1>Students</h1>
             {studentContent}
             {formContent}
-            <h2>Or Add Multiple Students With a Text File</h2>
-            <div>
-                <StudentsUpload classroomId={props.classroomId} getStudents={props.getStudents}/>
-            </div>
+            {uploadContent}
         </div>
     )
 }

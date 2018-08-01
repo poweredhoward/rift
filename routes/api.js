@@ -1,6 +1,6 @@
 const router = require("express").Router();
 var db = require("../models");
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
 
 
 
@@ -286,7 +286,7 @@ router.post("/studentlogin/verify", (req, res)=>{
         // console.log("found classroom key");
         // console.log(results);
         var students = results[0].students;
-        console.log(students);
+        // console.log(students);
         var found = false;
         var currentStudent;
         for (var i = 0; i<students.length;i++){
@@ -409,9 +409,6 @@ router.post("/studentlogin/verify", (req, res)=>{
      res.send(req.session);
 
  });
-
-
- 
 
 
 module.exports = router;

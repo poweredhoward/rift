@@ -77,11 +77,12 @@ class TeacherHomePage extends React.Component {
         });
       
     }
+
     //get request to retrieve session data 
     componentDidMount(){
         axios.get("/getsession").then(res=>{
             console.log("Session data: ");
-            console.log(res);
+            // console.log(res);
             //if there is a session
             if(res.data.user !==undefined){
                 // console.log("loggedIn!");
@@ -132,7 +133,7 @@ class TeacherHomePage extends React.Component {
           currentChoice: choice
         }).then(res=>{
             console.log("all good? check res below");
-            console.log(res);
+            // console.log(res);
         }).catch(err=>{
             console.log("ERROR: ");
             console.log(err);
@@ -189,8 +190,8 @@ class TeacherHomePage extends React.Component {
     //get student data for classroom
     getStudents = (id)=>{
         // console.log("get students ");
-        axios.get(`/${id}/students`).then(res=>{
-            console.log(res);
+        axios.get(`${this.state.classroomId}/students`).then(res=>{
+            // console.log(res);
             this.setState({students:res.data});
         }).catch(err=>{
             console.log(err);
@@ -227,10 +228,10 @@ class TeacherHomePage extends React.Component {
             axios.post(`/new/${this.state.classroomId}/student`, {
             name:this.state.newStudent,
             //token created in the front instead of backend, shouldnt really make a difference
-             token: `t${Math.random()}`,
-             email: this.state.studentEmailInput,
-             //should teacher make a key or be randomly be assigned, should it even be made in the front? 
-             key: this.makeToken(6)
+            token: `t${Math.random()}`,
+            email: this.state.studentEmailInput,
+            //should teacher make a key or be randomly be assigned, should it even be made in the front? 
+            key: this.makeToken(6)
              
             }).then(res=>{
                 console.log("add was probably successful, check response to be sure:");
@@ -283,11 +284,6 @@ class TeacherHomePage extends React.Component {
 
     }
 
-    //add a new note
-    addNote(){
-        console.log(this.state.newNote);
-
-    }
 
     // //add a new post
     // addPost =() =>{
@@ -311,13 +307,14 @@ class TeacherHomePage extends React.Component {
     //     }
        
     // }
+
     //add a new response
     addResponse = (id)=>{
         if(this.state.newResponse===""){
             alert("Please write a response before submitting!");
         }
         else{
-            console.log(this.state.newResponse)
+            // console.log(this.state.newResponse)
             axios.post(`new/${id}/response`,{data:this.state.newResponse}).then(res=>{
                 console.log("response added");
                 this.updateDisplay(this.state.currentUnit);
@@ -384,9 +381,6 @@ class TeacherHomePage extends React.Component {
                 showModal={this.showModal}
                 hideModal={this.hideModal}
                 handleSubmit={this.handleSubmit}
-                classroomId ={this.state.classroomId}
-                getStudents={this.getStudents}
-                
                 />
         
                
