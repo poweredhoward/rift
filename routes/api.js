@@ -279,7 +279,7 @@ router.get("/:post/responses", (req, res) =>{
 
  
 router.post("/studentlogin/verify", (req, res)=>{
-    console.log("this is the route");
+    // console.log("this is the route");
     db.Classroom.find({key:req.body.classroomkey}).populate("students").then(results=>{
         // console.log("found classroom key");
         // console.log(results);
@@ -318,7 +318,7 @@ router.post("/studentlogin/verify", (req, res)=>{
         }
        
     }).catch(err=>{
-        console.log("==================")
+        // console.log("==================")
         console.log(err);
         return res.status(404).end();
         
@@ -328,7 +328,7 @@ router.post("/studentlogin/verify", (req, res)=>{
 
 //route created to verify if teacher user already exists 
  router.post("/teacherlogin/verify", (req,res)=>{
-     console.log("sent data"); 
+    //  console.log("sent data"); 
     //  console.log(req.body);
     db.Teacher.find().then(results=>{
         // console.log(results);
@@ -351,7 +351,7 @@ router.post("/studentlogin/verify", (req, res)=>{
                 //     token: req.body.token
                 // }
                 var currentUser = users[i];
-                console.log(currentUser);
+                // console.log(currentUser);
                 res.cookie("token", users[i].token);
                 console.log("user found");
                 loopCheck = true;

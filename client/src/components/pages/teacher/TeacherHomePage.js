@@ -88,7 +88,7 @@ class TeacherHomePage extends React.Component {
                 // console.log(res.data.userType);
                 this.setState({
                     userType:res.data.userType,
-                    username: res.data.user.username,
+                    username: res.data.user.username ||res.data.user.name,
                     teacherid: res.data.user._id, 
                     key: res.data.classroomInfo.classKey,
                      classroomId:res.data.classroomInfo._id,
