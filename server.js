@@ -81,6 +81,7 @@ app.post("/studentsfile/:classroom", upload.single("file"), (req, res) =>{
           }
           students.push(entry);
         db.Student.create(entry).then(function(dbStudent) {
+            setTimeout(function(){ var i }, 40);
 
         return db.Classroom.findOneAndUpdate
             ({_id: req.params.classroom}, { $push: { students: dbStudent._id } }, { new: true }
