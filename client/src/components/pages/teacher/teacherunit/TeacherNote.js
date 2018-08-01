@@ -10,7 +10,6 @@ const TeacherNote = (props) => {
     return (
         <div>
         <h1>This is where all notes go</h1>
-        {/* For now assume only pdf notes */}
         <div>
             <Upload unitId={props.unitId}/>
         </div>

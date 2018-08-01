@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
 var upload = multer({ dest: 'uploads' });
+var readline = require('readline');
+var stream = require('stream');
 
 var session = require("express-session");
 const fs = require("fs");
@@ -38,6 +40,65 @@ var upload = multer({ dest: "uploads/" })
 //   }
 // });
 // var upload = multer({ storage: storage })
+
+app.post("/studentsfile/:classroom", upload.single("file"), (req, res) =>{
+    console.log("Inside students file");
+
+    function makeToken(len){
+        let pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        let str = "";
+        for (let i = 0; i < len; i++) {
+          str += pool.charAt(Math.floor(Math.random() * pool.length));
+        } 
+        return str;
+    }
+
+
+    var instream = fs.createReadStream(req.file.path);
+    var outstream = new stream;
+    var rl = readline.createInterface(instream, outstream);
+    
+    var arr = [];
+    
+    rl.on('line', function(line) {
+      // process line here
+      arr.push(line);
+    
+    });
+    
+    rl.on('close', function() {
+      // do something on finish here
+      var students = [];
+      arr.forEach(function(s){
+          var line = s.split(" ");
+          var email = line[line.length - 1];
+          var name = line.slice(0,line.length - 1).join(" ");
+          var entry = {
+              name: name,
+              email: email,
+              token: `t${Math.random()}`,
+              key: makeToken(6)
+          }
+          students.push(entry);
+        db.Student.create(entry).then(function(dbStudent) {
+
+        return db.Classroom.findOneAndUpdate
+            ({_id: req.params.classroom}, { $push: { students: dbStudent._id } }, { new: true }
+            );
+    
+        }).then(function(dbClassroom) {
+    
+            res.json(dbClassroom);
+    
+        }).catch(function(err) {
+    
+            // res.json(err);
+        });
+    
+      })
+      console.log('students', students);
+    });
+})
 
 
 app.post("/new/:unit/note", upload.single('file'), function(req, res){

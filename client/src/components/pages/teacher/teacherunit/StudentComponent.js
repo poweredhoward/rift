@@ -1,4 +1,6 @@
 import React from "react";
+import StudentsUpload from "./StudentsUpload"
+
 
 const StudentComponent = (props) =>{
 
@@ -78,6 +80,10 @@ const StudentComponent = (props) =>{
             <h1>Students</h1>
             {studentContent}
             {formContent}
+            <h2>Or Add Multiple Students With a Text File</h2>
+            <div>
+                <StudentsUpload classroomId={props.classroomId} getStudents={props.getStudents}/>
+            </div>
         </div>
     )
 }
