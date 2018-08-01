@@ -20,6 +20,7 @@ class Upload extends React.Component {
   }
   onChange(e) {
     this.setState({file:e.target.files[0]})
+   
   }
   fileUpload(file){
     const url = `/new/${this.props.unitId}/note`;
@@ -33,12 +34,19 @@ class Upload extends React.Component {
     return  post(url, formData,config)
   }
 
-  render() {
+  render()
+  {
+    var button = ""
+
+    if(this.state.file!==null){
+     button=  <button type="submit">Upload</button>
+
+    }
     return (
       <form onSubmit={this.onFormSubmit}>
         <h1>File Upload</h1>
         <input type="file" onChange={this.onChange} />
-        <button type="submit">Upload</button>
+        {button}
       </form>
    )
   }

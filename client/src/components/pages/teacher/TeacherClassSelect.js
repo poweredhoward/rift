@@ -14,6 +14,21 @@ class TeacherClassSelect extends React.Component {
         classroomName: ""
     }//end of state
 
+    //will be used to create classroomId of user
+    makeToken = (len) => {
+        // pool of possible letters and numbers
+        let pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      
+        // starting token string
+        let str = "c";
+      
+        // going up to the length (len), grab a random index from the pool and add it to the string
+        for (let i = 0; i < len; i++) {
+          str += pool.charAt(Math.floor(Math.random() * pool.length));
+        }
+      
+        return str;
+      }
 
 
     componentDidMount(){
@@ -50,7 +65,7 @@ class TeacherClassSelect extends React.Component {
             inputbox.value = ""
             var obj = {
                 name: this.state.classroomName,
-                key: Math.random()
+                key: this.makeToken(6)
             }
             axios.post(`/new/${this.state.teacherid}/classroom`, obj)
             .then((res) => {
