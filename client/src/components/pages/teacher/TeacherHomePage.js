@@ -43,12 +43,12 @@ class TeacherHomePage extends React.Component {
     //get request to retrieve session data 
     componentDidMount(){
         axios.get("/getsession").then(res=>{
-            console.log("Session data: ");
-            console.log(res);
+            // console.log("Session data: ");
+            // console.log(res);
             //if there is a session
             if(res.data.user !==undefined){
                 // console.log("loggedIn!");
-                console.log(res.data.userType);
+                // console.log(res.data.userType);
                 this.setState({
                     userType:res.data.userType,
                     username: res.data.user.username,
@@ -56,9 +56,9 @@ class TeacherHomePage extends React.Component {
                     key: res.data.classroomInfo.classKey,
                      classroomId:res.data.classroomInfo._id,
                      classroomName:res.data.classroomInfo.className});
-                this.getUnits()
+                this.getUnits(res.data.classroomInfo._id)
                 this.getNotes(this.currentUnit)
-                this.getStudents();
+                this.getStudents(res.data.classroomInfo._id);
                
               }
             //   redirect if user is not logged in
@@ -78,7 +78,7 @@ class TeacherHomePage extends React.Component {
     //click on unit sidebar to see its info and set current currentUnitId and currentUnitName
     
     selectUnit = (id, name)=>{//unit id and unit name
-        console.log(`id: ${id} name: ${name}`);
+        // console.log(`id: ${id} name: ${name}`);
         this.setState({currentUnit:id, currentUnitName: name});
         this.getNotes(id);
         this.getPosts(id);
@@ -87,8 +87,8 @@ class TeacherHomePage extends React.Component {
     }
 
      //gets the units using a get request
-     getUnits=()=>{
-        axios.get(`/${this.state.classroomId}/units`).then(res=>{
+     getUnits=(id)=>{
+        axios.get(`/${id}/units`).then(res=>{
 
             //adds info for each unit
             if(res.data[0] !== undefined){
@@ -100,28 +100,29 @@ class TeacherHomePage extends React.Component {
                 });
             }
             
-        });
+        }).catch(err=>{
+            console.log(err)});
     }
     //will show posts for current unit given current UnitID
     getPosts=(id)=>{
         axios.get(`/${id}/posts`).then(res=>{
             this.setState({posts:res.data});
-            console.log("these are all the posts with populated responses: ");
-            console.log(this.state.posts);
+            // console.log("these are all the posts with populated responses: ");
+            // console.log(this.state.posts);
         });
          
     }
     getNotes=(id)=>{
-        console.log("Getting notes");
+        // console.log("Getting notes");
         axios.get(`/${id}/notes`).then(res=>{
 
-            console.log(res);
+            // console.log(res);
             this.setState({notes:res.data});
         })
     }
     //get student data for classroom
-    getStudents = ()=>{
-        console.log("get students ");
+    getStudents = (id)=>{
+        // console.log("get students ");
         axios.get(`${this.state.classroomId}/students`).then(res=>{
             // console.log(res);
             this.setState({students:res.data});
@@ -149,29 +150,37 @@ class TeacherHomePage extends React.Component {
 
      //temporary method to add a student, be mindful of hardcoded data 
      addStudent = ()=>{
-         console.log("adding student");
+         if(this.state.addStudent==="" || this.state.studentEmailInput===""){
+             alert("Please fill all fields!");
 
-        console.log(this.state.newStudent);
-        axios.post(`/new/${this.state.classroomId}/student`, {
-        name:this.state.newStudent,
-        //token created in the front instead of backend, shouldnt really make a difference
-         token: `t${Math.random()}`,
-         email: this.state.studentEmailInput,
-         //should teacher make a key or be randomly be assigned, should it even be made in the front? 
-         key: this.makeToken(6)
-         
-        }).then(res=>{
-            console.log("add was probably successful, check response to be sure:");
-            console.log(res);
-            this.setState({
-                newStudent: ""
+         }
+         else{
+            console.log("adding student");
+
+            console.log(this.state.newStudent);
+            axios.post(`/new/${this.state.classroomId}/student`, {
+            name:this.state.newStudent,
+            //token created in the front instead of backend, shouldnt really make a difference
+             token: `t${Math.random()}`,
+             email: this.state.studentEmailInput,
+             //should teacher make a key or be randomly be assigned, should it even be made in the front? 
+             key: this.makeToken(6)
+             
+            }).then(res=>{
+                console.log("add was probably successful, check response to be sure:");
+                console.log(res);
+                this.setState({
+                    newStudent: ""
+                });
+                this.getStudents(this.state.classroomId);
+                
+            }).catch(err=>{
+                console.log(err);
+    
             });
-            this.getStudents();
-            
-        }).catch(err=>{
-            console.log(err);
 
-        });
+         }
+         
         
     }
 
@@ -179,17 +188,24 @@ class TeacherHomePage extends React.Component {
     //will make a post request to add a unit to the given classroom
      addUnit = ()=>{
         // console.log(this.state.newUnit);
-        axios.post(`new/${this.state.classroomId}/unit`,{name: this.state.newUnit}).then(res=>{
-            // console.log(res);
-            // console.log("added!");
-            this.getUnits();
+        if(this.state.newUnit===""){
+            alert("Please name your new unit before adding it!");
+        }
+        else{
+            axios.post(`new/${this.state.classroomId}/unit`,{name: this.state.newUnit}).then(res=>{
+                // console.log(res);
+                // console.log("added!");
+                this.getUnits(this.state.classroomId);
+    
+                this.setState({
+                    newUnit: ""
+                })
+            }).catch(err=>{
+                console.log(err);
+            });
 
-            this.setState({
-                newUnit: ""
-            })
-        }).catch(err=>{
-            console.log(err);
-        });
+        }
+      
 
     }
     //will update display after a post or a response have been made
@@ -208,28 +224,42 @@ class TeacherHomePage extends React.Component {
 
     //add a new post
     addPost =() =>{
-        console.log("add post");
-        console.log(this.state.newPost);
-        axios.post(`/new/${this.state.currentUnit}/post`,{data: this.state.newPost}).then(res=>{
-            console.log("note added");
-            this.updateDisplay();
-            
-            this.setState({
-                newPost: ""
-            })
-        }).catch(err=>{
-            console.log(err);
-        });
+        if(this.state.newPost===""){
+            alert("Please write a post before submitting!");
+        }
+        else{
+            console.log("add post");
+            console.log(this.state.newPost);
+            axios.post(`/new/${this.state.currentUnit}/post`,{data: this.state.newPost}).then(res=>{
+                console.log("note added");
+                this.updateDisplay();
+                
+                this.setState({
+                    newPost: ""
+                })
+            }).catch(err=>{
+                console.log(err);
+            });
+
+        }
+       
     }
     //add a new response
     addResponse = (id)=>{
-        console.log(this.state.newResponse)
-        axios.post(`new/${id}/response`,{data:this.state.newResponse}).then(res=>{
-            console.log("response added");
-            this.updateDisplay();
-        }).catch(err=>{
-            console.log(err);
-        })
+        if(this.state.newResponse===""){
+            alert("Please write a response before submitting!");
+        }
+        else{
+            console.log(this.state.newResponse)
+            axios.post(`new/${id}/response`,{data:this.state.newResponse}).then(res=>{
+                console.log("response added");
+                this.updateDisplay();
+            }).catch(err=>{
+                console.log(err);
+            })
+
+        }
+       
     }
 
     //logs out and redirects to landing page

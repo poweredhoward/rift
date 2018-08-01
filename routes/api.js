@@ -364,10 +364,9 @@ router.post("/studentlogin/verify", (req, res)=>{
 
  //route used to verify if a user is logged in and to give front end miscellaneous info
  router.get("/getsession", (req, res)=>{
-  
+    console.log(req.session);
     res.send(req.session);
  })
-
  //adding classroomKey and className to session (teacher only)
  router.post("/session/addclassroom", (req,res)=>{
      console.log(req.body);

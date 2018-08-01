@@ -11,7 +11,7 @@ class TeacherClassSelect extends React.Component {
         
         ],
         teacherid: "",
-        classroomName: "hellotest"
+        classroomName: ""
     }//end of state
 
 
@@ -42,19 +42,26 @@ class TeacherClassSelect extends React.Component {
 
     // Method for adding a classroom -- posts to mongoose and gets right after
     addClassroom = () => {
-        var inputbox = this.refs.input;
-        inputbox.value = ""
-        var obj = {
-            name: this.state.classroomName,
-            key: Math.random()
+        if(this.state.classroomName===""){
+            alert("Name the classroom before adding it!")
         }
-        axios.post(`/new/${this.state.teacherid}/classroom`, obj)
-        .then((res) => {
-            console.log("classroom has been added!");
-            //getting classrooms
-            this.getClassrooms();
-            
-        })
+        else{
+            var inputbox = this.refs.input;
+            inputbox.value = ""
+            var obj = {
+                name: this.state.classroomName,
+                key: Math.random()
+            }
+            axios.post(`/new/${this.state.teacherid}/classroom`, obj)
+            .then((res) => {
+                console.log("classroom has been added!");
+                //getting classrooms
+                this.getClassrooms();
+                
+            })
+
+        }
+       
     }//end of fn
 
     handleInputChange = (event) => {
