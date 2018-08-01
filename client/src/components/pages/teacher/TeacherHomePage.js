@@ -189,8 +189,8 @@ class TeacherHomePage extends React.Component {
     //get student data for classroom
     getStudents = (id)=>{
         // console.log("get students ");
-        axios.get(`${this.state.classroomId}/students`).then(res=>{
-            // console.log(res);
+        axios.get(`/${id}/students`).then(res=>{
+            console.log(res);
             this.setState({students:res.data});
         }).catch(err=>{
             console.log(err);
@@ -384,6 +384,9 @@ class TeacherHomePage extends React.Component {
                 showModal={this.showModal}
                 hideModal={this.hideModal}
                 handleSubmit={this.handleSubmit}
+                classroomId ={this.state.classroomId}
+                getStudents={this.getStudents}
+                
                 />
         
                

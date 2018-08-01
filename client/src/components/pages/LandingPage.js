@@ -21,6 +21,7 @@ class LandingPage extends React.Component{
         console.log("not logged in!");
       }
     });
+
    
   }
   

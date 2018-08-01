@@ -1,5 +1,7 @@
 const router = require("express").Router();
 var db = require("../models");
+const nodemailer = require("nodemailer");
+
 
 
 //Add new teacher
