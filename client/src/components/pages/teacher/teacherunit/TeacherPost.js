@@ -35,7 +35,7 @@ const TeacherPost = (props) => {
                                         )}
                                     </ul>
                                    
-                                    <input type="text" onChange={props.handleInputChange} id="newResponse" />
+                                    <input type="text" onChange={props.handleInputChange} id="newResponse" placeholder="Enter Response" />
                                     <button className='btn btn-dark btn-block' type="button"  onClick={()=>props.addResponse(item._id)}>Add Response</button>
                                 
                             </div>

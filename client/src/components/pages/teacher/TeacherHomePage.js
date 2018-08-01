@@ -236,9 +236,11 @@ class TeacherHomePage extends React.Component {
                 console.log("add was probably successful, check response to be sure:");
                 console.log(res);
                 this.setState({
-                    newStudent: ""
+                    newStudent: "",
+                    studentEmailInput: ""
                 });
                 this.getStudents(this.state.classroomId);
+
                 
             }).catch(err=>{
                 console.log(err);
@@ -386,6 +388,8 @@ class TeacherHomePage extends React.Component {
                 handleSubmit={this.handleSubmit}
                 classroomId ={this.state.classroomId}
                 getStudents={this.getStudents}
+                newStudent={this.state.newStudent}
+                studentEmailInput={this.state.studentEmailInput}
                 
                 />
         

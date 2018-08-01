@@ -61,12 +61,12 @@ const StudentComponent = (props) =>{
                         <form>
                             <div className="form-group">
                                     <label htmlFor="exampleInputPassword1">Student Name</label>
-                                    <input type="text" onChange={props.handleInputChange} className="form-control" id="newStudent" placeholder="Password"/>
+                                    <input type="text" onChange={props.handleInputChange} className="form-control" id="newStudent" placeholder="Enter Name" value={props.newStudent}/>
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail1">Email address</label>
-                                <input onChange={props.handleInputChange} type="email" className="form-control" id="studentEmailInput" aria-describedby="emailHelp" placeholder="Enter email"/>
+                                <input onChange={props.handleInputChange} type="email" className="form-control" id="studentEmailInput" aria-describedby="emailHelp" placeholder="Enter email" value={props.studentEmailInput} />
                              
                             </div>
                             
