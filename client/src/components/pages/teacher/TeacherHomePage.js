@@ -94,7 +94,7 @@ class TeacherHomePage extends React.Component {
                      classroomId:res.data.classroomInfo._id,
                      classroomName:res.data.classroomInfo.className});
                 this.getUnits(res.data.classroomInfo._id)
-                this.getNotes(this.currentUnit)
+                // this.getNotes(this.currentUnit)
                 this.getStudents(res.data.classroomInfo._id);
                 if(res.data.currentWindow!==undefined){
                     console.log("current window found!");
