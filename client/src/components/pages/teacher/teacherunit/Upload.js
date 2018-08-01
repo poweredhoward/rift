@@ -39,15 +39,17 @@ class Upload extends React.Component {
     var button = ""
 
     if(this.state.file!==null){
-     button=  <button type="submit">Upload</button>
+     button=  <button className='btn btn-dark' type="submit">Upload</button>
 
     }
     return (
+      
       <form onSubmit={this.onFormSubmit}>
-        <h1>File Upload</h1>
-        <input type="file" onChange={this.onChange} />
-        {button}
+          <input  className='' type="file" onChange={this.onChange} />
+          {button}
       </form>
+      
+
    )
   }
 }
