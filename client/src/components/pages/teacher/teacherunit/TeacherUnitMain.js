@@ -13,17 +13,30 @@ const TeacherUnitMain= (props) => {
         }
         
         
-
+        //Hard coding page options
         if(props.currentChoice==="Students"){
 
-                data = <StudentComponent userType={props.userType} classroomId={props.classroomId} students={props.students} getStudents={props.getStudents}  handleInputChange={props.handleInputChange} addStudent={props.addStudent}></StudentComponent>
+                data = <StudentComponent 
+                userType={props.userType} 
+                classroomId={props.classroomId} 
+                students={props.students} 
+                getStudents={props.getStudents}  
+                handleInputChange={props.handleInputChange} 
+                addStudent={props.addStudent}>
+                </StudentComponent>
                 // data = <h1>Students</h1>
                 // students = <div><input type="text" id="newStudent" onChange={props.handleInputChange} value={props.newStudent} /><button type="button" onClick={props.addStudent} className="btn btn-primary">Add student</button></div>
                 title = null;
         }
         else if(props.currentChoice==="Notes"){
                 
-                data = <TeacherNote  notes={props.notes} getNotes={props.getNotes} id={props.id} unitId={props.unitId} userType={props.userType}/>
+                data = 
+                <TeacherNote  
+                notes={props.notes} 
+                getNotes={props.getNotes} 
+                id={props.id} 
+                unitId={props.unitId} 
+                userType={props.userType}/>
 
         }
         else if(props.currentChoice==="Posts"){
@@ -32,7 +45,16 @@ const TeacherUnitMain= (props) => {
                         data = null;
                 }
                 else{
-                        data = <TeacherPost currentUnitName={props.currentUnitName} updateDisplay={props.updateDisplay} addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue} unitId={props.unitId}
+                        data = 
+                        <TeacherPost 
+                        currentUnitName={props.currentUnitName} 
+                        updateDisplay={props.updateDisplay} 
+                        addResponse={props.addResponse} 
+                        handleInputChange={props.handleInputChange} 
+                        addPost={props.addPost} 
+                        posts ={props.posts} 
+                        inputvalue={props.inputvalue} 
+                        unitId={props.unitId}
                         show={props.show}
                         posttitle={props.posttitle}
                         postbody={props.postbody}

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 var db = require("../models");
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
 
 
 
@@ -284,9 +284,9 @@ router.post("/studentlogin/verify", (req, res)=>{
     console.log("this is the route");
     db.Classroom.find({key:req.body.classroomkey}).populate("students").then(results=>{
         console.log("found classroom key");
-        console.log(results);
+        // console.log(results);
         var students = results[0].students;
-        console.log(students);
+        // console.log(students);
         var found = false;
         var currentStudent;
         for (var i = 0; i<students.length;i++){
@@ -332,9 +332,9 @@ router.post("/studentlogin/verify", (req, res)=>{
 //route created to verify if teacher user already exists 
  router.post("/teacherlogin/verify", (req,res)=>{
      console.log("sent data"); 
-     console.log(req.body);
+    //  console.log(req.body);
     db.Teacher.find().then(results=>{
-        console.log(results);
+        // console.log(results);
         var users = results;
         var loopCheck = false;
         //loop to verify correct username and password
@@ -354,7 +354,7 @@ router.post("/studentlogin/verify", (req, res)=>{
                 //     token: req.body.token
                 // }
                 var currentUser = users[i];
-                console.log(currentUser);
+                // console.log(currentUser);
                 res.cookie("token", users[i].token);
                 console.log("user found");
                 loopCheck = true;
@@ -384,13 +384,13 @@ router.post("/studentlogin/verify", (req, res)=>{
 
  //route used to verify if a user is logged in and to give front end miscellaneous info
  router.get("/getsession", (req, res)=>{
-    console.log(req.session);
+    // console.log(req.session);
     res.send(req.session);
  });
 
  //adding classroomKey and className to session (teacher only)
  router.post("/session/addclassroom", (req,res)=>{
-     console.log(req.body);
+    //  console.log(req.body);
      req.session.classroomInfo = {
     className: req.body.className, 
     classKey: req.body.classKey,
@@ -400,7 +400,7 @@ router.post("/studentlogin/verify", (req, res)=>{
 
  //route to keep you on the current page you're on
  router.post("/session/currentview", (req, res)=>{
-     console.log(req.body);
+    //  console.log(req.body);
      //adds current window view to session so that it remains there if the pag
      req.session.currentWindow = {
          unitName: req.body.currentUnitName,
@@ -410,9 +410,6 @@ router.post("/studentlogin/verify", (req, res)=>{
      res.send(req.session);
 
  });
-
-
- 
 
 
 module.exports = router;

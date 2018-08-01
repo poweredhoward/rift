@@ -38,15 +38,13 @@ class PDF extends Component {
       })
   }
 
-  changePage = () =>{
 
-  }
-
+  //When user stars a post
   star = () =>{
     var query_url = "/" + this.props.id + "/rating";
     axios.put(query_url, {studentid: this.props.userid}).then( result =>{
       console.log("After changing rating: note is: ");
-      console.log(result.data);
+      // console.log(result.data);
       this.setState({
         rating: result.data.rating,
         hasVoted: true

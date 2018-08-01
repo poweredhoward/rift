@@ -3,10 +3,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
-var upload = multer({ dest: 'uploads' });
 var readline = require('readline');
 var stream = require('stream');
-
 var session = require("express-session");
 const fs = require("fs");
 var mammoth = require("mammoth");
@@ -31,16 +29,11 @@ app.use(session({
 //Configuration for multer, where uploaded files go
 var upload = multer({ dest: "uploads/" })
 
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'uploads')
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.fieldname + '-' + Date.now())
-//   }
-// });
-// var upload = multer({ storage: storage })
 
+//Teacher can upload .txt file to add students to DB
+//Given current classroom
+//Each student must be on own line
+//Format: <Student name (any length) space email
 app.post("/studentsfile/:classroom", upload.single("file"), (req, res) =>{
     console.log("Inside students file");
 
@@ -53,7 +46,7 @@ app.post("/studentsfile/:classroom", upload.single("file"), (req, res) =>{
         return str;
     }
 
-
+    //logic to read file
     var instream = fs.createReadStream(req.file.path);
     var outstream = new stream;
     var rl = readline.createInterface(instream, outstream);
@@ -66,6 +59,8 @@ app.post("/studentsfile/:classroom", upload.single("file"), (req, res) =>{
     
     });
     
+    //Once read, each line is a element in arr
+    //Isolate the data and populate students in Mongo
     rl.on('close', function() {
       // do something on finish here
       var students = [];
@@ -102,20 +97,16 @@ app.post("/studentsfile/:classroom", upload.single("file"), (req, res) =>{
 })
 
 
+//Upload notes to backend
+//Saves note in upload folder as generic file, then saves to mongo
 app.post("/new/:unit/note", upload.single('file'), function(req, res){
     // console.log(req.IncomingMessage.client.ReadableState.buffer);
     console.log("inside note file post");
-    console.log(req.file);
+    // console.log(req.file);
     // console.log(req.body);
-    console.log("file uploaded");
+    console.log("files probably uploaded");
     var noteData = fs.readFileSync(req.file.path);
-          
-    // // Create an Note instance
-    // const note = new db.Note({
-    //     title: req.file.originalname,
-    //     file: noteData,
-    //     flag_author_type: "student"
-    // });
+
 
     const doc = new db.Doc({
         data: noteData
@@ -133,7 +124,7 @@ app.post("/new/:unit/note", upload.single('file'), function(req, res){
          // Store the File to the MongoDB
         note.save().then(dbNote => {
             console.log("Saved a note to MongoDB.");
-            console.log(dbNote._id);
+            // console.log(dbNote._id);
             // Find the stored file in MongoDB, then save it in /uploads folder
             db.Unit.findOneAndUpdate(
             {_id: req.params.unit}, { $push: { notes: dbNote._id } }, { new: true }, function(err, data) {
@@ -142,8 +133,8 @@ app.post("/new/:unit/note", upload.single('file'), function(req, res){
                 try{
                     fs.writeFileSync("uploads/" + req.file.originalname, dbDoc.data);
                         
-                        console.log("Stored a file to uploads");
-                        console.log("Done!");
+                        console.log("Stored a file to uploads!");
+                        // console.log("Done!");
                         res.end();
                     // });
                     
@@ -161,9 +152,6 @@ app.post("/new/:unit/note", upload.single('file'), function(req, res){
         });
 
     })
-
-
-  
    
 });
 
@@ -178,9 +166,8 @@ app.get("/:note/mammoth", (req, res) =>{
           try{
             fs.writeFileSync("uploads/" + foundNote.title, foundDoc.data);
             console.log("Stored a file to uploads");
-            console.log("Done!");
 
-            //MUST CHANGE TO DOCUMENT STORED ON THE SERVER
+            //Find document in db, save to directory and send mammoth html
             mammoth.convertToHtml({path: "uploads/" + foundNote.title})
             .then(function(result){
                 var html = result.value; // The generated HTML
@@ -203,31 +190,29 @@ app.get("/:note/mammoth", (req, res) =>{
 //Send pdf file to front end
 // TODO: Specific which file in request
 app.get("/:note/pdf", function(req, res){
-  console.log("inside pdf get");
-  //MUST CHANGE TO DOCUMENT STORED ON THE SERVER
-  // var filepath = "/uploads/cisco.pdf";
-  db.Note.findById({_id: req.params.note}, (err, foundNote) => {
-      console.log("Note found:")
-      console.log(foundNote);
-      db.Doc.findById({_id: foundNote.file}, (err, foundDoc) =>{
+    console.log("inside pdf get");
+    //MUST CHANGE TO DOCUMENT STORED ON THE SERVER
+    // var filepath = "/uploads/cisco.pdf";
+    db.Note.findById({_id: req.params.note}, (err, foundNote) => {
+        console.log("Note found:")
+    //   console.log(foundNote);
+        db.Doc.findById({_id: foundNote.file}, (err, foundDoc) =>{
         if (err) throw err;
         try{
             fs.writeFileSync("uploads/" + foundNote.title, foundDoc.data);
             console.log("Stored a file to uploads");
-            console.log("Done!");
-    
+
             fs.readFile("uploads/" + foundNote.title, function(err, data){
-              res.contentType("application/pdf");
-              console.log(data);
-              res.send(data);
+                res.contentType("application/pdf");
+            //   console.log(data);
+                res.send(data);
             })
         }catch(e){
             console.log(e);
         }
-      })
-    
-});
+        })
 
+    });
 
   
 })
@@ -251,7 +236,6 @@ app.get("*", (req, res) => {
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/rift");
 mongoose.Promise = Promise;
-
 
 
 

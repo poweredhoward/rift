@@ -3,9 +3,9 @@ import PDF from "./PDF"
 import Docx from "./Docx";
 import Upload from "./Upload"
 
+//Display all notes
 const TeacherNote = (props) => {
 
-    console.log("inside teacher note");
 
     return (
         <div className='wrapper'>
