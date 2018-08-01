@@ -44,8 +44,8 @@ class TeacherHomePage extends React.Component {
     //get request to retrieve session data 
     componentDidMount(){
         axios.get("/getsession").then(res=>{
-            // console.log("Session data: ");
-            // console.log(res);
+            console.log("Session data: ");
+            console.log(res);
             //if there is a session
             if(res.data.user !==undefined){
                 // console.log("loggedIn!");
@@ -60,6 +60,17 @@ class TeacherHomePage extends React.Component {
                 this.getUnits(res.data.classroomInfo._id)
                 this.getNotes(this.currentUnit)
                 this.getStudents(res.data.classroomInfo._id);
+                if(res.data.currentWindow!==undefined){
+                    console.log("current window found!");
+                    this.setState({
+                        currentUnitName: res.data.currentWindow.unitName,
+                        currentUnit:res.data.currentWindow.unit, 
+                        currentChoice:res.data.currentWindow.currentChoice
+                    });
+                    this.selectUnit(res.data.currentWindow.unit, res.data.currentWindow.unitName);
+                    this.infoChoice(res.data.currentWindow.currentChoice);
+
+                }
                
               }
             //   redirect if user is not logged in
@@ -74,6 +85,23 @@ class TeacherHomePage extends React.Component {
            this.props.history.push("/");
         });
     }
+
+    //function adds current view to session so refresh doesnt change it
+    setCurrentView = ()=>{
+        console.log("setting current view");
+        axios.post(`/session/currentview`,
+         {
+          currentUnitName: this.state.currentUnitName,
+          currentUnit: this.state.currentUnit, 
+          currentChoice: this.state.currentChoice
+        }).then(res=>{
+            console.log("all good? check res below");
+            console.log(res);
+        }).catch(err=>{
+            console.log("ERROR: ");
+            console.log(err);
+        });
+    }
    
    
     //click on unit sidebar to see its info and set current currentUnitId and currentUnitName
@@ -83,6 +111,7 @@ class TeacherHomePage extends React.Component {
         this.setState({currentUnit:id, currentUnitName: name});
         this.getNotes(id);
         this.getPosts(id);
+        this.setCurrentView();
         
     
     }

@@ -299,7 +299,7 @@ router.post("/studentlogin/verify", (req, res)=>{
             }
         }
         if(found ===true){
-            console.log("all good");
+            console.log("student has been found");
             res.cookie("token", currentStudent.token );
             req.session.userType="student";
             req.session.classroomInfo = {
@@ -310,7 +310,7 @@ router.post("/studentlogin/verify", (req, res)=>{
 
             // req.session.classroom = results[0]._id;
             req.session.user= currentStudent;
-            console.log("this is fine");
+            // console.log("this is fine");
             res.send(req.session);
         }
         else{
@@ -384,7 +384,8 @@ router.post("/studentlogin/verify", (req, res)=>{
  router.get("/getsession", (req, res)=>{
     console.log(req.session);
     res.send(req.session);
- })
+ });
+
  //adding classroomKey and className to session (teacher only)
  router.post("/session/addclassroom", (req,res)=>{
      console.log(req.body);
@@ -393,9 +394,22 @@ router.post("/studentlogin/verify", (req, res)=>{
     classKey: req.body.classKey,
     _id:req.body._id }
      res.send(req.session);
- })
+ });
 
- //function to create random keys
+ //route to keep you on the current page you're on
+ router.post("/session/currentview", (req, res)=>{
+     console.log(req.body);
+     //adds current window view to session so that it remains there if the pag
+     req.session.currentWindow = {
+         unitName: req.body.currentUnitName,
+         unit: req.body.currentUnit,
+         currentChoice: req.body.currentChoice
+     }
+     res.send(req.session);
+
+ });
+
+
  
 
 
