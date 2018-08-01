@@ -14,7 +14,7 @@ const TeacherPost = (props) => {
             handleSubmit={props.handleSubmit}
              handleInputChange={props.handleInputChange}
             title={props.posttitle}
-             body={props.body}/>
+             body={props.postbody}/>
               <button className='btn btn-dark' type='button' onClick={props.showModal}>Add Post</button>
             {posts.map(item=>
                 (
