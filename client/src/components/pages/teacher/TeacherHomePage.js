@@ -116,6 +116,11 @@ class TeacherHomePage extends React.Component {
         axios.get(`/${id}/notes`).then(res=>{
 
             console.log(res);
+            // var sorted_notes = res.data.sort(function(x, y){
+            //     return x.rating - y.rating
+            // });
+            // console.log("sorted notes");
+            // console.log(sorted_notes);
             this.setState({notes:res.data});
         })
     }

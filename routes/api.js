@@ -158,9 +158,17 @@ router.get("/:unit/notes", (req, res) =>{
     .then(results =>{
         // console.log(results.notes);
         
-        var return_arr = results.notes.map(function(n){
+        var results_arr = results.notes.map(function(n){
             return {id: n._id , title: n.title, rating: n.rating}
         });
+
+        var return_arr = results_arr.sort(function(x,y){
+            return y.rating - x.rating;
+        })
+
+
+        console.log("Notes to return:");
+        console.log(return_arr);
         res.send(return_arr);
     })
 })
