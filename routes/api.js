@@ -399,64 +399,6 @@ router.post("/studentlogin/verify", (req, res)=>{
 
  //function to create random keys
 
-
- //send email
- router.post("/sendMail", (req, res) =>{
-    console.log(req.body);
-    db.Classroom.findById({_id: req.body.classroomid}).then(classroom =>{
-        var transporter = nodemailer.createTransport({
-            service: 'yahoo',
-            auth: {
-              user: 'riftclassroom@yahoo.com',
-              pass: 'rift1234'
-            }
-        });
-    
-        db.Student.find({}).then(students =>{
-            console.log(students);
-            // students.forEach(student =>{
-                // setTimeout(function(){ var i }, 30);
-                var content = "Your teacher has added you to a classroom called " + classroom.name;
-                content += "\nThe classroom key is " + classroom.key;
-                content += "\nYour personal key to the classroom is " + students[0].key;
-                var mailOptions = {
-                    from: 'riftclassroom@yahoo.com',
-                    to: students[0].email,
-                    subject: "Rift Classroom Addition",
-                    text: content
-                };
-                console.log("Let's see if it gets to here");
-                transporter.sendMail(mailOptions, function(error, info){
-                    console.log("or here");
-
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log('Email sent: ' + info.response);
-                        // res.send("Email sent!")
-                    }
-                }); 
-            // })
-        })
-    })
-    
-
-    //   var mailOptions = {
-    //     from: 'riftclassroom@yahoo.com',
-    //     to: req.body.to,
-    //     subject: "Rift Classroom Addition",
-    //     text: req.body.text
-    //   };
-
-    //   transporter.sendMail(mailOptions, function(error, info){
-    //     if (error) {
-    //       console.log(error);
-    //     } else {
-    //       console.log('Email sent: ' + info.response);
-    //       res.send("Email sent!")
-    //     }
-    //   }); 
- })
  
 
 

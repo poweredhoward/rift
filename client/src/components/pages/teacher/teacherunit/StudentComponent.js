@@ -6,11 +6,6 @@ import axios from "axios";
 
 const StudentComponent = (props) =>{
 
-    var emailAllStudents = () => {
-        axios.post("/sendMail", {classroomid: props.classroomId}).then(result =>{
-            console.log(result);
-        })
-    }
 
    var studentContent= (
             <table>
@@ -91,11 +86,6 @@ const StudentComponent = (props) =>{
             <h2>Or Add Multiple Students With a Text File</h2>
             <div>
                 <StudentsUpload classroomId={props.classroomId} getStudents={props.getStudents}/>
-            </div>
-
-            <div>
-                <h3>Click to send out email to all students</h3>
-                <button onClick={emailAllStudents}>Send Emails</button>
             </div>
         </div>
     )
