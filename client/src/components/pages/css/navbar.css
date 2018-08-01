@@ -5,8 +5,13 @@
     width: 100%;
     float: left;
     height: 50px;
-    background: #16162F;
+    background: rgb(22, 22, 27);
     z-index: 99;
+    border-bottom: solid 4px rgb(109, 109, 187);
+}
+
+#navbar a {
+    color: lightgrey;
 }
 body {
     margin-top: 50px;

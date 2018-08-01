@@ -35,5 +35,8 @@ h1, p, h6, button {
 }
 
 body {
-    background: #97B3D4;
+    /* background: #97B3D4; */
+    background: rgb(177, 177, 179);
+    margin-top: 50px;
+    padding: 20px;
 }

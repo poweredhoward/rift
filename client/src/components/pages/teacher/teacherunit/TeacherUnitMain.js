@@ -60,8 +60,8 @@ const TeacherUnitMain= (props) => {
                   {props.options.map(item=>( <li key={item}className="nav-item pull-right">
                         <a onClick={()=>props.infoChoice(item)} href="###" key={Math.random} className="nav-link" >{item}</a>
                 </li>))}
-              
-                  </ul>
+                        <img className='nav-item logo' src="https://png.icons8.com/material/50/ffffff/jet-engine.png"/>
+                </ul>
                   
 
                 </div>
