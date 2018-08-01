@@ -7,7 +7,7 @@ const TeacherPost = (props) => {
             <Dashboard unitId={props.unitId} />
             {props.posts.map(item=>
                 (
-                <div  key={item._id}>
+                <div  className = 'container' key={item._id}>
                     <h4>{item.data}</h4>
                     {item.responses.map(item=>
                         (<h6 key={item._id}>{item.data}</h6>)
