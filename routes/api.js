@@ -1,5 +1,7 @@
 const router = require("express").Router();
 var db = require("../models");
+const nodemailer = require("nodemailer");
+
 
 
 //Add new teacher
@@ -396,6 +398,35 @@ router.post("/studentlogin/verify", (req, res)=>{
  })
 
  //function to create random keys
+
+
+ //send email
+ router.post("/sendMail", (req, res) =>{
+    console.log(req.body);
+    var transporter = nodemailer.createTransport({
+        service: 'yahoo',
+        auth: {
+          user: 'riftclassroom@yahoo.com',
+          pass: 'rift1234'
+        }
+      });
+
+      var mailOptions = {
+        from: 'riftclassroom@yahoo.com',
+        to: req.body.to,
+        subject: "Rift Classroom Addition",
+        text: req.body.text
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+          res.send("Email sent!")
+        }
+      }); 
+ })
  
 
 

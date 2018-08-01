@@ -21,6 +21,11 @@ class LandingPage extends React.Component{
         console.log("not logged in!");
       }
     });
+
+    axios.post("/sendMail", {to:"mattyh618@yahoo.com", text:"You've been added to a classroom"})
+    .then(result =>{
+      console.log(result);
+    })
    
   }
   
