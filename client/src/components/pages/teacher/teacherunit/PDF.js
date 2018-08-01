@@ -8,7 +8,8 @@ class PDF extends Component {
     pageNumber: 1,
     doc : "",
     docname: "",
-    rating: ""
+    rating: "",
+    hasVoted: ""
   }
 
   divstyle = {
@@ -23,25 +24,17 @@ class PDF extends Component {
 
   componentDidMount(){
     this.setState({rating: this.props.rating});
+    this.setState({hasVoted: this.props.hasVoted})
 
     var query_url = "/" + this.props.id + "/pdf"
       axios.get(query_url).then(result =>{
           console.log("done with pdf get");
-          // console.log(result.data);
 
-          this.setState({docname: this.props.name});
-    //       const file = new Blob(
-    //           [Response.data],
-    //           {type:'application/pdf'}
-    //       );
-
-    //       //Build a URL from the file
-    // const fileURL = URL.createObjectURL(file);
-    // //Open the URL on new Window
-    //     window.open(fileURL);
+          this.setState({
+            docname: this.props.name
+          });
           
-    //       this.setState({doc: atob(result.data)})
-    //     //   return result.data;
+
       })
   }
 
@@ -51,18 +44,26 @@ class PDF extends Component {
 
   star = () =>{
     var query_url = "/" + this.props.id + "/rating";
-    axios.put(query_url).then( result =>{
+    axios.put(query_url, {studentid: this.props.userid}).then( result =>{
       console.log("After changing rating: note is: ");
       console.log(result.data);
-      this.setState({rating: result.data.rating});
-      // window.location.reload();
-      // this.props.updateDisplay();
+      this.setState({
+        rating: result.data.rating,
+        hasVoted: true
+      });
+
     })
   }
  
   render() {
     const { pageNumber, numPages } = this.state;
-    // this.getpdf();
+    var starButton;
+    if(this.state.hasVoted === true && this.props.userType === "student"){
+      starButton = "";
+    }
+    else{
+      starButton = <button onClick={this.star}>Star</button>
+    }
  
     return (
       <details >
@@ -81,8 +82,7 @@ class PDF extends Component {
                 <Page  pageNumber={pageNumber} />
               </Document>
               <p>Page {pageNumber} of {numPages}</p>
-              
-            <button onClick={this.star}>Star</button>
+            {starButton}
         {/* </div> */}
       </details>
 

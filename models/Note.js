@@ -12,10 +12,12 @@ const NoteSchema = new Schema({
     rating: {
         type: Number
     },
+    ratedBy: [{
+        type: String
+    }],
     flag_author_type: ["student", "teacher"]
 });
 
 const Note = mongoose.model("Note", NoteSchema);
 
 module.exports = Note;
-

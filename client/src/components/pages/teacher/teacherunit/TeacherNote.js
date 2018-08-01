@@ -21,7 +21,12 @@ const TeacherNote = (props) => {
                     return(
                         
                         <PDF 
+                        hasVoted={
+                            note.ratedBy.indexOf(props.id) !== -1 && props.userType === "student"
+                        }
+                        userType = {props.userType}
                         id={note.id}
+                        userid={props.id}
                         name={"/" + note.title} 
                         key={k} 
                         rating={note.rating}/>
@@ -32,6 +37,11 @@ const TeacherNote = (props) => {
                     return(
                         
                         <Docx 
+                        hasVoted={
+                            note.ratedBy.indexOf(props.id) !== -1 && props.userType === "student"
+                        }
+                        userType = {props.userType}
+                        userid={props.id}
                         id={note.id} 
                         name={"/" + note.title}  
                         key={k} 

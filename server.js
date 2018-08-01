@@ -64,6 +64,7 @@ app.post("/new/:unit/note", upload.single('file'), function(req, res){
             title: req.file.originalname,
             file: dbDoc._id,
             flag_author_type: "student",
+            ratedBy: [],
             rating: 0
         });
 
