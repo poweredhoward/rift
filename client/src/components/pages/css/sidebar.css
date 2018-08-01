@@ -3,15 +3,19 @@
 }
 
 .sidebar {
-    height: 100%; /* Full-height: remove this if you want "auto" height */
+    padding: 20px;
+    height: 100%; 
+    /* Full-height: remove this if you want "auto" height */
     width: 180px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 999; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background: #3E7CAE;
+    background-image: url("https://crawlspacemagazine.files.wordpress.com/2014/04/cool-background-textures-eo_textures.jpg");
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
+    margin-top: 50px;
+    
 }
 
 p:first-of-type {
@@ -20,4 +24,13 @@ p:first-of-type {
 
 p {
     border-bottom: 1px black solid;
+}
+
+.unitList {
+    background-color: white;
+}
+
+#newUnit {
+    width: 100%;
+    margin-top: 17.5px;
 }
