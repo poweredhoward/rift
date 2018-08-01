@@ -4,7 +4,7 @@ import StudentComponent from "./StudentComponent"
 import TeacherPost from "./TeacherPost";
 const TeacherUnitMain= (props) => { 
         var data;
-        var title = props.unitName;
+        var title = props.currentUnitName;
         var alert = <h2>Please select a unit from the sidebar.</h2>
         var students; 
         if (title !== ""){
@@ -32,7 +32,13 @@ const TeacherUnitMain= (props) => {
                         data = null;
                 }
                 else{
-                        data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue} unitId={props.unitId}></TeacherPost>
+                        data = <TeacherPost currentUnitName={props.currentUnitName} updateDisplay={props.updateDisplay} addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue} unitId={props.unitId}
+                        show={props.show}
+                        posttitle={props.posttitle}
+                        postbody={props.postbody}
+                        showModal={props.showModal}
+                        hideModal={props.hideModal}
+                        handleSubmit={props.handleSubmit}></TeacherPost>
                 }
         }
       

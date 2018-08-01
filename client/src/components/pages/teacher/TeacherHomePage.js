@@ -10,6 +10,9 @@ class TeacherHomePage extends React.Component {
 
 
     state = {
+        show: false, //modal show   
+        posttitle: "", //title of new post 
+        postbody: "", //body of neew post 
         students:[], //array of stidents in the classroom
         studentEmailInput:"",//track of student email similar to newStudent
         userType:"", //user type determines if info 
@@ -32,6 +35,39 @@ class TeacherHomePage extends React.Component {
         ],
         //default to show ~something~ in the homepage, can be changed
         currentChoice: "Posts"
+    }
+
+    showModal = () => {
+        this.setState({ show: true });
+    }
+
+    hideModal = () => {
+        this.setState({ 
+            show: false,
+            postbody: "",
+            posttitle: "",
+            
+        });
+       
+    }
+
+    handleSubmit = () => {
+        if(this.state.postbody==="" || this.state.posttitle===""){
+            alert("Please fill all fields!");
+        }
+        else{
+              var dataObj = {
+            title: this.state.posttitle,
+            data: this.state.postbody
+        }
+        axios.post(`/new/${this.state.currentUnit}/post`, dataObj)
+        this.updateDisplay(this.state.currentUnit);
+        this.hideModal();
+
+        }
+      
+      
+        
     }
 
     
@@ -239,10 +275,11 @@ class TeacherHomePage extends React.Component {
 
     }
     //will update display after a post or a response have been made
-    updateDisplay(){
+    updateDisplay(id){
+        // this.selectUnit(this.state.currentUnit, this.state.currentUnitName);
         console.log("display updated");
         //refreshing unit to show updated information
-        this.selectUnit(this.state.currentUnit, this.state.currentUnitName);
+        this.selectUnit(id, this.state.currentUnitName);
 
     }
 
@@ -252,28 +289,28 @@ class TeacherHomePage extends React.Component {
 
     }
 
-    //add a new post
-    addPost =() =>{
-        if(this.state.newPost===""){
-            alert("Please write a post before submitting!");
-        }
-        else{
-            console.log("add post");
-            console.log(this.state.newPost);
-            axios.post(`/new/${this.state.currentUnit}/post`,{data: this.state.newPost}).then(res=>{
-                console.log("note added");
-                this.updateDisplay();
+    // //add a new post
+    // addPost =() =>{
+    //     if(this.state.newPost===""){
+    //         alert("Please write a post before submitting!");
+    //     }
+    //     else{
+    //         console.log("add post");
+    //         console.log(this.state.newPost);
+    //         axios.post(`/new/${this.state.currentUnit}/post`,{data: this.state.newPost}).then(res=>{
+    //             console.log("note added");
+    //             this.updateDisplay(this.state.currentUnit);
                 
-                this.setState({
-                    newPost: ""
-                })
-            }).catch(err=>{
-                console.log(err);
-            });
+    //             this.setState({
+    //                 newPost: ""
+    //             })
+    //         }).catch(err=>{
+    //             console.log(err);
+    //         });
 
-        }
+    //     }
        
-    }
+    // }
     //add a new response
     addResponse = (id)=>{
         if(this.state.newResponse===""){
@@ -283,7 +320,7 @@ class TeacherHomePage extends React.Component {
             console.log(this.state.newResponse)
             axios.post(`new/${id}/response`,{data:this.state.newResponse}).then(res=>{
                 console.log("response added");
-                this.updateDisplay();
+                this.updateDisplay(this.state.currentUnit);
             }).catch(err=>{
                 console.log(err);
             })
@@ -340,7 +377,13 @@ class TeacherHomePage extends React.Component {
                 getNotes={this.getNotes}
                 inputvalue={this.state.newPost}
                 newStudent={this.state.newStudent}
-                
+                updateDisplay={this.updateDisplay}
+                show={this.state.show}
+                posttitle={this.state.posttitle}
+                postbody={this.state.postbody}
+                showModal={this.showModal}
+                hideModal={this.hideModal}
+                handleSubmit={this.handleSubmit}
                 />
         
                

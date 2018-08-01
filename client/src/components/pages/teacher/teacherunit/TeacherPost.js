@@ -1,10 +1,21 @@
 import React from "react";
-import Dashboard from "./modal/Dashboard";
+// import Dashboard from "./modal/Dashboard";
+import Modal from "./modal/Modal";
 
 const TeacherPost = (props) => {
     var posts = props.posts
     return (<div>
-            <Dashboard unitId={props.unitId} />
+            <Modal
+            handleClose={props.hideModal}
+            show={props.show} 
+            currentUnitName={props.currentUnitName} 
+            updateDisplay={props.updateDisplay} 
+            unitId={props.unitId} 
+            handleSubmit={props.handleSubmit}
+             handleInputChange={props.handleInputChange}
+            title={props.posttitle}
+             body={props.body}/>
+              <button className='btn btn-dark' type='button' onClick={props.showModal}>Add Post</button>
             {posts.map(item=>
                 (
                 <div className='container'>
