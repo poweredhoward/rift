@@ -16,7 +16,7 @@ const TeacherUnitMain= (props) => {
 
         if(props.currentChoice==="Students"){
 
-                data = <StudentComponent students={props.students} handleInputChange={props.handleInputChange} addStudent={props.addStudent}></StudentComponent>
+                data = <StudentComponent userType={props.userType} students={props.students} handleInputChange={props.handleInputChange} addStudent={props.addStudent}></StudentComponent>
                 // data = <h1>Students</h1>
                 // students = <div><input type="text" id="newStudent" onChange={props.handleInputChange} value={props.newStudent} /><button type="button" onClick={props.addStudent} className="btn btn-primary">Add student</button></div>
                 title = null;

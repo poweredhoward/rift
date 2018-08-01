@@ -165,7 +165,8 @@ class TeacherHomePage extends React.Component {
             console.log(res);
             this.setState({
                 newStudent: ""
-            })
+            });
+            this.getStudents();
             
         }).catch(err=>{
             console.log(err);
@@ -244,7 +245,7 @@ class TeacherHomePage extends React.Component {
     //grabs navbar click, used to display the correct unit info
 
     infoChoice = (choice)=>{
-        console.log(choice);
+        // console.log(choice);
         this.setState({currentChoice: choice});
         
     }
