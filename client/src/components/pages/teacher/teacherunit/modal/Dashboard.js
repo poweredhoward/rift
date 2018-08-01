@@ -41,12 +41,11 @@ class Dashboard extends React.Component {
     render(){
         return(
             <main>
-                <h1>React Modal</h1>
                 <Modal show={this.state.show} handleClose={this.hideModal} handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} title={this.state.posttitle} body={this.state.postbody}>
                     <p>Modal</p>
                     <p>Data</p>
                 </Modal>
-                <button type='button' onClick={this.showModal}>Add Post</button>
+                <button className='btn btn-dark' type='button' onClick={this.showModal}>Add Post</button>
             </main>
         )
     }

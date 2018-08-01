@@ -25,3 +25,12 @@
     color: black;
     
 }
+
+.postCard {
+    background: white
+}
+
+.teacherpostcard {
+    border-top: none;
+    border: none
+}
