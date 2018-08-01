@@ -4,7 +4,7 @@ import StudentComponent from "./StudentComponent"
 import TeacherPost from "./TeacherPost";
 const TeacherUnitMain= (props) => { 
         var data;
-        var title = props.currentUnitName;
+        var title = props.unitName;
         var alert = <h2>Please select a unit from the sidebar.</h2>
         var students; 
         if (title !== ""){
