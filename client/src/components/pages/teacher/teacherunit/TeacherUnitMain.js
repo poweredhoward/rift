@@ -28,7 +28,7 @@ const TeacherUnitMain= (props) => {
         }
         else if(props.currentChoice==="Posts"){
                 // console.log(props.posts);
-                if( title == ""){
+                if( title === ""){
                         data = null;
                 }
                 else{
