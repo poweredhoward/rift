@@ -7,7 +7,8 @@ class PDF extends Component {
     numPages: null,
     pageNumber: 1,
     doc : "",
-    docname: ""
+    docname: "",
+    rating: ""
   }
 
   divstyle = {
@@ -21,6 +22,8 @@ class PDF extends Component {
   }
 
   componentDidMount(){
+    this.setState({rating: this.props.rating});
+
     var query_url = "/" + this.props.id + "/pdf"
       axios.get(query_url).then(result =>{
           console.log("done with pdf get");
@@ -45,30 +48,45 @@ class PDF extends Component {
   changePage = () =>{
 
   }
+
+  star = () =>{
+    var query_url = "/" + this.props.id + "/rating";
+    axios.put(query_url).then( result =>{
+      console.log("After changing rating: note is: ");
+      console.log(result.data);
+      this.setState({rating: result.data.rating});
+      // window.location.reload();
+      // this.props.updateDisplay();
+    })
+  }
  
   render() {
     const { pageNumber, numPages } = this.state;
     // this.getpdf();
  
     return (
-      <div style={this.divstyle}>
-        <Document 
-          file={this.state.docname}
-        // file ={{data: this.state.doc}}
-          onLoadSuccess={this.onDocumentLoad}
-        >
-          <Page  pageNumber={pageNumber} />
-        </Document>
-        <p>Page {pageNumber} of {numPages}</p>
-        
-        {/* {this.state.doc} */}
+      <details >
+        <summary>
+            Title: {this.props.name} <br />
+            Rating: {this.state.rating}
+        </summary>
 
-        {/* <ReactPDF
-            file={{
-                data: this.state.doc
-            }}
-        /> */}
-      </div>
+
+          {/* <div style={this.divstyle}> */}
+              <Document 
+                file={this.state.docname}
+              // file ={{data: this.state.doc}}
+                onLoadSuccess={this.onDocumentLoad}
+              >
+                <Page  pageNumber={pageNumber} />
+              </Document>
+              <p>Page {pageNumber} of {numPages}</p>
+              
+            <button onClick={this.star}>Star</button>
+        {/* </div> */}
+      </details>
+
+      
     );
   }
 }

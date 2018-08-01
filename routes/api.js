@@ -117,6 +117,19 @@ router.post("/new/:post/response", (req, res)=>{
     });
 });
 
+//Changes rating for a given note
+router.put("/:note/rating", (req, res) =>{
+    console.log("inside rating put");
+    db.Note.findById(req.params.note, function(err, note){
+        var rating = note.rating + 1;
+        note.set({rating: rating});
+        note.save(function (err, updatedNote) {
+            if (err) return handleError(err);
+            res.send(updatedNote);
+        });
+    })
+})
+
 
 //get all students in a class given classroom id
 router.get("/:classroom/students", (req, res) =>{
@@ -146,7 +159,7 @@ router.get("/:unit/notes", (req, res) =>{
         // console.log(results.notes);
         
         var return_arr = results.notes.map(function(n){
-            return {id: n._id , title: n.title}
+            return {id: n._id , title: n.title, rating: n.rating}
         });
         res.send(return_arr);
     })

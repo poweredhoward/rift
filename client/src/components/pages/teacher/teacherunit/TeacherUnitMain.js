@@ -20,7 +20,7 @@ const TeacherUnitMain= (props) => {
         }
         else if(props.currentChoice==="Notes"){
                 
-                data = <TeacherNote notes={props.notes} getNotes={props.getNotes} id={props.id} unitId={props.unitId} />
+                data = <TeacherNote  notes={props.notes} getNotes={props.getNotes} id={props.id} unitId={props.unitId} />
 
         }
         else if(props.currentChoice==="Posts"){

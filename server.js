@@ -63,7 +63,8 @@ app.post("/new/:unit/note", upload.single('file'), function(req, res){
         const note = new db.Note({
             title: req.file.originalname,
             file: dbDoc._id,
-            flag_author_type: "student"
+            flag_author_type: "student",
+            rating: 0
         });
 
          // Store the File to the MongoDB
