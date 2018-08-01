@@ -16,6 +16,7 @@ class Upload extends React.Component {
     e.preventDefault() // Stop form submit
     this.fileUpload(this.state.file).then((response)=>{
       console.log(response.data);
+      
     })
   }
   onChange(e) {
@@ -31,11 +32,13 @@ class Upload extends React.Component {
             'content-type': 'multipart/form-data'
         }
     }
+    this.state.file === null;
     return  post(url, formData,config)
   }
 
   render()
   {
+    //var is empty, will return 
     var button = ""
 
     if(this.state.file!==null){
