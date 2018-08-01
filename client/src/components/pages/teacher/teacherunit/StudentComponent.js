@@ -1,17 +1,32 @@
 import React from "react";
 
 const StudentComponent = (props) =>{
-    var addStudent =<h1>hello world</h1>;
+
+    var formContent =<h1>Students</h1>;
     if(props.userType==="student"){
             console.log("student type");
-            addStudent = "";
+            formContent = "";
     }
     else{
-            console.log("teacehrt");
-            addStudent= ( 
+            console.log("teacher");
+            formContent= ( 
+
                     <div>
-                            <input type="text" id="newStudent" onChange={props.handleInputChange} value={props.newStudent} />
-                            <button type="button" onClick={props.addStudent} className="btn btn-primary">Add student</button>
+                        <form>
+                            <div className="form-group">
+                                    <label htmlFor="exampleInputPassword1">Student Name</label>
+                                    <input type="text" onChange={props.handleInputChange} className="form-control" id="newStudent" placeholder="Password"/>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="exampleInputEmail1">Email address</label>
+                                <input onChange={props.handleInputChange} type="email" className="form-control" id="studentEmailInput" aria-describedby="emailHelp" placeholder="Enter email"/>
+                             
+                            </div>
+                            
+                           
+                            <button onClick={props.addStudent} type="button" className="btn btn-primary">Add Student</button>
+                        </form>
                     </div>
                   )
             
@@ -19,8 +34,8 @@ const StudentComponent = (props) =>{
 
     return (
         <div>
-            <h1>hey this is student component</h1>
-            {addStudent}
+            <h1>Students</h1>
+            {formContent}
         </div>
     )
 }

@@ -12,10 +12,13 @@ const TeacherUnitMain= (props) => {
                 data = null;
         }
         
+        
 
         if(props.currentChoice==="Students"){
-                data = <h1>Students</h1>
-                students = <div><input type="text" id="newStudent" onChange={props.handleInputChange} value={props.newStudent} /><button type="button" onClick={props.addStudent} className="btn btn-primary">Add student</button></div>
+
+                data = <StudentComponent students={props.students} handleInputChange={props.handleInputChange} addStudent={props.addStudent}></StudentComponent>
+                // data = <h1>Students</h1>
+                // students = <div><input type="text" id="newStudent" onChange={props.handleInputChange} value={props.newStudent} /><button type="button" onClick={props.addStudent} className="btn btn-primary">Add student</button></div>
                 title = null;
         }
         else if(props.currentChoice==="Notes"){
@@ -32,12 +35,7 @@ const TeacherUnitMain= (props) => {
                         data = <TeacherPost addResponse={props.addResponse} handleInputChange={props.handleInputChange} addPost={props.addPost} posts ={props.posts} inputvalue={props.inputvalue} unitId={props.unitId}></TeacherPost>
                 }
         }
-       
-        else{
-              
-                
-        }       
-                
+      
                 
          
     
