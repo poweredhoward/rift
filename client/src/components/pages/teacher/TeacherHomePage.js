@@ -87,12 +87,12 @@ class TeacherHomePage extends React.Component {
     }
 
     //function adds current view to session so refresh doesnt change it
-    setCurrentView = ()=>{
-        console.log("setting current view");
+    setCurrentView = (id, name)=>{
+        // console.log("setting current view");
         axios.post(`/session/currentview`,
          {
-          currentUnitName: this.state.currentUnitName,
-          currentUnit: this.state.currentUnit, 
+          currentUnitName: name,
+          currentUnit: id, 
           currentChoice: this.state.currentChoice
         }).then(res=>{
             console.log("all good? check res below");
@@ -111,7 +111,7 @@ class TeacherHomePage extends React.Component {
         this.setState({currentUnit:id, currentUnitName: name});
         this.getNotes(id);
         this.getPosts(id);
-        this.setCurrentView();
+        this.setCurrentView(id, name);
         
     
     }
@@ -307,6 +307,7 @@ class TeacherHomePage extends React.Component {
     infoChoice = (choice)=>{
         // console.log(choice);
         this.setState({currentChoice: choice});
+        this.setCurrentView()
         
     }
 
