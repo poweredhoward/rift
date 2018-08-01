@@ -10,7 +10,7 @@ import "./css/landingPage.css"
 class LandingPage extends React.Component{
   componentDidMount(){
     axios.get("/getsession").then(res=>{
-      console.log(res);
+      // console.log(res);
       if(res.data.userType==="teacher" &&res.data.user !==undefined){
         this.props.history.push("/teacherclassselect");
       }

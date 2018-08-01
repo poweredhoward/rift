@@ -9,7 +9,7 @@ import React from "react";
         button ="";
     }
     else{
-        console.log(" teacher type");
+        // console.log(" teacher type");
 
         button =  <div>
              <input type="text" id={props.id} onChange={props.handleInputChange} value={props.inputvalue} />
