@@ -107,7 +107,7 @@ class TeacherHomePage extends React.Component {
     //will show posts for current unit given current UnitID
     getPosts=(id)=>{
         axios.get(`/${id}/posts`).then(res=>{
-            this.setState({posts:res.data});
+            this.setState({posts:res.data.reverse()});
             // console.log("these are all the posts with populated responses: ");
             // console.log(this.state.posts);
         });

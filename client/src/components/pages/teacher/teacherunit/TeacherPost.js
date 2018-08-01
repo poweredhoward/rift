@@ -2,9 +2,10 @@ import React from "react";
 import Dashboard from "./modal/Dashboard";
 
 const TeacherPost = (props) => {
+    var posts = props.posts
     return (<div>
             <Dashboard unitId={props.unitId} />
-            {props.posts.map(item=>
+            {posts.map(item=>
                 (
                 <div className='container'>
                     <div className='row'>
