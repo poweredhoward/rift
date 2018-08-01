@@ -2,19 +2,33 @@ import React from "react";
 import Dashboard from "./modal/Dashboard";
 
 const TeacherPost = (props) => {
-    
     return (<div>
             <Dashboard unitId={props.unitId} />
             {props.posts.map(item=>
                 (
-                <div  className = 'container' key={item._id}>
-                    <h4>{item.data}</h4>
-                    {item.responses.map(item=>
-                        (<h6 key={item._id}>{item.data}</h6>)
-                    )}
-                
-                    <input type="text" onChange={props.handleInputChange} id="newResponse" />
-                    <button type="button"  onClick={()=>props.addResponse(item._id)}>Add Response</button>
+                <div className='container'>
+                    <div className='row'>
+                        <div className='col-md-12'>
+                            <div className ="card postCard" key={item._id}>
+                                <div className="card-header">
+                                    <h4 className ="card-title">{item.title}</h4>
+                                </div>
+                                <div className ='card-body'>
+                                    <div className ="card-text">{item.data}</div>
+                                </div>
+                                <div className ="card-footer"></div>
+                                    <ul className='list-group list-group-flush'>
+                                        {item.responses.map(item=>
+                                            (<li className='list-group-item' key={item._id}>{item.data}</li>)
+                                        )}
+                                    </ul>
+                                   
+                                    <input type="text" onChange={props.handleInputChange} id="newResponse" />
+                                    <button className='btn btn-dark' type="button"  onClick={()=>props.addResponse(item._id)}>Add Response</button>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 )
             )}
