@@ -10,6 +10,7 @@ class TeacherHomePage extends React.Component {
 
 
     state = {
+        students:[],
         studentEmailInput:"",//track of student email similar to newStudent
         userType:"", //user type determines if info 
         newResponse:"", //field used to add a new response
@@ -57,6 +58,7 @@ class TeacherHomePage extends React.Component {
                      classroomName:res.data.classroomInfo.className});
                 this.getUnits()
                 this.getNotes(this.currentUnit)
+                this.getStudents();
                
               }
             //   redirect if user is not logged in
@@ -80,6 +82,7 @@ class TeacherHomePage extends React.Component {
         this.setState({currentUnit:id, currentUnitName: name});
         this.getNotes(id);
         this.getPosts(id);
+        
     
     }
 
@@ -116,6 +119,17 @@ class TeacherHomePage extends React.Component {
             this.setState({notes:res.data});
         })
     }
+    //get student data for classroom
+    getStudents = ()=>{
+        console.log("get students ");
+        axios.get(`${this.state.classroomId}/students`).then(res=>{
+            // console.log(res);
+            this.setState({students:res.data});
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
+
 
     //function will add a random key to student
     makeToken = (len) => {
@@ -227,12 +241,14 @@ class TeacherHomePage extends React.Component {
             console.log(err);
         })
     }
-    //grabs navbar click, used to display the correct unit 
+    //grabs navbar click, used to display the correct unit info
+
     infoChoice = (choice)=>{
         console.log(choice);
         this.setState({currentChoice: choice});
         
     }
+
 
     render(){
         return(
@@ -242,6 +258,7 @@ class TeacherHomePage extends React.Component {
                 
                 
                 <TeacherUnitMain
+                students={this.state.students}
                 userType= {this.state.userType}
                 currentChoice = {this.state.currentChoice}
                 infoChoice={this.infoChoice} 
