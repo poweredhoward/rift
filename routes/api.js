@@ -118,17 +118,22 @@ router.post("/new/:post/response", (req, res)=>{
 });
 
 //Changes rating for a given note
+//Also updated what students have already rated it
 router.put("/:note/rating", (req, res) =>{
     console.log("inside rating put");
     db.Note.findById(req.params.note, function(err, note){
         var rating = note.rating + 1;
+        var ratedBy = note.ratedBy;
+        ratedBy.push(req.body.studentid);
         note.set({rating: rating});
+        note.set({ratedBy: ratedBy});
         note.save(function (err, updatedNote) {
             if (err) return handleError(err);
             res.send(updatedNote);
         });
     })
 })
+
 
 
 //get all students in a class given classroom id
@@ -158,9 +163,22 @@ router.get("/:unit/notes", (req, res) =>{
     .then(results =>{
         // console.log(results.notes);
         
-        var return_arr = results.notes.map(function(n){
-            return {id: n._id , title: n.title, rating: n.rating}
+        var results_arr = results.notes.map(function(n){
+            return {
+                id: n._id , 
+                title: n.title, 
+                rating: n.rating,
+                ratedBy: n.ratedBy
+            }
         });
+
+        var return_arr = results_arr.sort(function(x,y){
+            return y.rating - x.rating;
+        })
+
+
+        console.log("Notes to return:");
+        console.log(return_arr);
         res.send(return_arr);
     })
 })

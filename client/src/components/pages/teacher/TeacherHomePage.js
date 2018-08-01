@@ -17,7 +17,7 @@ class TeacherHomePage extends React.Component {
         newPost:"", //field used to add a new post
         newNote:"", //field to post a new note
         key:"", //classroom key
-        teacherid: "", 
+        teacherid: "", //actually just a generic person id
         classroomId: "",
         units: [], //units added depending on unit
         classroomName: "", 
@@ -33,6 +33,7 @@ class TeacherHomePage extends React.Component {
         //default to show ~something~ in the homepage, can be changed
         currentChoice: "Posts"
     }
+
     
     handleInputChange = (event) => {
         this.setState({
@@ -54,8 +55,8 @@ class TeacherHomePage extends React.Component {
                     username: res.data.user.username,
                     teacherid: res.data.user._id, 
                     key: res.data.classroomInfo.classKey,
-                     classroomId:res.data.classroomInfo._id,
-                     classroomName:res.data.classroomInfo.className});
+                    classroomId:res.data.classroomInfo._id,
+                    classroomName:res.data.classroomInfo.className});
                 this.getUnits()
                 this.getNotes(this.currentUnit)
                 this.getStudents();
@@ -116,6 +117,11 @@ class TeacherHomePage extends React.Component {
         axios.get(`/${id}/notes`).then(res=>{
 
             console.log(res);
+            // var sorted_notes = res.data.sort(function(x, y){
+            //     return x.rating - y.rating
+            // });
+            // console.log("sorted notes");
+            // console.log(sorted_notes);
             this.setState({notes:res.data});
         })
     }
