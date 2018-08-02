@@ -18,10 +18,7 @@ class PDF extends Component {
 
   }
  
-  onDocumentLoad = ({ numPages }) => {
-    this.setState({ numPages });
-  }
-
+  
   componentDidMount(){
     this.setState({rating: this.props.rating});
     this.setState({hasVoted: this.props.hasVoted})
@@ -52,9 +49,30 @@ class PDF extends Component {
 
     })
   }
+
+  onDocumentLoad = ({ numPages }) => {
+    this.setState({ numPages });
+  }
+
+  pageUp = () =>{
+    var curr_num = this.state.pageNumber;
+    curr_num += 1;
+    this.setState({pageNumber: curr_num});
+  }
+
+  pageDown = () =>{
+    var curr_num = this.state.pageNumber;
+    curr_num -= 1;
+    this.setState({pageNumber: curr_num});
+  }
+
  
   render() {
-    const { pageNumber, numPages } = this.state;
+    // var  pageNumber, numPages } = this.state;
+    const numPages = this.state.numPages;
+    
+    
+    //Whether or not to display voting button
     var starButton;
     if(this.state.hasVoted === true && this.props.userType === "student"){
       starButton = "";
@@ -66,7 +84,7 @@ class PDF extends Component {
     return (
       <details >
         <summary>
-            Title: {this.props.name} <br />
+            Title: {this.props.name.substr(1)} <br />
             Rating: {this.state.rating}
         </summary>
 
@@ -77,10 +95,16 @@ class PDF extends Component {
               // file ={{data: this.state.doc}}
                 onLoadSuccess={this.onDocumentLoad}
               >
-                <Page  pageNumber={pageNumber} />
+                <Page  pageNumber={this.state.pageNumber} />
               </Document>
-              <p>Page {pageNumber} of {numPages}</p>
+              <p>
+                <button onClick={this.pageDown}>Page Down</button>
+                Page {this.state.pageNumber} of {numPages}   
+                <button onClick={this.pageUp}>Page Up</button>
+              </p>
             {starButton}
+            
+            
         {/* </div> */}
       </details>
 

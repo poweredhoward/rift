@@ -50,7 +50,7 @@ class PDF extends Component {
     return (
       <details>
         <summary>
-            Title: {this.props.name} <br />
+            Title: {this.props.name.substr(1)} <br />
             Rating: {this.state.rating}
         </summary>
         <div dangerouslySetInnerHTML={{ __html: this.state.docContent }}></div>
