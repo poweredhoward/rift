@@ -31,23 +31,30 @@ class TeacherLogin extends React.Component{
     }
     //function to create a user
     createUser = () => {
-        console.log(this.state);
+        // console.log(this.state);
         if(this.state.username==="" || this.state.password==="" ){
             alert("Fill all fields!");
         }
         else{
             // console.log("Sending data to create");
-            axios.post("/teacherlogin/create", {
-                username: this.state.username,
-                password: this.state.password
-            }).then((sessionData)=>{
-                // console.log("data sent to backend!");
-                // console.log(sessionData);
-                this.props.history.push("/teacherclassselect");
-            }).catch((err) =>{
-                console.log(err);
-                alert("Username already exists!");
-            });
+            if(this.state.password.length<6){
+                alert("Password needs to be at least 6 characters!");
+            }
+            else{
+                axios.post("/teacherlogin/create", {
+                    username: this.state.username,
+                    password: this.state.password
+                }).then((sessionData)=>{
+                    // console.log("data sent to backend!");
+                    // console.log(sessionData);
+                    this.props.history.push("/teacherclassselect");
+                }).catch((err) =>{
+                    console.log(err);
+                    alert("Username already exists!");
+                });
+
+            }
+          
     
            
 

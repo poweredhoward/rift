@@ -1,6 +1,6 @@
 import React from "react";
 import StudentsUpload from "./StudentsUpload";
-import axios from "axios";
+// import axios from "axios";
 
 //Page to display and add students
 const StudentComponent = (props) =>{

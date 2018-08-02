@@ -69,7 +69,7 @@ class TeacherClassSelect extends React.Component {
             }
             axios.post(`/new/${this.state.teacherid}/classroom`, obj)
             .then((res) => {
-                console.log("classroom has been added!");
+                // console.log("classroom has been added!");
                 this.setState({classroomName: ""});
                 //getting classrooms
                 this.getClassrooms();

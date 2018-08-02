@@ -81,7 +81,7 @@ class TeacherHomePage extends React.Component {
     //get request to retrieve session data 
     componentDidMount(){
         axios.get("/getsession").then(res=>{
-            console.log("Session data: ");
+            // console.log("Session data: ");
             // console.log(res);
             //if there is a session
             if(res.data.user !==undefined){
