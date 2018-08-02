@@ -132,7 +132,7 @@ class TeacherHomePage extends React.Component {
           currentUnit: id, 
           currentChoice: choice
         }).then(res=>{
-            console.log("all good? check res below");
+            // console.log("all good? check res below");
             // console.log(res);
         }).catch(err=>{
             console.log("ERROR: ");

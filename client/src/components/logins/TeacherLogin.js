@@ -18,7 +18,7 @@ class TeacherLogin extends React.Component{
                 this.props.history.push("/teacherclassselect");
             }
             else{
-                console.log("not logged in");
+                // console.log("not logged in");
             }
         })
     }

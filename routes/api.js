@@ -232,24 +232,11 @@ router.get("/:post/responses", (req, res) =>{
 
  //route for creating a new teacher user
  router.post("/teacherlogin/create", (req,res)=>{
-    console.log("Creating user");
-    db.Teacher.find().then((results)=>{
-      var users = results;    
-       //determining whether the input is unique
-       var newUser = true;
-         for (var i = 0; i<users.length;i++){
-           if(users[i].username === req.body.username){
-             newUser = false;
-           
-           }
-           else{
-             newUser = true;
-           }
-         }
-        if(newUser===true){
+    // console.log("Creating user");
+  
         //creation of token for cookies
         var userToken = "t" + Math.random();
-        // var encryptedPassword = encrypt.encrypt(req.body.password);
+    //     // var encryptedPassword = encrypt.encrypt(req.body.password);
         var newUser ={
             username: req.body.username,
             password: req.body.password,
@@ -263,19 +250,12 @@ router.get("/:post/responses", (req, res) =>{
                     req.session.userType= "teacher";
                     req.session.user = results;
                     res.send(req.session);
+                }).catch(err=>{
+                    // console.log(err);
+                    return res.status(401).end();
                 });
-        }else{
-        console.log("User already exists");
-           return res.status(401).end();
-           res.end();
-        
-        }
- 
-    });
-   
-
-
-
+         
+       
   
  }); // end of '/teacherlogin/create
 
