@@ -3,6 +3,7 @@ import TeacherNote from "./TeacherNote";
 import StudentComponent from "./StudentComponent"
 import TeacherPost from "./TeacherPost";
 const TeacherUnitMain= (props) => { 
+        // console.log(props)
         var data;
         var title = props.unitName;
         var alert = <h2>Please select a unit from the sidebar.</h2>
@@ -70,8 +71,8 @@ const TeacherUnitMain= (props) => {
         return(<div>
              
                 <div id="navbar"  >
-                  <ul className="nav  d-flex flex-row-reverse" >
-                  <li className="nav-item ">
+                <ul className="nav  d-flex flex-row-reverse" >
+                <li className="nav-item ">
                         <a className="nav-link active" href="###" id="user" onClick={props.logout} > Logout </a>
                 </li>
                 
@@ -82,6 +83,7 @@ const TeacherUnitMain= (props) => {
                   {props.options.map(item=>( <li key={item}className="nav-item pull-right">
                         <a onClick={()=>props.infoChoice(item)} href="###" key={Math.random} className="nav-link" >{item}</a>
                 </li>))}
+                <li className='className nav-item'><h4 className="nav-link">{props.classroomName}: {props.unitName}</h4></li>
                        <div className='logoContainer'> 
                         <img className='nav-item logo' src="https://png.icons8.com/material/50/ffffff/jet-engine.png"/><h3 className='logotitle'>Rift</h3>
                         </div>
@@ -91,7 +93,7 @@ const TeacherUnitMain= (props) => {
 
                 </div>
                 {alert}
-                <h1>{title}</h1>
+                {/* <h1>{title}</h1> */}
                 {data}
                 {students}
 

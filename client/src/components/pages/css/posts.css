@@ -5,6 +5,9 @@
 }
 
 .post_wrapper {
-    margin-top: 15px;
+    margin-top: 15px
+}
 
+.post-card-title{
+    color: black;
 }

@@ -24,7 +24,7 @@ const TeacherPost = (props) => {
                         <div className='col-md-12'>
                             <div className ="card postCard" key={item._id}>
                                 <div className="card-header">
-                                    <h4 className ="card-title">{item.title}</h4>
+                                    <h4 className =" post-card-title card-title">{item.title}</h4>
                                 </div>
                                 <div className ='card-body'>
                                     <div className ="card-text">{item.data}</div>
