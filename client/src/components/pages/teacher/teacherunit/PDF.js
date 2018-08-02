@@ -12,16 +12,28 @@ class PDF extends Component {
     hasVoted: ""
   }
 
-  divstyle = {
-      height: "400",
-      width: "300"
+  starstyle = {
+    color: "black",
+    backgroundColor: "rgb(109, 109, 187)",
+    width: "11%",
+    fontWeight: "bold",
+    fontSize: "120%",
+    marginBottom: "15px"
+  }
+
+  pagebuttonstyle ={
+    color: "white",
+    marginLeft: "10px",
+    marginRight: "10px",
+    width: "8%"
 
   }
- 
-  onDocumentLoad = ({ numPages }) => {
-    this.setState({ numPages });
-  }
 
+  headerstyle ={
+    fontWeight: "bold",
+    fontSize: "125%"
+  }
+  
   componentDidMount(){
     this.setState({rating: this.props.rating});
     this.setState({hasVoted: this.props.hasVoted})
@@ -52,36 +64,66 @@ class PDF extends Component {
 
     })
   }
+
+  onDocumentLoad = ({ numPages }) => {
+    this.setState({ numPages });
+  }
+
+  pageUp = () =>{
+    var curr_num = this.state.pageNumber;
+    curr_num += 1;
+    this.setState({pageNumber: curr_num});
+  }
+
+  pageDown = () =>{
+    var curr_num = this.state.pageNumber;
+    curr_num -= 1;
+    this.setState({pageNumber: curr_num});
+  }
+
  
   render() {
-    const { pageNumber, numPages } = this.state;
+    // var  pageNumber, numPages } = this.state;
+    const numPages = this.state.numPages;
+    
+    
+    //Whether or not to display voting button
     var starButton;
     if(this.state.hasVoted === true && this.props.userType === "student"){
       starButton = "";
     }
     else{
-      starButton = <button onClick={this.star}>Star</button>
+      starButton = <button 
+      className="btn btn-light btn-block" 
+      style={this.starstyle}
+      onClick={this.star}>Star</button>
     }
  
     return (
       <details >
-        <summary>
-            Title: {this.props.name} <br />
+        <summary style={this.headerstyle}>
+            Title: {this.props.name.substr(1)} <br />
             Rating: {this.state.rating}
         </summary>
 
 
-          {/* <div style={this.divstyle}> */}
               <Document 
                 file={this.state.docname}
               // file ={{data: this.state.doc}}
                 onLoadSuccess={this.onDocumentLoad}
               >
-                <Page  pageNumber={pageNumber} />
+                <Page  pageNumber={this.state.pageNumber} />
               </Document>
-              <p>Page {pageNumber} of {numPages}</p>
+
+              <p>
+                <button style={this.pagebuttonstyle} className="btn btn-light" onClick={this.pageDown}>Page Down</button>
+                Page {this.state.pageNumber} of {numPages}   
+                <button style={this.pagebuttonstyle} className="btn btn-light" onClick={this.pageUp}>Page Up</button>
+              </p>
+              <br />
             {starButton}
-        {/* </div> */}
+            
+            
       </details>
 
       
