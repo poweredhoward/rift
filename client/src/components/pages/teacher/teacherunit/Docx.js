@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import "../../css/docx.css";
 
 class PDF extends Component {
   state = {
@@ -7,6 +8,25 @@ class PDF extends Component {
     rating: "",
     hasVoted: ""
 
+  }
+
+  starstyle = {
+    color: "black",
+    backgroundColor: "rgb(109, 109, 187)",
+    width: "11%",
+    fontWeight: "bold",
+    fontSize: "120%",
+    marginBottom: "15px",
+    marginTop: "15px"
+  }
+
+  docstyle ={
+    border: "none"
+  }
+
+headerstyle ={
+    fontWeight: "bold",
+    fontSize: "125%"
   }
 
   componentDidMount(){
@@ -43,18 +63,20 @@ class PDF extends Component {
       starButton = "";
     }
     else{
-      starButton = <button onClick={this.star}>Star</button>
+      starButton = <button className="btn btn-light btn-block" 
+      style={this.starstyle} onClick={this.star}>Star</button>
     }
 
  
     return (
       <details>
-        <summary>
+        <summary style={this.headerstyle}>
             Title: {this.props.name.substr(1)} <br />
             Rating: {this.state.rating}
         </summary>
-        <div dangerouslySetInnerHTML={{ __html: this.state.docContent }}></div>
+        <div className="doc" dangerouslySetInnerHTML={{ __html: this.state.docContent }}></div>
         {starButton}
+        <br />
       </details>
         
     );

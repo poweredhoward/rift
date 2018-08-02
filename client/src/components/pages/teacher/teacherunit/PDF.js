@@ -12,12 +12,27 @@ class PDF extends Component {
     hasVoted: ""
   }
 
-  divstyle = {
-      height: "400",
-      width: "300"
+  starstyle = {
+    color: "black",
+    backgroundColor: "rgb(109, 109, 187)",
+    width: "11%",
+    fontWeight: "bold",
+    fontSize: "120%",
+    marginBottom: "15px"
+  }
+
+  pagebuttonstyle ={
+    color: "white",
+    marginLeft: "10px",
+    marginRight: "10px",
+    width: "8%"
 
   }
- 
+
+  headerstyle ={
+    fontWeight: "bold",
+    fontSize: "125%"
+  }
   
   componentDidMount(){
     this.setState({rating: this.props.rating});
@@ -78,18 +93,20 @@ class PDF extends Component {
       starButton = "";
     }
     else{
-      starButton = <button onClick={this.star}>Star</button>
+      starButton = <button 
+      className="btn btn-light btn-block" 
+      style={this.starstyle}
+      onClick={this.star}>Star</button>
     }
  
     return (
       <details >
-        <summary>
+        <summary style={this.headerstyle}>
             Title: {this.props.name.substr(1)} <br />
             Rating: {this.state.rating}
         </summary>
 
 
-          {/* <div style={this.divstyle}> */}
               <Document 
                 file={this.state.docname}
               // file ={{data: this.state.doc}}
@@ -97,15 +114,16 @@ class PDF extends Component {
               >
                 <Page  pageNumber={this.state.pageNumber} />
               </Document>
+
               <p>
-                <button onClick={this.pageDown}>Page Down</button>
+                <button style={this.pagebuttonstyle} className="btn btn-light" onClick={this.pageDown}>Page Down</button>
                 Page {this.state.pageNumber} of {numPages}   
-                <button onClick={this.pageUp}>Page Up</button>
+                <button style={this.pagebuttonstyle} className="btn btn-light" onClick={this.pageUp}>Page Up</button>
               </p>
+              <br />
             {starButton}
             
             
-        {/* </div> */}
       </details>
 
       
