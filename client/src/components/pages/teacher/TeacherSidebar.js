@@ -12,7 +12,7 @@ import React from "react";
         // console.log(" teacher type");
 
         button =  <div>
-             <input type="text" id={props.id} onChange={props.handleInputChange} value={props.inputvalue} />
+             <input type="input" id={props.id} onChange={props.handleInputChange} value={props.inputvalue} />
              <button className="btn btn-dark btn-block" type="button" onClick={props.addUnit}>Add Unit</button>
         </div> 
     }
