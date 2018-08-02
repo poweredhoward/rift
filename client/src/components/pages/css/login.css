@@ -1,7 +1,16 @@
 .login {
+    color:rgb(177, 177, 179);
     width: 50%;
     text-align: center;
     margin: 30px auto;
+    /* opacity: 0.5 */
+    border-radius: 5%;
+    border: solid 1px black;
+    padding: 2%;
+    background-image: url("https://crawlspacemagazine.files.wordpress.com/2014/04/cool-background-textures-eo_textures.jpg");
+    /* background: linear-gradient(black,rgb(177, 177, 179)); */
+    font-family: 'Roboto', sans-serif;
+    position: relative;
 }
 
 
@@ -15,4 +24,21 @@
 
 #teacherlogin {
     margin-left: 5px;
+}
+
+h2.logotitle {
+    color: white
+}
+
+.logoContainer {
+    padding: 0px;
+    margin: 0px;
+    /* position: fixed; */
+}
+
+.Wrapper1 {
+    /* background-image: url("https://crawlspacemagazine.files.wordpress.com/2014/04/cool-background-textures-eo_textures.jpg");
+    padding: 20px; */
+    /* height: 100vh; */
+    /* width: 100vh */
 }

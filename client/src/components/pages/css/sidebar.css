@@ -5,17 +5,14 @@
 .sidebar {
     padding: 20px;
     height: 100%; 
-    /* Full-height: remove this if you want "auto" height */
     width: 180px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 999; /* Stay on top */
-    top: 0; /* Stay at the top */
-    left: 0;
+    z-index: 0; /* Stay below */
+    bottom: 0; /* Stay at the bottom */
+    left: 0;   /* Stay to the left */
     background-image: url("https://crawlspacemagazine.files.wordpress.com/2014/04/cool-background-textures-eo_textures.jpg");
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px;
-    margin-top: 50px;
-    
+    padding-top: 70px;
 }
 
 p:first-of-type {
@@ -27,7 +24,7 @@ p {
 }
 
 .unitList {
-    background-color: white;
+    /* background-color: white; */
 }
 
 #newUnit {

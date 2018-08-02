@@ -56,7 +56,7 @@ const StudentComponent = (props) =>{
             </div>
              formContent= ( 
 
-                <div>
+                <div className="student">
                     <form>
                         <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Student Name</label>

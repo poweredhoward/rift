@@ -11,7 +11,7 @@ import React from "react";
     else{
         // console.log(" teacher type");
 
-        button =  <div>
+        button =  <div className='addUnitbtn'>
              <input type="input" id={props.id} onChange={props.handleInputChange} value={props.inputvalue} />
              <button className="btn btn-dark btn-block" type="button" onClick={props.addUnit}>Add Unit</button>
         </div> 
@@ -19,7 +19,7 @@ import React from "react";
 
      return(
      <div className="sidebar">
-        {props.units.map(item => (<button className='btn btn-light unitList btn-block' onClick={()=>props.selectUnit(item._id, item.name)} key={item._id}>{item.name}</button>))}
+        {props.units.map(item => (<button className='btn btn-dark unitList btn-block' onClick={()=>props.selectUnit(item._id, item.name)} key={item._id}>{item.name}</button>))}
        
         
         {button}

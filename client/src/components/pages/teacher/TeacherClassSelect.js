@@ -126,8 +126,8 @@ class TeacherClassSelect extends React.Component {
                     {this.state.classrooms.map(item => (
                         <div className="card" key={item.key} onClick={()=>{this.chooseClassRoom(item.name, item.key, item._id)}}>
                         <div className="card-body" >
-                         <h6 className="card-subtitle mb-2 text-muted">{item.name}</h6>
-                         <p className="card-text">Classroom Key: {item.key}</p>
+                         <h5 className="card-subtitle mb-2 text-muted">{item.name}</h5>
+                         <h6 className="card-text">Classroom Key: {item.key}</h6>
                         </div>
                         </div>)     
                     )}
@@ -139,7 +139,7 @@ class TeacherClassSelect extends React.Component {
                         onChange={this.handleInputChange} 
                         />
                         <button
-                        className="btn btn-primary"
+                        className="btn btn-dark"
                         onClick={this.addClassroom}>Add Classroom</button>
                     </div>
                     {/* <Route exact path="/teacherhomepage" component={TeacherHomePage} /> */}

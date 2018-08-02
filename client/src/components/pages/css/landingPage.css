@@ -1,4 +1,4 @@
-h1, p, h6, button {
+h1, h5, p, h3, h6, button {
     text-align: center;
     margin: 0 auto;
 }
@@ -10,10 +10,24 @@ h1, p, h6, button {
     
 }
 
-.jumbotron {
-    margin: 0 auto;
-    background: white;
+.ts {
+    color:rgb(177, 177, 179);
+    width: 90%;
+    text-align: center;
+    margin: 30px auto;
+    /* opacity: 0.5 */
+    border-radius: 5%;
+    border: solid 1px black;
+    padding: 5%;
+    /* padding-right: 10%;
+    padding-left: 10%; */
+    background-image: url("https://crawlspacemagazine.files.wordpress.com/2014/04/cool-background-textures-eo_textures.jpg");
+    /* background: linear-gradient(black,rgb(177, 177, 179)); */
+    font-family: 'Roboto', sans-serif;
+    position: relative;
 }
+
+
 
 .btn {
     margin: auto;
@@ -36,7 +50,25 @@ h1, p, h6, button {
 
 body {
     /* background: #97B3D4; */
-    background: rgb(177, 177, 179);
-    margin-top: 50px;
-    padding: 20px;
+    background: linear-gradient(black,rgb(177, 177, 179));
+    /* background-repeat: no-repeat; */
+    /* background-image: url("https://crawlspacemagazine.files.wordpress.com/2014/04/cool-background-textures-eo_textures.jpg"); */
+    /* margin-top: 50px; */
+    padding: 70px;
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Roboto', sans-serif; 
+    color:white;
+}
+
+.lead{
+    color:rgb(177, 177, 179)
+}
+
+.addUnitbtn{
+    position: absolute;
+    bottom: 0;
+    left: 0
 }

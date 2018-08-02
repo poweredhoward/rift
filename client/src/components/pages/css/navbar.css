@@ -13,6 +13,19 @@
 #navbar a {
     color: lightgrey;
 }
-body {
-    margin-top: 50px;
+
+.logo{
+    position: absolute;
+    right: 0;
+}
+.logotitle{
+    position: absolute;
+    left: 0;
+    color: white;
+}
+
+.logoContainer{
+    position: fixed;
+    left: 0;
+    margin-left: 70px;
 }

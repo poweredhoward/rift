@@ -6,6 +6,7 @@
 .classselect {
     width: 80%;
     margin: 30px auto;
+    color: rgba(177, 177, 179, 0.61);
 }
 
 .container {
@@ -13,7 +14,7 @@
 }
 
 .card {
-    background: dodgerblue;
+    background-image: url("https://crawlspacemagazine.files.wordpress.com/2014/04/cool-background-textures-eo_textures.jpg");
 }
 
 .card-subtitle {
@@ -22,7 +23,7 @@
 }
 
 .card-text {
-    color: black;
+    color: rgb(177, 177, 179);
     
 }
 
