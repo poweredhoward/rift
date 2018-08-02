@@ -19,7 +19,7 @@ const Main = () =>(
       <Route exact path="/teacherlogin" component={TeacherLogin} />
       <Route exact path="/teacherclassselect" component={TeacherClassSelect}/>
       <Route exact path="/studenthomepage" component={StudentHomePage} />
-      <Route exact path="/teacherhomepage" component={TeacherHomePage}/>
+      <Route exact path="/classroom" component={TeacherHomePage}/>
       
     </div>
   </Router>

@@ -15,7 +15,7 @@ class LandingPage extends React.Component{
         this.props.history.push("/teacherclassselect");
       }
       else if(res.data.userType==="student" && res.data.user !==undefined){
-        this.props.history.push("/studenthomepage");
+        this.props.history.push("/classroom");
       }
       else{
         // console.log("not logged in!");

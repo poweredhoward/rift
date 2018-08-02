@@ -106,7 +106,7 @@ class TeacherClassSelect extends React.Component {
         axios.post("/session/addclassroom", {className: className, classKey: classKey, _id: _id}).then(res=>{
             // console.log(res);
             // console.log("added");
-            this.props.history.push("/teacherhomepage");
+            this.props.history.push("/classroom");
         }).catch(err=>{
             console.log(err);
         });

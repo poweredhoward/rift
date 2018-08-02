@@ -4,8 +4,10 @@ import StudentsUpload from "./StudentsUpload";
 
 //Page to display and add students
 const StudentComponent = (props) =>{
+    var studentContent;
 
-   var studentContent= (
+    if(props.students.content!==[]){
+        studentContent= (
             <table>
                 <thead>
                 <tr>
@@ -34,6 +36,12 @@ const StudentComponent = (props) =>{
             
             );
 
+    }
+    else{
+        studentContent ="";
+    }
+  
+
     var formContent =<h1>Students</h1>;
     if(props.userType==="student"){
             // console.log("student type");
@@ -46,35 +54,36 @@ const StudentComponent = (props) =>{
                 <h2>Or Add Multiple Students With a Text File</h2>
                 <StudentsUpload classroomId={props.classroomId} getStudents={props.getStudents}/>
             </div>
+             formContent= ( 
+
+                <div>
+                    <form>
+                        <div className="form-group">
+                                <label htmlFor="exampleInputPassword1">Student Name</label>
+                                <input type="text" onChange={props.handleInputChange} className="form-control" id="newStudent" placeholder="Password"/>
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="exampleInputEmail1">Email address</label>
+                            <input onChange={props.handleInputChange} type="email" className="form-control" id="studentEmailInput" aria-describedby="emailHelp" placeholder="Enter email"/>
+                         
+                        </div>
+                        
+                       
+                        <button onClick={props.addStudent} type="button" className="btn btn-primary">Add Student</button>
+                    </form>
+                </div>
+              )
     }
     else{
             // console.log("teacher");
-            formContent= ( 
-
-                    <div>
-                        <form>
-                            <div className="form-group">
-                                    <label htmlFor="exampleInputPassword1">Student Name</label>
-                                    <input type="text" onChange={props.handleInputChange} className="form-control" id="newStudent" placeholder="Password"/>
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">Email address</label>
-                                <input onChange={props.handleInputChange} type="email" className="form-control" id="studentEmailInput" aria-describedby="emailHelp" placeholder="Enter email"/>
-                             
-                            </div>
-                            
-                           
-                            <button onClick={props.addStudent} type="button" className="btn btn-primary">Add Student</button>
-                        </form>
-                    </div>
-                  )
+           
             
     }       
 
     return (
         <div>
-            <h1>Students</h1>
+           
             {studentContent}
             {formContent}
             {uploadContent}
