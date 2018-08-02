@@ -31,7 +31,10 @@ class Upload extends React.Component {
             'content-type': 'multipart/form-data'
         }
     }
+    alert("file has been uploaded!");
+    this.setState({file: null})
     return  post(url, formData,config)
+    
   }
 
   render()

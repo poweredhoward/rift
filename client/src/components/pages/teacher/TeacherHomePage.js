@@ -183,7 +183,7 @@ class TeacherHomePage extends React.Component {
         // console.log("Getting notes");
         axios.get(`/${id}/notes`).then(res=>{
 
-            console.log(res);
+            // console.log(res);
             this.setState({notes:res.data});
         })
     }
