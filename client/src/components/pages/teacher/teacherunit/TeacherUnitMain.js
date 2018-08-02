@@ -18,6 +18,7 @@ const TeacherUnitMain= (props) => {
         if(props.currentChoice==="Students"){
 
                 data = <StudentComponent 
+                classroomKey={props.classroomKey}
                 userType={props.userType} 
                 classroomId={props.classroomId} 
                 students={props.students} 

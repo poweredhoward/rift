@@ -358,6 +358,7 @@ class TeacherHomePage extends React.Component {
                 userType= {this.state.userType}
                 currentChoice = {this.state.currentChoice}
                 classroomName = {this.state.classroomName}
+                classroomKey = {this.state.classroomKey}
                 infoChoice={this.infoChoice} 
                 logout={this.logout}
                 options={this.state.mainOptions} 
