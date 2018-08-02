@@ -4,8 +4,6 @@ import axios from "axios";
 import "./css/landingPage.css"
 
 
-// import axios from "axios";
-
 
 class LandingPage extends React.Component{
   componentDidMount(){

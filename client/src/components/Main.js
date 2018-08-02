@@ -8,8 +8,6 @@ import TeacherClassSelect from "./pages/teacher/TeacherClassSelect";
 import TeacherHomePage from "./pages/teacher/TeacherHomePage";
 
 
-// import axios from "axios";
-
 
 const Main = () =>(
   <Router>

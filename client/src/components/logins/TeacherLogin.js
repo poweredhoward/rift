@@ -7,8 +7,8 @@ import axios from "axios";
 class TeacherLogin extends React.Component{
 
     state = {
-        username : "",
-        password: ""
+        username : "", //Teacher username
+        password: "" //Teacher password
     }
 
     componentDidMount(){

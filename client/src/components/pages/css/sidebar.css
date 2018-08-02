@@ -1,7 +1,9 @@
+/* Move the body to the right of the sidebar */
 .main {
     margin-left: 180px;
 }
 
+/* Main sidebar styling */
 .sidebar {
     padding: 20px;
     height: 100%; 

@@ -7,8 +7,8 @@ import axios from "axios";
 class StudentLogin extends React.Component{
 
     state = {
-        userKey : "",
-        classroomKey: ""
+        userKey : "", //Unique key for student given by teacher
+        classroomKey: "" //Key for classroom shared by all students
     }
 
     handleInputChange = (event) => {
@@ -17,7 +17,7 @@ class StudentLogin extends React.Component{
         })
     }
 
-   
+   //Check if the login info is correct
     verifyInfo = ()=>{
         axios.post("/studentlogin/verify", {
             userkey: this.state.userKey,

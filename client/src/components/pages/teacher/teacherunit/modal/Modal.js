@@ -1,5 +1,6 @@
 import React from "react";
 
+//Get props from 
 const Modal = ({ handleClose, show, handleSubmit, handleInputChange, title, body }) => {
     const showHideClassName = show ? 'modal display-block' : 'modal display-none';
   
