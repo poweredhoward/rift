@@ -36,6 +36,7 @@ var upload = multer({ dest: "uploads/" })
 //Format: <Student name (any length) space email
 app.post("/studentsfile/:classroom", upload.single("file"), (req, res) =>{
     console.log("Inside students file");
+    console.log(req.params.classroom);
 
     function makeToken(len){
         let pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

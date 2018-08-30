@@ -23,7 +23,7 @@ class StudentsUpload extends React.Component {
     this.setState({file:e.target.files[0]})
    
   }
-  fileUpload(file){
+  fileUpload = (file) => {
     console.log(this.props.classroomId)
     const url = "/studentsfile/" + this.props.classroomId;
     const formData = new FormData();
