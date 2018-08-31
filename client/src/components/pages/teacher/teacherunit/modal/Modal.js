@@ -5,22 +5,22 @@ const Modal = ({ handleClose, show, handleSubmit, handleInputChange, title, body
   
     return (
         <div className={showHideClassName}>
-            <section className='modal-main'>
+            <div className='modal-main'>
                 <form>
                     <div className="form-group">
-                    <label  htmlFor="posttitle">Title</label>
-                    <input onChange={handleInputChange} type="email" className="form-control" id="posttitle" value={title}/>
+                        <h2><label  htmlFor="posttitle">Title</label></h2>
+                        <input onChange={handleInputChange} type="email" className="modal-input form-control" id="posttitle" placeholder="Post Title..." value={title}/>
                     </div>
 
                     <div className="form-group">
-                    <label htmlFor="postbody">Post</label>
-                    <textarea onChange={handleInputChange} className="form-control" id="postbody" rows="3" value={body}></textarea>
+                        <h2><label htmlFor="postbody">Post</label></h2>
+                        <textarea onChange={handleInputChange} className="modal-input form-control" id="postbody" placeholder="Post Body..." rows="3" value={body}></textarea>
                     </div>
                 </form>
-                <button onClick={handleClose}> Close </button>
-                <button onClick={handleSubmit}> Submit </button>
+                <button className="btn btn-dark btn-modal" onClick={handleClose}> Close </button>
+                <button className="btn btn-dark btn-modal" onClick={handleSubmit}> Submit </button>
                 
-            </section>
+            </div>
         </div>
     );
   };

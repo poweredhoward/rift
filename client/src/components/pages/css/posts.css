@@ -12,6 +12,29 @@
     color: black
 }
 
+.list-group{
+    margin: 6px 0px 6px 26px;
+    padding-left: 20px;
+}
+
+
+
+.row .card-text{
+    color: black;
+    font-weight: bold;
+}
+
+.row input {
+    margin: 10px;
+    border-color: rgb(109, 109, 187);
+    border-radius: 7px;
+
+}
+
 .list-group-item{
-    color: black
+    color: black;
+    font-weight: lighter;
+    margin: 2px;
+    /* background-color:rgb(49, 66, 92); */
+    border: 1px solid grey;
 }

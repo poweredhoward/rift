@@ -24,20 +24,26 @@ const TeacherPost = (props) => {
                         <div className='col-md-12'>
                             <div className ="card postCard" key={item._id}>
                                 <div className="card-header">
-                                    <h4 className =" post-card-title card-title">{item.title}</h4>
+                                    <h4 className ="post-card-title card-title">{item.title}</h4>
                                 </div>
+
                                 <div className ='card-body'>
                                     <div className ="card-text">{item.data}</div>
                                 </div>
-                                <div className ="card-footer"></div>
-                                    <ul className='list-group list-group-flush'>
+
+                                {/* <div className ="card-footer"></div> */}
+
+                                    <ul className='list-group'>
                                         {item.responses.map(item=>
                                             (<li className='list-group-item' key={item._id}>{item.data}</li>)
                                         )}
                                     </ul>
                                    
-                                    <input type="text" onChange={props.handleInputChange} id="newResponse" />
-                                    <button className='btn btn-dark btn-block' type="button"  onClick={()=>props.addResponse(item._id)}>Add Response</button>
+                                    <input type="text" onChange={props.handleInputChange} id="newResponse" placeholder="Reply..."/>
+                                    <button className='btn btn-dark btn-block' type="button"  onClick={()=>{
+                                        props.addResponse(item._id);
+                                        this.value="";
+                                    }}>Add Response</button>
                                 
                             </div>
                         </div>

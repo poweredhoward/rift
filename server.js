@@ -10,6 +10,11 @@ const fs = require("fs");
 var mammoth = require("mammoth");
 var db = require("./models");
 
+// TODO
+// Padding for students table
+// Don't let page scroll go over max/min
+// Make classroom ID obvious and easy to copy from inside dashboard
+
 
 const PORT = process.env.PORT || 3001;
 const app = express();
