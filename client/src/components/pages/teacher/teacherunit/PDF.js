@@ -71,14 +71,19 @@ class PDF extends Component {
 
   pageUp = () =>{
     var curr_num = this.state.pageNumber;
-    curr_num += 1;
-    this.setState({pageNumber: curr_num});
+    if(curr_num !== this.state.numPages){
+      curr_num += 1;
+      this.setState({pageNumber: curr_num});
+    }
   }
 
   pageDown = () =>{
     var curr_num = this.state.pageNumber;
-    curr_num -= 1;
-    this.setState({pageNumber: curr_num});
+    if(curr_num !== 1){
+      curr_num -= 1;
+      this.setState({pageNumber: curr_num});
+    }
+    
   }
 
  

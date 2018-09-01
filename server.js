@@ -11,7 +11,6 @@ var mammoth = require("mammoth");
 var db = require("./models");
 
 // TODO
-// Padding for students table
 // Don't let page scroll go over max/min
 // Make classroom ID obvious and easy to copy from inside dashboard
 
