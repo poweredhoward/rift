@@ -13,6 +13,7 @@
     background-image: url("https://crawlspacemagazine.files.wordpress.com/2014/04/cool-background-textures-eo_textures.jpg");
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 70px;
+    text-align: center;
 }
 
 p:first-of-type {
@@ -25,9 +26,26 @@ p {
 
 .unitList {
     /* background-color: white; */
+    /* margin: 10px; */
+    border-color: rgb(109, 109, 187);
+    border-radius: 7px;
+    border: 1px solid white;
+
+}
+
+#newbtn{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid white;
+
 }
 
 #newUnit {
-    width: 100%;
-    margin-top: 17.5px;
+    /* margin: 10px; */
+    border-color: rgb(109, 109, 187);
+    border-radius: 7px;
+    width: 95%;
+    margin: 0 auto;
 }
