@@ -10,3 +10,9 @@
     background:  hsl(192, 74%, 32%);  
 
 }
+
+#student-table caption{
+    color: White;
+    font-weight: bold;
+    font-size: 130%;
+}
