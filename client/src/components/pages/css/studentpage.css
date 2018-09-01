@@ -1,0 +1,12 @@
+#student-table > tbody > tr:nth-child(odd){
+    background:  rgb(105, 105, 109);  
+}
+
+#student-table > tbody > tr:nth-child(even){
+    background:  rgb(54, 54, 78);  
+}
+
+#student-table tbody tr:hover{
+    background:  hsl(192, 74%, 32%);  
+
+}

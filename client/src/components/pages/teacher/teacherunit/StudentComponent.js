@@ -8,7 +8,7 @@ const StudentComponent = (props) =>{
 
     if(props.students.content!==[]){
         studentContent= (
-            <table>
+            <table className="table table-sm table-hover" id="student-table">
                 <thead>
                 <tr>
                 <th scope="col"></th>
